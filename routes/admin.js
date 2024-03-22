@@ -5,15 +5,20 @@ const multer = require('../middleware/multer.js');
 const { uploadOnCloudinary } = require('../middleware/cloudinary.js');
 const { isLoggedIn, isAdminLoggedIn } = require('../middleware/authMiddleware.js');
 // const photosController = require('../controllers/photosController.js')
-const adminController = require('../controllers/adminController.js')
+const adminController = require('../controllers/adminController.js');
+const usersModel = require('../models/usersModel.js');
+const videoModel = require('../models/videoModel.js');
 
 
 
 router.use(express.urlencoded({ extended: false }));
 
 /* GET home page. */
-router.get('/', isAdminLoggedIn, function (req, res, next) {
-    res.render('admin');
+router.get('/', async function (req, res, next) {
+    const users = await usersModel.find();
+    const photos = await photoModel.find();
+    const videos = await videoModel.find();
+    res.render('admin', { users, photos, videos });
 });
 
 router.get('/login', function (req, res, next) {
@@ -22,13 +27,14 @@ router.get('/login', function (req, res, next) {
 
 router.post('/login', adminController.postAdminLogin, function (req, res) { })
 
+router.get('/logout', adminController.adminGetLogout)
+
 
 router.get('/photos', isAdminLoggedIn, async function (req, res, next) {
     try {
-        let allPhotos2k21 = await photoModel.find({ year: "2k21" });
-        let allPhotos2k22 = await photoModel.find({ year: "2k22" });
-        let allPhotos2k23 = await photoModel.find({ year: "2k23" });
-        allPhotos2k21 = allPhotos2k22 = allPhotos2k23 = await photoModel.find();
+        const allPhotos2k21 = await photoModel.find({ year: "2k21" });
+        const allPhotos2k22 = await photoModel.find({ year: "2k22" });
+        const allPhotos2k23 = await photoModel.find({ year: "2k23" });
         res.render('adminPhotos', { allPhotos2k21, allPhotos2k22, allPhotos2k23, messages: req.flash('success') });
     }
     catch (err) {
