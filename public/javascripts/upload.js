@@ -1,7 +1,13 @@
 const form = document.querySelector("form"),
   fileInput = document.querySelector(".file-input"),
   progressArea = document.querySelector(".progress-area"),
-  uploadedArea = document.querySelector(".uploaded-area");
+  uploadedArea = document.querySelector(".uploaded-area"),
+  year = document.querySelector("#year");
+
+
+year.addEventListener("click", () => {
+  event.stopPropagation();
+});
 
 form.addEventListener("click", () => {
   fileInput.click();
@@ -23,9 +29,13 @@ async function uploadFile(name, file) {
   try {
     let formData = new FormData();
     formData.append('photos', file);
+    formData.append('year', document.getElementById("year").value); // Add year
+    formData.append('postTitle', document.querySelector('input[name="postTitle"]').value); // Add post title
+    formData.append('postDescription', document.querySelector('textarea[name="postDescription"]').value); // Add post description
 
     let xhr = new XMLHttpRequest();
-    xhr.open("POST", "/upload");
+    xhr.open("POST", "/admin/photos/upload/");
+
     xhr.upload.addEventListener("progress", ({ loaded, total }) => {
       let fileLoaded = Math.floor((loaded / total) * 100);
       let fileSize;

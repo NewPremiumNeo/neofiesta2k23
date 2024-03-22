@@ -11,6 +11,20 @@ const userController = require('../controllers/userController.js')
 router.use(express.urlencoded({ extended: false }));
 
 /* GET home page. */
+
+router.get('/error', (req, res, next) => {
+  throw Error("AALU GHOBHI LEGA")
+})
+router.use((err, req, res, next) => {
+  if (res.headersSent) {
+    return next(err)
+  }
+
+  res.status(500)
+  res.render('error', { error: err })
+})
+
+
 router.get('/', function (req, res, next) {
   res.render('index');
 });
@@ -40,67 +54,25 @@ router.get('/gallery', isLoggedIn, function (req, res, next) {
   res.render('gallery');
 });
 
-router.get('/gallery/photos', isLoggedIn, async function (req, res, next) {
+router.get('/gallery/photos/:year', isLoggedIn, async function (req, res, next) {
   try {
-    const allPhotos = await photoModel.find();
-    console.log(allPhotos)
-    res.render('photos', { allPhotos, messages: req.flash('error') });
-  } 
+    const year = req.params.year
+    const validYear = ["2k21", "2k22", "2k23"]
+    if (validYear.includes(year)) {
+      const allPhotos = await photoModel.find({ year });
+      res.render('photos', { allPhotos, title:`Image Gallery ${year}` });
+    } else {
+      throw Error("Page Not Found")
+    }
+  }
   catch (err) {
     console.error('Error in geting Post Data:- ', err.message);
     next(err);
   }
-  // console.log(allPosts)
 });
 
 router.get('/videos', isLoggedIn, function (req, res, next) {
   res.render('videos');
-});
-
-
-router.get('/upload', function (req, res, next) {
-  res.render('upload');
-});
-
-// Route for uploading photos
-// router.post('/upload', multer.uploadImg.single('image'), photosController.handleUpload);
-router.post('/upload', multer.uploadImg.array('photos', 10), async (req, res) => {
-  if (!req.files || req.files.length === 0) {
-    return res.status(400).send('No files uploaded.');
-  }
-  const uploadedPhotos = req.files.map(file => ({ imageUrl: file.path }));
-  try {
-    // Upload photos to Cloudinary and save the uploaded photo links to MongoDB
-    const savedPhotos = await Promise.all(
-      uploadedPhotos.map(async photo => {
-        console.log("phtot url ",photo.imageUrl)
-        const result = await uploadOnCloudinary(photo.imageUrl); // Call your function to upload to Cloudinary
-        console.log("Result ", result)
-        if (result) {
-          // Create a new photo document with Cloudinary URL
-          const newPhoto = new photoModel({
-            postImageUrl: result.secure_url,
-            postTitle: req.body.postTitle,
-            postDescription: req.body.postDescription,
-          });
-          // Save the new photo document to MongoDB
-          const savedPhoto = await newPhoto.save();
-          console.log("savedPhoto :- ", savedPhoto)
-          return savedPhoto.postImageUrl;
-        } else {
-          return null; // Handle if upload fails
-        }
-      })
-    );
-
-    // Filter out any null values
-    const filteredPhotos = savedPhotos.filter(photo => photo !== null);
-
-    res.json(filteredPhotos); // Send back the saved photo details
-  } catch (err) {
-    console.error(err);
-    res.status(500).send('Internal Server Error');
-  }
 });
 
 

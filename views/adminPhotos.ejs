@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project X</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/css/lightbox.css"
+        integrity="sha512-Woz+DqWYJ51bpVk5Fv0yES/edIMXjj3Ynda+KWTIkGoynAMHrqTcDUQltbipuiaD5ymEo9520lyoVOo9jCQOCA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="/stylesheets/adminPhotos.css">
+</head>
+
+<body>
+    <main>
+        <div class="jumbotron">
+            <h1><i class="fa fa-camera-retro"></i> My Image Gallary</h1>
+            <p>Just a Gallary Full of Beautiful Images...</p>
+        </div>
+        <div class="panel">
+            <a class="button_outer" href="/admin/photos/upload/">Upload Image</a>
+        </div>
+        <% if (messages && messages.length> 0) { %>
+            <div class="alert alert-danger" role="alert">
+                <h3>
+                    <%= messages[0] %>
+                </h3>
+            </div>
+            <% } %>
+                <div class="jumbotron">
+                    <h1>2k21 Photos :-</h1>
+                </div>
+                <div class="container">
+                    <div class="gallery">
+                        <% if (allPhotos2k21 && allPhotos2k21.length> 0) { %>
+                            <% allPhotos2k21.forEach(post=> { %>
+                                <div class="grid__images">
+                                    <a href="<%= post.postImageUrl %>" data-lightbox="models" data-title="Photos">
+                                        <img src="<%= post.postImageUrl %>" alt="Photos">
+                                    </a>
+                                    <div class="button-container">
+                                        <button onclick="deletePhoto('<%= post._id %>')"
+                                            class="btn btn-primary btn-download">Delete</button>
+                                        <button class="btn btn-success btn-like">
+                                            <i class="fa fa-heart"></i> Like
+                                        </button>
+                                    </div>
+                                </div>
+                                <% }); %>
+                                    <% } else{ %>
+                                        <h1>NO Photos of 2k21</h1>
+                                        <% } %>
+                    </div>
+                </div>
+                <div class="jumbotron">
+                    <h1>2k22 Photos:- </h1>
+                </div>
+
+                <div class="container">
+                    <div class="gallery">
+                        <% if (allPhotos2k22 && allPhotos2k22.length> 0) { %>
+                            <% allPhotos2k22.forEach(post=> { %>
+                                <div class="grid__images">
+                                    <a href="<%= post.postImageUrl %>" data-lightbox="models" data-title="Photos">
+                                        <img src="<%= post.postImageUrl %>" alt="Photos">
+                                    </a>
+                                    <div class="button-container">
+                                        <button onclick="deletePhoto('<%= post._id %>')"
+                                            class="btn btn-primary btn-download">Delete</button>
+                                        <button class="btn btn-success btn-like">
+                                            <i class="fa fa-heart"></i> Like
+                                        </button>
+                                    </div>
+                                </div>
+                                <% }); %>
+                                    <% } else{ %>
+                                        <h1>NO Photos of 2k23</h1>
+                                        <% } %>
+                    </div>
+                </div>
+
+                <div class="jumbotron">
+                    <h1>2k23 Photos:- </h1>
+                </div>
+                <div class="container">
+                    <div class="gallery">
+                        <% if (allPhotos2k23 && allPhotos2k23.length> 0) { %>
+                            <% allPhotos2k23.forEach(post=> { %>
+                                <div class="grid__images">
+                                    <a href="<%= post.postImageUrl %>" data-lightbox="models" data-title="Photos">
+                                        <img src="<%= post.postImageUrl %>" alt="Photos">
+                                    </a>
+                                    <div class="button-container">
+                                        <button onclick="deletePhoto('<%= post._id %>')"
+                                            class="btn btn-primary btn-download">Delete</button>
+                                        <button class="btn btn-success btn-like">
+                                            <i class="fa fa-heart"></i> Like
+                                        </button>
+                                    </div>
+                                </div>
+                                <% }); %>
+                                    <% } else{ %>
+                                        <h1>NO Photos of 2k23</h1>
+                                        <% } %>
+                    </div>
+                </div>
+
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/js/lightbox-plus-jquery.js"
+        integrity="sha512-oaWLach/xXzklmJDBjHkXngTCAkPch9YFqOSphnw590sy86CVEnAbcpw17QjkUGppGmVJojwqHmGO/7Xxx6HCw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script>
+        async function deletePhoto(id) {
+            const res = await fetch(`/admin/photo/${id}/delete`, { method: 'post' });
+        }
+    </script>
+</body>
+
+</html>

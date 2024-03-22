@@ -7,9 +7,9 @@ require('dotenv').config();
 
 
 cloudinary.config({
-    cloud_name: `${process.env.CLOUDINARY_CLOUD_NAME}`,
-    api_key: `${process.env.CLOUDINARY_API_KEY}`,
-    api_secret: `${process.env.CLOUDINARY_API_SECRET}`
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET
 });
 
 exports.uploadOnCloudinary = async (localFilePath) => {
@@ -44,7 +44,7 @@ exports.uploadOnCloudinary = async (localFilePath) => {
         // })
 
         // file has been uploaded successfull
-        //console.log("file is uploaded on cloudinary ", response.url);
+        console.log("file is uploaded on cloudinary ", response.url);
         if (fs.existsSync(localFilePath)) {
             fs.unlinkSync(localFilePath);
         }

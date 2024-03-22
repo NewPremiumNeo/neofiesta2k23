@@ -35,6 +35,28 @@ const userSchema = mongoose.Schema({
     password: {
         type: String,
     },
+    userDp: {
+        type: String,
+        default: ''
+    },
+    likePhotoIds: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Photos',
+        default: []
+    }],
+    likeVideoIds: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Photos',
+        default: []
+    }],
+    postIds: {
+        type: [{
+            _id: false,
+            type: { type: String, enum: ['Photos', 'Videos'], required: true },
+            postId: { type: mongoose.Schema.Types.ObjectId, required: true, refPath: 'postIds.type' }
+        }],
+        default: []
+    }
 }, { timestamps: true });
 
 userSchema.plugin(plm);

@@ -7,7 +7,7 @@ const expressSession = require("express-session");
 
 var usersModel = require('./models/usersModel.js');
 var indexRouter = require('./routes/index');
-// var usersRouter = require('./routes/users');
+var adminRouter = require('./routes/admin');
 require('./models/connectDB');
 const passport = require('passport');
 const flash = require('connect-flash');
@@ -38,6 +38,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
+app.use('/admin', adminRouter);
 // app.use('/users', usersRouter);
 
 // catch 404 and forward to error handler

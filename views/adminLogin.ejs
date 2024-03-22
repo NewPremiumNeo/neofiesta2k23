@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project x</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            font-size: 62.5%;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-image: url(/images/layered-waves-haikei.svg);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100svh;
+            color: #fef8f8;
+        }
+
+        .container {
+            color: #fef8f8;
+            background-color: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(17px);
+            --webkit-backdrop-filter: blur(17px) opacity: 0.5;
+            padding: 30px 20px 10px 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
+
+        .container>h1 {
+            margin-bottom: 0.8rem;
+        }
+
+        hr {
+            margin-bottom: 2rem;
+        }
+
+        label {
+            font-size: 1.7rem;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 0.8rem 1.2rem;
+            margin: 12px 0;
+            border: 1px solid #fef8f8;
+            border-radius: 4px;
+            box-sizing: border-box;
+            color: black;
+            font-weight: 500;
+        }
+
+        input[type="submit"] {
+            background-color: #7e6dfd;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 2rem;
+            font-size: 1.5rem;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #624efe;
+        }
+
+        .alert {
+            background-color: red;
+            color: white;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>LOGIN</h1>
+        <hr>
+        <% if (messages && messages.length> 0) { %>
+            <div class="alert alert-danger" role="alert">
+                <h3>Enrollment or Password is Incorrect.</h3>
+            </div>
+            <% } %>
+                <form action="/admin/login" method="post" id="LogInForm">
+                    <label for="enrollment">Enrollment Number :</label>
+                    <input type="text" id="enrollment" name="enrollment" required
+                        oninput="this.value = this.value.toUpperCase()">
+
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" required>
+
+                    <input type="submit" value="LogIn">
+                </form>
+    </div>
+</body>
+
+</html>
