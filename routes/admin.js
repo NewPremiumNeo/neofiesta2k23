@@ -14,14 +14,14 @@ const videoModel = require('../models/videoModel.js');
 router.use(express.urlencoded({ extended: false }));
 
 /* GET home page. */
-router.get('/', async function (req, res, next) {
+router.get('/', isAdminLoggedIn, async function (req, res, next) {
     const users = await usersModel.find();
     const photos = await photoModel.find();
     const videos = await videoModel.find();
     res.render('admin', { users, photos, videos });
 });
 
-router.get('/login', isAdminLoggedIn, function (req, res, next) {
+router.get('/login', function (req, res, next) {
     res.render('adminLogin', { messages: req.flash('error') });
 });
 
