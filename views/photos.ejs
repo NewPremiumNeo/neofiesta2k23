@@ -33,8 +33,12 @@
                             </a>
                             <div class="button-container">
                                 <button class="btn btn-primary btn-download">Download</button>
-                                <button class="btn btn-success btn-like">
+                                <button onclick="liketoggle('<%= post._id %>')" class="btn btn-success btn-like"
+                                    id="<%= post._id %>">
                                     <i class="fa fa-heart"></i> Like
+                                    <h6 id="totalLike">
+                                        <%= post.likeUserIds.length %> like
+                                    </h6>
                                 </button>
                             </div>
                         </div>
@@ -47,6 +51,58 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/js/lightbox-plus-jquery.js"
         integrity="sha512-oaWLach/xXzklmJDBjHkXngTCAkPch9YFqOSphnw590sy86CVEnAbcpw17QjkUGppGmVJojwqHmGO/7Xxx6HCw=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var likeButtons = document.querySelectorAll(".btn-like");
+
+            // Check if the user has already liked posts and update button appearance
+            likeButtons.forEach((button) => {
+                var photoId = button.getAttribute("id");
+                fetch(`/photo/${photoId}/isliked`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.liked) {
+                            button.innerHTML = `<i class='fa fa-heart'></i> Liked <h6 id='totalLike'> ${data.totalLikes} like</h6>`;
+                            button.classList.add("liked");
+                        }
+                    })
+                    .catch(error => console.error('Error:', error));
+            });
+        });
+
+        function liketoggle(photoId) {
+            const button = document.getElementById(`${photoId}`);
+            const likeCount = document.getElementById(`totalLike`);
+
+            fetch(`/photo/like`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ photoId: photoId }),
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.liked) {
+                        button.innerHTML = `<i class='fa fa-heart'></i> Liked <h6 id='totalLike'> ${data.totalLikes} like</h6>`;
+                        button.classList.add("liked");
+                    } else {
+                        button.innerHTML = `<i class='fa fa-heart'></i> Like <h6 id='totalLike'> ${data.totalLikes} like</h6>`;
+                        button.classList.remove("liked");
+                    }
+                    likeCount.textContent = `${data.totalLikes} like`;
+                })
+                .catch(error => console.error('Error:', error));
+        }
+
+
+    </script>
 </body>
 
 </html>

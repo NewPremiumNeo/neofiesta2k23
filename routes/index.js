@@ -1,8 +1,6 @@
 var express = require('express');
 var router = express.Router();
 const photoModel = require('../models/photoModel.js');
-const multer = require('../middleware/multer.js');
-const { uploadOnCloudinary } = require('../middleware/cloudinary.js');
 const { isLoggedIn } = require('../middleware/authMiddleware.js');
 // const photosController = require('../controllers/photosController.js')
 const userController = require('../controllers/userController.js')
@@ -60,7 +58,7 @@ router.get('/gallery/photos/:year', isLoggedIn, async function (req, res, next) 
     const validYear = ["2k21", "2k22", "2k23"]
     if (validYear.includes(year)) {
       const allPhotos = await photoModel.find({ year });
-      res.render('photos', { allPhotos, title:`Image Gallery ${year}` });
+      res.render('photos', { allPhotos, title: `Image Gallery ${year}` });
     } else {
       throw Error("Page Not Found")
     }
@@ -74,6 +72,47 @@ router.get('/gallery/photos/:year', isLoggedIn, async function (req, res, next) 
 router.get('/videos', isLoggedIn, function (req, res, next) {
   res.render('videos');
 });
+
+router.put('/photo/like', isLoggedIn, async function (req, res, next) {
+  try {
+    const photoId = req.body.photoId;
+    const photo = await photoModel.findById(photoId);
+    const userLiked = photo.likeUserIds.includes(req.user._id);
+
+    if (userLiked) {
+      // If user already liked the photo, remove the like 
+      await photoModel.findByIdAndUpdate(photoId, {
+        $pull: { likeUserIds: req.user._id }
+      });
+      const updatedPhoto = await photoModel.findById(photoId);
+      return res.json({ liked: false, totalLikes: updatedPhoto.likeUserIds.length });
+    } else {
+      // If user hasn't liked the photo, add the like
+      await photoModel.findByIdAndUpdate(photoId, {
+        $push: { likeUserIds: req.user._id }
+      });
+      const updatedPhoto = await photoModel.findById(photoId);
+      return res.json({ liked: true, totalLikes: updatedPhoto.likeUserIds.length });
+    }
+  } catch (err) {
+    return res.status(400).json({ error: err.message });
+  }
+});
+
+
+router.get('/photo/:photoId/isliked', isLoggedIn, async function (req, res, next) {
+  try {
+    const photo = await photoModel.findById(req.params.photoId);
+    const userLiked = photo.likeUserIds.includes(req.user._id);
+    return res.json({ liked: userLiked, totalLikes : photo.likeUserIds.length});
+  } catch (err) {
+    return res.status(400).json({ error: err.message });
+  }
+});
+
+
+
+
 
 
 module.exports = router;
