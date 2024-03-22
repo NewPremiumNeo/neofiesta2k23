@@ -21,7 +21,7 @@ router.get('/', async function (req, res, next) {
     res.render('admin', { users, photos, videos });
 });
 
-router.get('/login', function (req, res, next) {
+router.get('/login', isAdminLoggedIn, function (req, res, next) {
     res.render('adminLogin', { messages: req.flash('error') });
 });
 
