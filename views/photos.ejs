@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html> -->
 <html lang="en">
 
 <head>
@@ -36,7 +36,7 @@
                                 <button onclick="liketoggle('<%= post._id %>')" class="btn btn-success btn-like"
                                     id="<%= post._id %>">
                                     <i class="fa fa-heart"></i> Like
-                                    <h6 id="totalLike">
+                                    <h6 id="totalLike-<%= post._id %>">
                                         <%= post.likeUserIds.length %> like
                                     </h6>
                                 </button>
@@ -44,7 +44,8 @@
                         </div>
                         <% }); %>
                             <% } else{ %>
-                                <h1 style="color: #f1f1f1;">NO Photos of <%= title %></h1>
+                                <h1 style="color: #f1f1f1;">NO Photos of <%= title %>
+                                </h1>
                                 <% } %>
             </div>
         </div>
@@ -54,7 +55,18 @@
         integrity="sha512-oaWLach/xXzklmJDBjHkXngTCAkPch9YFqOSphnw590sy86CVEnAbcpw17QjkUGppGmVJojwqHmGO/7Xxx6HCw=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
+
+    <script src="/socket.io/socket.io.js"></script>
     <script>
+        const socket = io();
+        socket.on('like', (data) => {
+            const likeCount = document.getElementById(`totalLike-${data.photoId}`);
+            if (likeCount) {
+                likeCount.textContent = `${data.totalLikes} like${data.totalLikes !== 1 ? 's' : ''}`;
+            }
+        });
+
+
         document.addEventListener("DOMContentLoaded", function () {
             var likeButtons = document.querySelectorAll(".btn-like");
 
@@ -70,7 +82,7 @@
                     .then(response => response.json())
                     .then(data => {
                         if (data.liked) {
-                            button.innerHTML = `<i class='fa fa-heart'></i> Liked <h6 id='totalLike'> ${data.totalLikes} like</h6>`;
+                            button.innerHTML = `<i class='fa fa-heart'></i> Liked <h6 id='totalLike-${photoId}'> ${data.totalLikes} like</h6>`;
                             button.classList.add("liked");
                         }
                     })
@@ -78,10 +90,11 @@
             });
         });
 
-        function liketoggle(photoId) {
-            const button = document.getElementById(`${photoId}`);
-            const likeCount = document.getElementById(`totalLike`);
 
+        // Function to handle like button click
+        async function liketoggle(photoId) {
+            const button = document.getElementById(`${photoId}`);
+            const likeCount = document.getElementById(`totalLike-${photoId}`);
             fetch(`/photo/like`, {
                 method: 'PUT',
                 headers: {
@@ -92,18 +105,19 @@
                 .then(response => response.json())
                 .then(data => {
                     if (data.liked) {
-                        button.innerHTML = `<i class='fa fa-heart'></i> Liked <h6 id='totalLike'> ${data.totalLikes} like</h6>`;
+                        button.innerHTML = `<i class='fa fa-heart'></i> Liked <h6 id='totalLike-${photoId}'> ${data.totalLikes} like</h6>`;
                         button.classList.add("liked");
                     } else {
-                        button.innerHTML = `<i class='fa fa-heart'></i> Like <h6 id='totalLike'> ${data.totalLikes} like</h6>`;
+                        button.innerHTML = `<i class='fa fa-heart'></i> Like <h6 id='totalLike-${photoId}'> ${data.totalLikes} like</h6>`;
                         button.classList.remove("liked");
                     }
                     likeCount.textContent = `${data.totalLikes} like`;
+
+                    // Emit 'like' event to notify server about the like
+                    socket.emit('like', photoId);
                 })
                 .catch(error => console.error('Error:', error));
         }
-
-
     </script>
 </body>
 

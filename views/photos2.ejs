@@ -14,6 +14,8 @@
 </head>
 
 <body>
+    <input type="text" id="msg" placeholder="enter">
+    <button id="sendBtn">send</button>
     <div class="container">
         <div class="jumbotron">
             <h1><i class="fa fa-camera-retro"></i> My Image Gallary</h1>
@@ -43,7 +45,7 @@
 
 
         <div class="row">
-            
+
             <div class="col-lg-4 col-sm-6">
                 <div class="thumbnail">
                     <img
@@ -73,36 +75,32 @@
     </div>
 
     <!-- JQuery CDN -->
-    <script src="http://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
-        crossorigin="anonymous"></script>
+    <!-- <script src="http://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
+        crossorigin="anonymous"></script> -->
     <!-- JavaScript Bootstrap CDN -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+    <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
         integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
         crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-    <script src="/javascript/photos.js"></script>
-    <script>
-        $(document).ready(function () {
-            // Function to handle download button click
-            $(".btn-download").click(function () {
-                var imageUrl = $(this).closest(".thumbnail").find("img").attr("src");
-                // Open the image URL in a new tab for download
-                window.open(imageUrl, "_blank");
-            });
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script> -->
+    <!-- <script src="/javascript/photos.js"></script> -->
 
-            // Function to handle like button click
-            $(".btn-like").click(function () {
-                // Toggle the 'liked' class to change button appearance
-                $(this).toggleClass("liked");
-                if ($(this).hasClass("liked")) {
-                    // If liked, add a heart icon and add the 'liked' class
-                    $(this).html("<i class='fa fa-heart'></i> Liked").addClass("liked");
-                } else {
-                    // Otherwise, add a 'Like' text and remove the 'liked' class
-                    $(this).html("Like").removeClass("liked");
-                }
-            });
-        });
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        const socket = io();
+        const sendBtn = document.getElementById("sendBtn")
+        const msg = document.getElementById("msg")
+        sendBtn.addEventListener("click", (e) => {
+            const msgI = msg.value;
+            console.log(msgI)
+            socket.emit("Message", msgI)
+        })
+        console.log("Socket connected:", socket.connected);
+        // Listen for 'like' events
+        var hel = "hello"
+
+        socket.on("mesg", (msg) => { console.log(msg) })
+        
+
     </script>
 </body>
 
