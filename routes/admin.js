@@ -43,13 +43,13 @@ router.get('/photos', isAdminLoggedIn, async function (req, res, next) {
     }
 });
 
+//Photo delete
 router.post('/photo/:photo__id/delete', isAdminLoggedIn, async function (req, res, next) {
     const del = await photoModel.findByIdAndDelete(req.params.photo__id)
-    console.log("Deleted ", del)
     if (del) {
         req.flash('success', "Photo Delected!!");
     }
-    res.send("<script>window.location.reload();</script>");
+    res.redirect('/photos');
 });
 
 // Route for uploading photos
@@ -60,7 +60,6 @@ router.get('/photos/upload/', isAdminLoggedIn, function (req, res, next) {
 
 router.post('/photos/upload/', isAdminLoggedIn, multer.uploadImg.array('photos', 10), async (req, res) => {
     const { postTitle, postDescription, year } = req.body;
-    console.log(req.body)
     if (!req.files || req.files.length === 0) {
         return res.status(400).send('No files uploaded.');
     }
@@ -77,10 +76,9 @@ router.post('/photos/upload/', isAdminLoggedIn, multer.uploadImg.array('photos',
                         year: year,
                         ownerIds: req.user._id
                     });
-                    console.log("Ne ww ", newPhoto)
                     // Save the new photo document to MongoDB
                     const savedPhoto = await newPhoto.save();
-                    console.log("savedPhoto :- ", savedPhoto)
+                    // console.log("savedPhoto :- ", savedPhoto)
                     return savedPhoto.postImageUrl;
 
                 } else {
@@ -98,6 +96,17 @@ router.post('/photos/upload/', isAdminLoggedIn, multer.uploadImg.array('photos',
         res.status(500).send('Internal Server Error');
     }
 });
+
+router.get('/photo/:photoId/liked', isAdminLoggedIn, async function (req, res, next) {
+    try {
+        const userLiked = await photoModel.findOne({ '_id': req.params.photoId }).populate('likeUserIds');
+        res.status(200).json(userLiked);
+    } catch (error) {
+        console.error('Error occurred while fetching liked photo:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
 
 
 

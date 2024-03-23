@@ -8,9 +8,12 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/css/lightbox.css"
         integrity="sha512-Woz+DqWYJ51bpVk5Fv0yES/edIMXjj3Ynda+KWTIkGoynAMHrqTcDUQltbipuiaD5ymEo9520lyoVOo9jCQOCA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css"
+        integrity="sha512-b2QcS5SsA8tZodcDtGRELiGv5SaKSk1vDHDaQRda0htPYWZ6046lr3kJ5bAAQdpV2mmA/4v0wQF9MyU6/pDIAg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+
     <link rel="stylesheet" href="/stylesheets/adminPhotos.css">
 </head>
 
@@ -44,8 +47,9 @@
                                     <div class="button-container">
                                         <button onclick="deletePhoto('<%= post._id %>')"
                                             class="btn btn-primary btn-download">Delete</button>
-                                        <button class="btn btn-success btn-like">
-                                            <i class="fa fa-heart"></i> Like
+                                        <button data-bs-toggle="modal" data-bs-target="#userLiked"
+                                            onclick="likedby('<%= post._id %>')" class="btn btn-success btn-like">
+                                            <i class="fa fa-heart"></i> Liked by?
                                         </button>
                                     </div>
                                 </div>
@@ -70,8 +74,9 @@
                                     <div class="button-container">
                                         <button onclick="deletePhoto('<%= post._id %>')"
                                             class="btn btn-primary btn-download">Delete</button>
-                                        <button class="btn btn-success btn-like">
-                                            <i class="fa fa-heart"></i> Like
+                                        <button data-bs-toggle="modal" data-bs-target="#userLiked"
+                                            onclick="likedby('<%= post._id %>')" class="btn btn-success btn-like">
+                                            <i class="fa fa-heart"></i> Liked by?
                                         </button>
                                     </div>
                                 </div>
@@ -96,8 +101,9 @@
                                     <div class="button-container">
                                         <button onclick="deletePhoto('<%= post._id %>')"
                                             class="btn btn-primary btn-download">Delete</button>
-                                        <button class="btn btn-success btn-like">
-                                            <i class="fa fa-heart"></i> Like
+                                        <button data-bs-toggle="modal" data-bs-target="#userLiked"
+                                            onclick="likedby('<%= post._id %>')" class="btn btn-success btn-like">
+                                            <i class="fa fa-heart"></i> Liked by?
                                         </button>
                                     </div>
                                 </div>
@@ -110,6 +116,22 @@
 
     </main>
 
+
+    <div class="modal fade" id="userLiked" tabindex="-1" aria-labelledby="userLikedLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="card shadow">
+                    <div class="card-header bg-primary">
+                        <h5 class="text-light">Liked By:- </h5>
+                    </div>
+                    <div class="card-body p-4 bg-white text-black">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/js/lightbox-plus-jquery.js"
         integrity="sha512-oaWLach/xXzklmJDBjHkXngTCAkPch9YFqOSphnw590sy86CVEnAbcpw17QjkUGppGmVJojwqHmGO/7Xxx6HCw=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -117,6 +139,28 @@
     <script>
         async function deletePhoto(id) {
             const res = await fetch(`/admin/photo/${id}/delete`, { method: 'post' });
+        }
+
+        async function likedby(id) {
+            const res = await fetch(`/admin/photo/${id}/liked`, { method: 'get' });
+
+            if (res.ok) {
+                const data = await res.json();
+                const likeUserIds = data.likeUserIds;
+
+                const card_body = document.querySelector('.card-body');
+                card_body.innerHTML = '';
+
+                likeUserIds.forEach(user => {
+                    const div = document.createElement('div');
+                    div.classList.add(".mb-3")
+
+                    div.innerHTML = `Name: ${user.name}<br>Username: ${user.username}<br><br>`;
+                    card_body.appendChild(div);
+                });
+            } else {
+                console.error('Failed to fetch liked users:', res.status);
+            }
         }
     </script>
 </body>
