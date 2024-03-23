@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="shortcut icon" href="/images/X (favicon).png" type="image/x-icon">
 
-  <title>Project X</title>
+  <title>2k23 Freshers</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -145,14 +145,21 @@
       </div>
     </div>
     <!-- Organiser Section -->
-    <h1>Check Our Organiser</h1>
+    <div id="dialog" class="dialog">
+      <div id="dialogContent" class="dialog-content">
+        <span class="close" onclick="closeDialog()">&times;</span>
+        <ul id="dialogMemberList"></ul>
+      </div>
+    </div>
+    <h1>Check Our Organisers</h1>
     <div class="person">
       <div class="profile">
         <div class="pic">
-          <img src="/images/profile1.png" alt="profile">
+          <img src="/images/Aaryan_pic.png" alt="profile">
         </div>
         <h3>Aaryan Raj</h3>
         <h6>Technical Head</h6>
+        <button onclick="openDialog('technical')">View Members</button>
       </div>
       <div class="profile">
         <div class="pic">
@@ -160,6 +167,7 @@
         </div>
         <h3>Rohit Raj</h3>
         <h6>Head of Management</h6>
+        <button onclick="openDialog('management')">View Members</button>
       </div>
       <div class="profile">
         <div class="pic">
@@ -167,20 +175,23 @@
         </div>
         <h3>Rohit Kumar</h3>
         <h6>Catering Management</h6>
+        <button onclick="openDialog('catering')">View Members</button>
       </div>
       <div class="profile">
         <div class="pic">
-          <img src="/images/profile1.png" alt="profile">
+          <img src="/images/Riteek_pic.png" alt="profile" />
         </div>
         <h3>Riteek Raj</h3>
         <h6>Stage Management</h6>
+        <button onclick="openDialog('stage')">View Members</button>
       </div>
       <div class="profile">
         <div class="pic">
           <img src="/images/profile1.png" alt="profile">
         </div>
-        <h3>Ankit Raj</h3>
-        <h6>DJ Wale Bhaiya</h6>
+        <h3>Pavan Kumar</h3>
+        <h6>Sound and Backstage</h6>
+        <button onclick="openDialog('backstage')">View Members</button>
       </div>
       <div class="profile">
         <div class="pic">
@@ -188,13 +199,15 @@
         </div>
         <h3>Abhishek Kumar</h3>
         <h6>Finance Management</h6>
+        <button onclick="openDialog('finance')">View Members</button>
       </div>
       <div class="profile">
         <div class="pic">
           <img src="/images/profile1.png" alt="profile">
         </div>
-        <h3>Raj Kumar</h3>
+        <h3>Jayantika Prateek</h3>
         <h6>Performance Coordinator</h6>
+        <button onclick="openDialog('performance')">View Members</button>
       </div>
       <div class="profile">
         <div class="pic">
@@ -202,6 +215,7 @@
         </div>
         <h3>Rohit Raj</h3>
         <h6>Decoration Head</h6>
+        <button onclick="openDialog('decoration')">View Members</button>
       </div>
     </div>
 

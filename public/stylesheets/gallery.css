@@ -85,7 +85,8 @@
     min-width: 40svw;
     min-height: 50svh;
     backdrop-filter: blur(10px);
-    font-weight: 900;
+    font-weight: 700;
+    letter-spacing: 0.6px;
   }
   .btn a:hover{
     transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
