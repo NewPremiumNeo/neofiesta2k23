@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/stylesheets/vote.css">
-    <title>Project X</title>
+    <title>Voting</title>
 </head>
 
 <body>
@@ -26,12 +26,13 @@
                         <h2>ID-${index + 1}</h2>
                         <h2 class="cand-name">${name}</h2>
                     </div>
-                    <button class="vote" onclick="vote('MGCU2023CSIT30${String(index + 1).padStart(2, '0')}')">Vote Now!</button>
+                    <button class="vote" onclick="vote('MGCU2023CSIT30${String(index + 1).padStart(2, '0')}', '${name}')">Vote Now!</button>
             </div>`
         });
         document.querySelector(".container").innerHTML = candidate
 
         async function vote(votedMember) {
+
             try {
                 const response = await fetch(`/vote`, {
                     method: 'POST',

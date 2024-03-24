@@ -93,23 +93,23 @@
                 <div class="boxes">
                     <div class="box box1">
                         <i class="uil uil-thumbs-up"></i>
-                        <span class="text">Total Users</span>
+                        <span class="text">Total Votes</span>
                         <span class="number">
-                            <%= users.length %>
+                            <%= allVotes.length %>
                         </span>
                     </div>
                     <div class="box box2">
                         <i class="uil uil-comments"></i>
-                        <span class="text">Total Photos</span>
+                        <span class="text">Highest Votes</span>
                         <span class="number">
-                            <%= photos.length %>
+                            N/A
                         </span>
                     </div>
                     <div class="box box3">
                         <i class="uil uil-share"></i>
-                        <span class="text">Total Videos</span>
+                        <span class="text">N/A</span>
                         <span class="number">
-                            <%= videos.length %>
+                            N/A
                         </span>
                     </div>
                 </div>
@@ -124,41 +124,41 @@
                 <div class="activity-data">
                     <div class="data names">
                         <span class="data-title">Name</span>
-                        <% users.forEach(user=> { %>
+                        <% allVotes.forEach(vote=> { %>
                             <span class="data-list">
-                                <%= user.name %>
+                                <%= vote.user.name %>
                             </span>
                             <% }) %>
                     </div>
                     <div class="data email">
-                        <span class="data-title">Email</span>
-                        <% users.forEach(user=> { %>
+                        <span class="data-title">Enrollment</span>
+                        <% allVotes.forEach(vote=> { %>
                             <span class="data-list">
-                                <%= user.email %>
+                                <%= vote.user.username %>
                             </span>
                             <% }) %>
                     </div>
                     <div class="data joined">
-                        <span class="data-title">Enrollment</span>
-                        <% users.forEach(user=> { %>
+                        <span class="data-title">Voted To</span>
+                        <% allVotes.forEach(vote=> { %>
                             <span class="data-list">
-                                <%= user.username %>
+                                <%= vote.name %>
                             </span>
                             <% }) %>
                     </div>
                     <div class="data type">
-                        <span class="data-title">Number</span>
-                        <% users.forEach(user=> { %>
+                        <span class="data-title">Enrollment</span>
+                        <% allVotes.forEach(vote=> { %>
                             <span class="data-list">
-                                <%= user.mobile %>
+                                <%= vote.votedMember %>
                             </span>
                             <% }) %>
                     </div>
                     <div class="data status">
-                        <span class="data-title">Liked</span>
-                        <% users.forEach(user=> { %>
+                        <span class="data-title">Delete</span>
+                        <% allVotes.forEach(vote=> { %>
                             <span class="data-list">
-                                <%= user.likePhotoIds.length %>
+                                <button onclick="deleteVote('<%= vote._id %>')">Delete</button>
                             </span>
                             <% }) %>
                     </div>
@@ -167,6 +167,20 @@
         </div>
     </section>
     <script src="/javascripts/admin.js"></script>
+    <script>
+        async function deleteVote(id) {
+            try {
+                const response = await fetch(`/admin/vote/${id}/delete`, { method: 'post' });
+                if (response.ok) {
+                    window.location.href = '/admin/vote/';
+                } else {
+                    console.error('Failed to Delete');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+    </script>
 </body>
 
 </html>

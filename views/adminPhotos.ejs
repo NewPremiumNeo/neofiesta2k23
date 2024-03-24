@@ -139,7 +139,7 @@
     <script>
         async function deletePhoto(id) {
             try {
-                const res = await fetch(`/admin/photo/${id}/delete`, { method: 'post' });
+                const response = await fetch(`/admin/photo/${id}/delete`, { method: 'post' });
                 if (response.ok) {
                     window.location.href = '/admin/photos/';
                 } else {

@@ -8,7 +8,7 @@ const { isLoggedIn, isAdminLoggedIn } = require('../middleware/authMiddleware.js
 const adminController = require('../controllers/adminController.js');
 const usersModel = require('../models/usersModel.js');
 const videoModel = require('../models/videoModel.js');
-
+const voteModel = require('../models/voteModel');
 
 
 router.use(express.urlencoded({ extended: false }));
@@ -47,9 +47,9 @@ router.get('/photos', isAdminLoggedIn, async function (req, res, next) {
 router.post('/photo/:photo__id/delete', isAdminLoggedIn, async function (req, res, next) {
     const del = await photoModel.findByIdAndDelete(req.params.photo__id)
     if (del) {
-        req.flash('success', "Photo Delected!!");
+        req.flash('success', "Photo Deleted!!");
     }
-    res.redirect('/photos');
+    res.redirect('/admin/photos');
 });
 
 // Route for uploading photos
@@ -107,7 +107,26 @@ router.get('/photo/:photoId/liked', isAdminLoggedIn, async function (req, res, n
     }
 });
 
+//Admin Vote
+router.get('/vote', isAdminLoggedIn, async function (req, res, next) {
+    const allVotes = await voteModel.find().populate('user')
+    res.render('adminVote', { allVotes, messages: req.flash('success') });
+});
 
+router.post('/vote/:idToDelete/delete', isAdminLoggedIn, async function (req, res, next) {
+    try {
+        const del = await voteModel.findByIdAndDelete(req.params.idToDelete)
+        console.log(req.params.idToDelete)
+        console.log("del ", del)
+        if (del) {
+            req.flash('success', "Vote Deleted!!");
+        }
+        res.redirect('/admin/vote');
+    } catch (error) {
+        console.error("Error deleting vote:", error);
+        res.status(500).send("Internal Server Error");
+    }
+});
 
 
 module.exports = router;

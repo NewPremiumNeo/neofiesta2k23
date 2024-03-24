@@ -27,17 +27,17 @@ function validateEnrollment(enrollment) {
             }
             break;
         case "2021":
-            if (!(XXXX >= 3001 && XXXX <= 3036)) {
+            if (!(XXXX >= 3001 && XXXX <= 3039) || XXXX == 3013 || XXXX == 3024 || XXXX == 3029) {
                 return false;
             }
             break;
         case "2022":
-            if (!(XXXX >= 3001 && XXXX <= 3025) || XXXX == 3005 || XXXX == 3007 || XXXX == 3019 || XXXX == 3022) {
+            if (!(XXXX >= 3001 && XXXX <= 3025) || XXXX == 3005 || XXXX == 3007 || XXXX == 3019 || XXXX == 3022 || !(XXXX >= 4001 && XXXX <= 4009)) {
                 return false;
             }
             break;
         case "2023":
-            if (!(XXXX >= 3001 && XXXX <= 3030)) {
+            if (!(XXXX >= 3001 && XXXX <= 3030) || !(XXXX >= 4002 && XXXX <= 4020) || XXXX == 4013) {
                 return false;
             }
             break;

@@ -11,8 +11,8 @@ router.get('/', isLoggedIn, checkVoted, async (req, res) => {
 });
 
 router.get('/voted', isLoggedIn, checkVoted, async (req, res) => {
-    const votedMemberId = await voteModel.findOne({ "user": req.user._id }).populate('votedMemberId')
-    console.log(votedMemberId)
+    const votedMemberId = await voteModel.findOne({ "user": req.user._id })
+    // const votedMemberId = await voteModel.findOne({ "user": req.user._id }).populate('votedMemberId')
     res.render('voted', { votedMemberId });
 });
 
@@ -20,20 +20,29 @@ router.get('/voted', isLoggedIn, checkVoted, async (req, res) => {
 
 router.post('/', isLoggedIn, checkVoted, async (req, res) => {
     try {
+        names = ['Aadil Latif', 'Aditya Pratap', 'Ajain Raj', 'Akash', 'Alok Jaiswal', 'Alok Mehta', 'Ashish Kumar 1', 'Ashish Kumar 2', 'Ayush Pandey', 'Gyan Prakash', 'Kartik Sahu', 'Monu Kumawat', 'Nikhil Anand', 'Pabitra Mondal', 'Pankaj Kumar', 'Pratap Yadav', 'Prateek pandey', 'Priyanshu Kumar', 'Ranjeet Chaudhary', 'Ravi Raj', 'Rishabh Shukla', 'Riya Kumari', 'Sandeep Prajapati', 'Satyam Kumar', 'Shiva Hansda', 'Shruti Gupta', 'Shristi Gupta', 'Sudip Tikader', 'Swatantra Sahu', 'Vishal Kumar']
+
         const votedMember = req.body.votedMember;
         const userId = req.user._id;
         const votedMemberDocument = await usersModel.findOne({ "username": votedMember });
 
-        if (!votedMemberDocument) {
-            console.error("Voted member not found");
-            return res.status(404).send("Voted member not found");
+        const name = names[parseInt(votedMember.slice(-2)) - 1];
+        let vote = ""
+        if (votedMemberDocument) {
+            vote = new voteModel({
+                user: userId,
+                votedMember: votedMember,
+                name: name,
+                votedMemberId: votedMemberDocument._id
+            });
+        }else{
+            vote = new voteModel({
+                user: userId,
+                votedMember: votedMember,
+                name: name,
+            });
         }
 
-        const vote = new voteModel({
-            user: userId,
-            votedMember: votedMember,
-            votedMemberId: votedMemberDocument._id
-        });
         await vote.save();
 
         console.log("Vote saved successfully");
