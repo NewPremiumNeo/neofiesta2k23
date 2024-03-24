@@ -57,7 +57,7 @@ function initializeClock(id, endtime) {
   const timeinterval = setInterval(updateClock, 1000);
 }
 // End date of the countdown
-const deadline = new Date(Date.parse(new Date("April 07,2024 00:00:00")));
+const deadline = new Date(Date.parse(new Date("April 8,2024 00:00:00")));
 initializeClock('clockdiv', deadline);
 
 //scroll triggers on nav and main section
@@ -76,16 +76,19 @@ gsap.to("#navbar", {
   },
 });
 t1.from("#navbar h1, #navbar a", {
-  y: -100,
-  opacity: 0,
-  stagger: 0.2
+  y:-100,
+  opacity:0,
+  stagger:0.2
 })
 
-t1.from(".imp-heading>h1,.btn", {
-  duration: 1,
-  opacity: 0,
-  scale: 0
+t1.from(".imp-heading h1,.btn",{
+  x:-500,
+  duration:1,
+  opacity:0
 })
+
+
+
 
 
 gsap.from(".person", {
@@ -96,12 +99,12 @@ gsap.from(".person", {
   scrollTrigger: {
     trigger: ".person",
     scroller: "body",
-    scrub: 1,
+    scrub: 4,
   },
 });
 
 gsap.from(".event", {
-  y: 100,
+  y: 50,
   opacity: 0,
   duration: 1.5,
   stagger: 0.4,
@@ -110,18 +113,6 @@ gsap.from(".event", {
     scroller: "body",
   },
 });
-// gsap.from(".cont-event>ui l1", {
-//   x: 100,
-//   opacity: 0,
-//   duration: 1.5,
-//   stagger: 0.4,
-//   scrollTrigger: {
-//     trigger: ".event",
-//     scroller: "body",
-//     markers:true
-//   },
-// });
-
 
 
 
@@ -189,42 +180,33 @@ function hambarboxHeight() {
 }
 hambarboxHeight();
 
+//Loader
 
+const loader = document.getElementById("mainLoader");
+const body = document.querySelector("body");
 
-var loader = document.getElementById("mainLoader");
+window.addEventListener("load", function(event) {
+event.preventDefault();
 
-window.addEventListener("load", function load(event) {
-  /* Page has finished loading. */
-  "use strict";
-  event.preventDefault();
-  //gsap.to(loader, {duration: .5, autoAlpha:  0});
-  setTimeout(() => {
-    gsap.to(loader, { autoAlpha: 0, duration: .3 })
-      .then(() => {
-        loader.style.display = "none"
-      })
-  }, 100);
+setTimeout(() => {
+  gsap.to(loader, { autoAlpha: 0, duration: 1 }).then(() => {
+    body.style.overflowY = "visible";
+    loader.style.display = "none";
+  });
+}, 300);
 
-  let pageContent = document.getElementsByClassName("page-content")[0];
-  if (pageContent) {
-    gsap.fromTo(pageContent, { y: -window.innerHeight / 4 }, { y: 0, duration: 1 });
-  }
+const pageContent = document.querySelector(".page-content");
+if (pageContent) {
+  gsap.fromTo(pageContent, { y: -window.innerHeight / 4 }, { y: 0, duration: 1 });
+}
 
-  let tl = new gsap.timeline({ paused: true, onComplete: doneLoading });
-  tl.add("start");
-  tl.add(gsap.utils.toChars("loading"), "start");
-  tl.timeScale(2).progress(0).eventCallback("onUpdate", updateProgressBar, [tl]);
+const tl = gsap.timeline({ paused: true, onComplete: doneLoading });
+tl.add("start").add(gsap.utils.toChars("loading"), "start").timeScale(2).progress(0).eventCallback("onUpdate", updateProgressBar, [tl]);
 
-  var imgs = document.querySelectorAll(".img-lazyload");
-  for (var i = 0; i < imgs.length; i++) {
-    addLazyLoad(imgs[i], tl);
-  };
-
-  var links = document.querySelectorAll("a[data-link]");
-  for (var j = 0; j < links.length; j++) {
-    links[j].addEventListener("click", linkClicked);
-  }
+document.querySelectorAll(".img-lazyload").forEach(img => addLazyLoad(img, tl));
+document.querySelectorAll("a[data-link]").forEach(link => link.addEventListener("click", linkClicked));
 });
+
 
 
 //Organisers section
@@ -232,13 +214,13 @@ window.addEventListener("load", function load(event) {
 function openDialog(role) {
   const members = {
     'technical': ['Prince Kumar', 'Ankit Raj'],
-    'management': ['Aaryan', 'Abhishek', 'Akshansh', 'Ankit', 'Divyanshu', 'Hariom', 'Jayanyika', 'Muskan', 'Naina', 'Pavan', 'Prince', 'Raj', 'Rajeev', 'Rishab', 'Riteek', 'Rohit', 'Adarsh', 'Aarya', 'Rohit', 'Saurav', 'Vishal'],
-    'catering': ['Adarsh', 'Raj', 'Rajeev', 'Saurav', 'Hariom'],
-    'stage': ['Naina', 'Jayantika', 'Arya', 'Riteek', 'Akshansh', 'Rishab'],
-    'backstage': ['Ankit'],
-    'finance': ['Prince'],
-    'performance': ['Abhishek', 'Raj', 'Jayantika', 'Muskan', 'Divyanshu'],
-    'decoration': ['Riteek', 'Aaryan', 'Naina']
+    'management': ['Aaryan', 'Abhishek', 'Akshansh','Ankit','Divyanshu','Hariom','Jayantika','Muskan','Naina','Pavan','Prince','Raj','Rajeev','Rishab','Riteek','Adarsh','Aarya','Rohit','Saurav','Vishal'],
+    'catering':['Adarsh','Raj','Rajeev','Saurav','Hariom'],
+    'stage':['Naina','Jayantika','Arya','Akshansh','Rishab'],
+    'backstage':['Ankit'],
+    'finance':['Abhishek'],
+    'performance':['Abhishek','Raj','Muskan','Divyanshu'],
+    'decoration':['Riteek','Aaryan','Naina','Rohit']
     // Add more roles and members as needed
   };
 

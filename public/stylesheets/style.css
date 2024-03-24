@@ -42,6 +42,9 @@ html {
   font-size: 62.5%;
   scroll-behavior: smooth;
 }
+body{
+  overflow-y: hidden;
+}
 
 #mainLoader{
   position: absolute;
