@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Photos Management X</title>
+    <title>Photos Management</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/css/lightbox.css"
         integrity="sha512-Woz+DqWYJ51bpVk5Fv0yES/edIMXjj3Ynda+KWTIkGoynAMHrqTcDUQltbipuiaD5ymEo9520lyoVOo9jCQOCA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -138,7 +138,16 @@
 
     <script>
         async function deletePhoto(id) {
-            const res = await fetch(`/admin/photo/${id}/delete`, { method: 'post' });
+            try {
+                const res = await fetch(`/admin/photo/${id}/delete`, { method: 'post' });
+                if (response.ok) {
+                    window.location.href = '/admin/photos/';
+                } else {
+                    console.error('Failed to Delete');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
         }
 
         async function likedby(id) {

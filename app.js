@@ -11,6 +11,7 @@ var usersModel = require('./models/usersModel.js');
 var indexRouter = require('./routes/index');
 var likeRouter = require('./routes/like');
 var adminRouter = require('./routes/admin');
+var voteRouter = require('./routes/vote');
 require('./models/connectDB');
 const passport = require('passport');
 const flash = require('connect-flash');
@@ -36,13 +37,14 @@ app.use(flash());
 
 app.use(logger('dev'));
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/admin', adminRouter);
 app.use('/', likeRouter.router)
+app.use('/vote', voteRouter);
 // app.use('/users', usersRouter);
 
 

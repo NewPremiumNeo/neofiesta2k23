@@ -111,7 +111,7 @@ exports.postRegister = async (req, res) => {
 
 
 exports.postLogin = passport.authenticate('local', {
-    successRedirect: '/gallery',
+    successRedirect: '/',
     failureRedirect: '/login',
     failureFlash: true,
 });
