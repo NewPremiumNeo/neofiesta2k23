@@ -96,52 +96,70 @@
   <!-- Main Section of the Page -->
   <main>
     <!-- Cheif Guest Section -->
-    <h1>Chief Guest</h1>
+    <div class="wrapper">
+      <div class="bg"> Chief Guest </div>
+      <div class="fg"> Chief Guest </div>
+    </div>
+    <h3 class="heading"></h3>
     <div class="person">
       <div class="profile">
         <div class="pic">
-          <img src="/images/profile1.png" alt="profile">
+          <img src="/images/VC.png" alt="profile">
         </div>
         <h3>Dr.Sanjay Shrivastava</h3>
         <h6>Vice-Chancellor</h6>
       </div>
       <div class="profile">
         <div class="pic">
-          <img src="/images/profile1.png" alt="profile">
+          <img src="/images/dean.png" alt="profile">
         </div>
 
-        <h3>Aaryan Raj</h3>
+        <h3>Prof. Ranjeet Kumar</h3>
         <h6>Dean(CSIT)</h6>
       </div>
       <div class="profile">
         <div class="pic">
-          <img src="/images/profile1.png" alt="profile">
+          <img src="/images/proctor.png" alt="profile">
         </div>
 
-        <h3>Aaryan Raj</h3>
+        <h3>Prof. Prasoon Dutta</h3>
         <h6>Proctor(MGCUB)</h6>
       </div>
       <div class="profile">
         <div class="pic">
-          <img src="/images/profile1.png" alt="profile">
+          <img src="/images/hod.png" alt="profile">
         </div>
-        <h3>Vikas Pareek Sir</h3>
+        <h3>Prof. Vikas Pareek</h3>
         <h6>HOD(B.Tech)</h6>
       </div>
       <div class="profile">
 
         <div class="pic">
-          <img src="/images/profile1.png" alt="profile">
+          <img src="/images/campd.png" alt="profile">
         </div>
-        <h3>Prince Vishwakarma</h3>
+        <h3>Prof. Attatrana Pal</h3>
         <h6>Campus Director</h6>
       </div>
       <div class="profile">
         <div class="pic">
-          <img src="/images/profile1.png" alt="profile">
+          <img src="/images/vipin.png" alt="profile">
         </div>
-        <h3>Ritik Raj</h3>
-        <h6>Faculty</h6>
+        <h3>Dr. Vipin Kumar</h3>
+        <h6>Assistant Professor</h6>
+      </div>
+      <div class="profile">
+        <div class="pic">
+          <img src="/images/shubham.png" alt="profile">
+        </div>
+        <h3>Mr. Shubham Kumar</h3>
+        <h6>Assistant Professor</h6>
+      </div>
+      <div class="profile">
+        <div class="pic">
+          <img src="/images/sunil.png" alt="profile">
+        </div>
+        <h3>Dr. Sunil Kumar</h3>
+        <h6>Assistant Professor</h6>
       </div>
     </div>
     <!-- Organiser Section -->
@@ -151,118 +169,159 @@
         <ul id="dialogMemberList"></ul>
       </div>
     </div>
-    <h1>Check Our Organisers</h1>
-    <div class="person">
-      <div class="profile">
-        <div class="pic">
-          <img src="/images/Aaryan_pic.png" alt="profile">
+     <!-- Organiser Section -->
+      <!-- creating dialog box -->
+      <div id="dialog" class="dialog">
+        <div id="dialogContent" class="dialog-content">
+          <span class="close" onclick="closeDialog()">&times;</span>
+          <ul id="dialogMemberList"></ul>
         </div>
-        <h3>Aaryan Raj</h3>
-        <h6>Technical Head</h6>
-        <button onclick="openDialog('technical')">View Members</button>
       </div>
-      <div class="profile">
-        <div class="pic">
-          <img src="/images/profile1.png" alt="profile">
+      <div class="wrapper">
+        <div class="bg"> Check Our Organisers </div>
+        <div class="fg">Check Our Organisers  </div>
+      </div>
+      <h3 class="heading"></h3>
+      <div class="person">
+        <div class="profile">
+          <div class="pic">
+            <img src="/images/rohit.png" alt="profile" />
+          </div>
+          <h3>Rohit Raj</h3>
+          <h6>Head of Management</h6>
+          <button onclick="openDialog('management')">View Members</button>
+          <!-- <ul id="managementMembers"></ul> -->
         </div>
-        <h3>Rohit Raj</h3>
-        <h6>Head of Management</h6>
-        <button onclick="openDialog('management')">View Members</button>
-      </div>
-      <div class="profile">
-        <div class="pic">
-          <img src="/images/profile1.png" alt="profile">
+        <div class="profile">
+          <div class="pic">
+            <img src="/images/Aaryan_pic.png" alt="profile" />
+          </div>
+          <h3>Aaryan Raj</h3>
+          <h6>Technical Head</h6>
+          <button onclick="openDialog('technical')">View Members</button>
+          <!-- <ul id="technicalMembers"></ul> -->
         </div>
-        <h3>Rohit Kumar</h3>
-        <h6>Catering Management</h6>
-        <button onclick="openDialog('catering')">View Members</button>
-      </div>
-      <div class="profile">
-        <div class="pic">
-          <img src="/images/Riteek_pic.png" alt="profile" />
+        <div class="profile">
+          <div class="pic">
+            <img src="/images/jayantika.png" alt="profile" />
+          </div>
+          <h3>Jayantika Prateek</h3>
+          <h6>Performance Coordinator</h6>
+          <button onclick="openDialog('performance')">View Members</button>
+          <!-- <ul id="performanceMembers"></ul> -->
         </div>
-        <h3>Riteek Raj</h3>
-        <h6>Stage Management</h6>
-        <button onclick="openDialog('stage')">View Members</button>
-      </div>
-      <div class="profile">
-        <div class="pic">
-          <img src="/images/profile1.png" alt="profile">
+        <div class="profile">
+          <div class="pic">
+            <img src="/images/Riteek pic.png" alt="profile" />
+          </div>
+          <h3>Riteek Raj</h3>
+          <h6>Stage Management</h6>
+          <button onclick="openDialog('stage')">View Members</button>
+          <!-- <ul id="stageMembers"></ul> -->
         </div>
-        <h3>Pavan Kumar</h3>
-        <h6>Sound and Backstage</h6>
-        <button onclick="openDialog('backstage')">View Members</button>
-      </div>
-      <div class="profile">
-        <div class="pic">
-          <img src="/images/profile1.png" alt="profile">
+        <div class="profile">
+          <div class="pic">
+            <img src="/images/pavan.png" alt="profile" />
+          </div>
+          <h3>Pavan Kumar</h3>
+          <h6>Sound and Backstage</h6>
+          <button onclick="openDialog('backstage')">View Members</button>
+          <!-- <ul id="backstageMembers"></ul> -->
         </div>
-        <h3>Abhishek Kumar</h3>
-        <h6>Finance Management</h6>
-        <button onclick="openDialog('finance')">View Members</button>
-      </div>
-      <div class="profile">
-        <div class="pic">
-          <img src="/images/profile1.png" alt="profile">
+        <div class="profile">
+          <div class="pic">
+            <img src="/images/prince.png" alt="profile" />
+          </div>
+          <h3>Prince Kumar</h3>
+          <h6>Finance Management</h6>
+          <button onclick="openDialog('finance')">View Members</button>
+          <!-- <ul id="financeMembers"></ul> -->
         </div>
-        <h3>Jayantika Prateek</h3>
-        <h6>Performance Coordinator</h6>
-        <button onclick="openDialog('performance')">View Members</button>
-      </div>
-      <div class="profile">
-        <div class="pic">
-          <img src="/images/profile1.png" alt="profile">
+        <div class="profile">
+          <div class="pic">
+            <img src="/images/rohikt.png" alt="profile" />
+          </div>
+          <h3>Rohit Kumar</h3>
+          <h6>Catering Management</h6>
+          <button onclick="openDialog('catering')">View Members</button>
+          <!-- <ul id="cateringMembers"></ul> -->
         </div>
-        <h3>Rohit Raj</h3>
-        <h6>Decoration Head</h6>
-        <button onclick="openDialog('decoration')">View Members</button>
+        <div class="profile">
+          <div class="pic">
+            <img src="/images/muskan.png" alt="profile" />
+          </div>
+          <h3>Muskan Kumari</h3>
+          <h6>Decoration Head</h6>
+          <button onclick="openDialog('decoration')">View Members</button>
+          <!-- <ul id="decorationMembers"></ul> -->
+        </div>
       </div>
-    </div>
-
   </main>
 
   <div class="event" id="programs">
-
-
-
-    <h3 class="heading">Event Timeline</h3>
+    <div class="wrapper">
+      <div class="bg">Event Timeline </div>
+      <div class="fg">Event Timeline </div>
+    </div>
+    <h3 class="heading"></h3>
     <div class="cont-event">
       <ul>
         <li>
           <h3 class="title">Vandana</h3>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis nulla quos saepe sapiente culpa nihil
-            dolorum impedit, hic et soluta excepturi cupiditate iure quidem sed?</p>
+          <p>
+            The Freshers Party will start with "Lamp Lightning" accompanied by a Vandana on ---. After this new comers will set the stage on fire with their "Ramp Walk"
+          </p>
 
           <span class="circle"></span>
           <span class="time">2-3pm</span>
         </li>
         <li>
-          <h3 class="title">Drama</h3>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis nulla quos saepe sapiente culpa nihil
-            dolorum impedit, hic et soluta excepturi cupiditate iure quidem sed?</p>
+          <h3 class="title">Singing</h3>
+          <p>
+           Now we will witness some muscial tones from "Ashish","Aadil". And a beautiful poem from "Gyan
+          </p>
 
           <span class="circle"></span>
           <span class="time">3-4pm</span>
         </li>
         <li>
-          <h3 class="title">Group Dance</h3>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis nulla quos saepe sapiente culpa nihil
-            dolorum impedit, hic et soluta excepturi cupiditate iure quidem sed?</p>
+          <h3 class="title">StandUp Comedy</h3>
+          <p>
+            Some Jokes coming from "Ajain","pankaj".
+          </p>
 
           <span class="circle"></span>
           <span class="time">4-5pm</span>
         </li>
         <li>
-          <h3 class="title">StandUp Comedy</h3>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis nulla quos saepe sapiente culpa nihil
-            dolorum impedit, hic et soluta excepturi cupiditate iure quidem sed?</p>
+          <h3 class="title">Dance</h3>
+          <p>
+            Setting the stage on fire "Shruti", "Riya" ,and "Ashish" with their solo performances. Team ---- and ---- for their group dance.
+          </p>
 
           <span class="circle"></span>
           <span class="time">5-6pm</span>
         </li>
+        <li>
+          <h3 class="title">Drama</h3>
+          <p>
+            Team --- with their play. Team includes-- "     ", "     ", "    ", and "  ".
+          </p>
+
+          <span class="circle"></span>
+          <span class="time">6-7pm</span>
+        </li>
+        <li>
+          <h3 class="title">Closing Event</h3>
+          <p>
+            Now this wonderfull night will end with some funny games , accompained by prize distribution wait wait... khana to abhi bakki hai mere dost.
+          </p>
+
+          <span class="circle"></span>
+          <span class="time">7-8pm</span>
+        </li>
       </ul>
     </div>
-
   </div>
 
   <!-- Footer -->
