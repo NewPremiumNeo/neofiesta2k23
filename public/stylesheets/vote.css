@@ -23,23 +23,30 @@ html {
 }
 
 .heading {
-    margin: 15px;
+   margin: 15px;
     font-weight: 800;
-    color: #1c1c1d;
-    font-size: 2.2rem;
+    color: #ffffff; /* White color for better contrast */
+    font-size: 3rem; /* Larger font size for emphasis */
     text-align: center;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Add text shadow for emphasis */
+    background: linear-gradient(to right, var(--color-primary), var(--color-secondary)); /* Gradient background for header */
+    -webkit-background-clip: text; /* Clip text to the background gradient */
+    -webkit-text-fill-color: transparent; /* Make text transparent to show gradient */
 }
 
+
 .container{
-    background-image: url(./6035425.jpg);
+    background-image: url(../images/6035425.jpg);
     background-repeat: no-repeat;
     background-size: cover;
     display: flex;
     justify-content: center;
-    flex-direction: row;
+    flex-direction: wrap;
     flex-wrap: wrap;
-    gap: 4rem;
+    gap: 2rem;
     padding: 5rem 1rem;
+    min-height: 100vh;
+    align-items: center;
 }
 
 .candidate{
@@ -47,7 +54,7 @@ html {
     padding: 2rem 1rem;
     position: relative;
     overflow: hidden;
-    background: rgba(255, 255, 255, 0.16);
+    background: rgba(255, 255, 255, 0.8); /* Lighter background for better contrast */
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
     backdrop-filter: blur(5.1px);
     -webkit-backdrop-filter: blur(5.1px);
@@ -106,15 +113,6 @@ html {
     color: #0437b7;
 }
 
-/* @media (max-width: 768px) or ((orientation: landscape) and (max-width: 768px)) {
-    html{
-        font-size: 59%;
-    }
-    .container {
-        padding: 0 1rem;
-    }
-} */
-
 @media (max-width:550px) {
     .container{
         gap: 5px;
@@ -144,4 +142,3 @@ html {
         width: 18rem;
     }
 }
-
