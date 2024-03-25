@@ -23,7 +23,7 @@ html {
 }
 
 .heading {
-    margin: 15px;
+   margin: 15px;
     font-weight: 800;
     color: #ffffff; /* White color for better contrast */
     font-size: 3rem; /* Larger font size for emphasis */
@@ -34,8 +34,9 @@ html {
     -webkit-text-fill-color: transparent; /* Make text transparent to show gradient */
 }
 
+
 .container{
-    background-image: url(./6035425.jpg);
+    background-image: url(../images/6035425.jpg);
     background-repeat: no-repeat;
     background-size: cover;
     display: flex;
@@ -53,7 +54,7 @@ html {
     padding: 2rem 1rem;
     position: relative;
     overflow: hidden;
-    background: rgba(255, 255, 255, 0.8);
+    background: rgba(255, 255, 255, 0.8); /* Lighter background for better contrast */
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
     backdrop-filter: blur(5.1px);
     -webkit-backdrop-filter: blur(5.1px);
@@ -112,15 +113,6 @@ html {
     color: #0437b7;
 }
 
-/* @media (max-width: 768px) or ((orientation: landscape) and (max-width: 768px)) {
-    html{
-        font-size: 59%;
-    }
-    .container {
-        padding: 0 1rem;
-    }
-} */
-
 @media (max-width:550px) {
     .container{
         gap: 5px;
@@ -150,4 +142,3 @@ html {
         width: 18rem;
     }
 }
-
