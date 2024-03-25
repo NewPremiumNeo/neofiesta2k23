@@ -18,10 +18,13 @@
     }
 
     .container {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
+
+        position: relative;
+        display: flex;
+        justify-content: center;
+
+
+
     }
 
     .candidate {
@@ -32,20 +35,22 @@
         backdrop-filter: blur(5.1px);
         -webkit-backdrop-filter: blur(5.1px);
         border: 1px solid rgba(255, 255, 255, 0.26);
-        width: 25rem;
+        margin: 4em 4em;
         height: 36rem;
         width: 25rem;
         display: flex;
+
         flex-direction: column;
         align-items: center;
-        padding: 2rem;
+        border-radius: 5%;
+        z-index: 1;
     }
 
     .cand-img {
-        margin-top: 20px;
-        height: 200px;
-        width: 200px;
-        border: solid 5px #fff;
+        margin-top: 10px;
+        height: 20em;
+        width: 20em;
+        border: solid 5px rgb(255, 255, 255);
         border-radius: 50%;
     }
 
@@ -57,17 +62,24 @@
 
 
     .down {
-        margin-top: 20px;
+        margin: 1px;
         text-align: center;
     }
-    .text {
-    font-size: 1.2rem;
-    margin-top: 5px;
+
+    .down .text {
+        color: white;
+        font-size: 1.7rem;
+        padding-top: 7px;
     }
 
-    .text1 {
-    font-size: 2rem;
-    margin-bottom: 20px;
+    .candidate .text1 {
+        color: white;
+        font-size: 2.2rem;
+    }
+
+
+    #world {
+        position: absolute;
     }
 
     .text1 {
@@ -83,12 +95,6 @@
         100% {
             opacity: 1;
             transform: translateY(0);
-        }
-    }
-
-    @media only screen and (max-width: 600px) {
-        .container {
-            width: 90%;
         }
     }
 </style>
