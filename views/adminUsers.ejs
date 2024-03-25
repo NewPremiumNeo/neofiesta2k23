@@ -14,8 +14,8 @@
     <nav class="navbar navbar-dark bg-dark">
         <span class="navbar-brand mb-0 h1">Admin Users</span>
         <form class="form-inline my-2 my-lg-0" action="/admin/users" method="GET">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            <input id="searchInput" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"
+                name="search">
         </form>
         <a href="/admin" class="btn btn-primary ml-2">Back</a>
     </nav>
@@ -134,33 +134,61 @@
             handleEdit(userId, username, name, email, mobile, dob);
         });
 
-        // document.getElementById('editForm').addEventListener('submit', async function (event) {
-        //     event.preventDefault(); // Prevent default form submission
 
-        //     try {
-        //         // Send fetch request to update user details
-        //         console.log("new ",new FormData(this))
-        //         const response = await fetch(this.action, {
-        //             method: 'POST',
-        //             body: new FormData(this) // Send form data directly
-        //         });
-        //         console.log(response)
-        //         if (response.ok) {
-        //             // If response is successful, hide the modal and reload the page
-        //             $('#editModal').modal('hide');
-        //             location.reload();
-        //         } else {
-        //             // If response is not successful, throw an error
-        //             throw new Error('Failed to update user details');
-        //         }
-        //     } catch (error) {
-        //         // Handle error
-        //         console.error(error);
-        //         alert('Failed to update user details');
-        //     }
-        // });
+        document.addEventListener('DOMContentLoaded', function () {
+            const searchInput = document.getElementById('searchInput');
 
+            searchInput.addEventListener('input', function () {
+                const searchQuery = searchInput.value;
 
+                if (searchQuery !== '') {
+                    try {
+                        fetch(`/admin/users?search=${searchQuery}`)
+                            .then(response => {
+                                if (!response.ok) {
+                                    throw new Error('Network response was not ok');
+                                }
+                                return response.json();
+                            })
+                            .then(data => {
+                                const row = document.querySelector('.row');
+                                row.innerHTML = ``
+                                data.forEach(user => {
+                                    row.innerHTML += `<div class="col-md-4 mb-4">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h5 class="card-title">
+                                                ${user.username}
+                                            </h5>
+                                            <p class="card-text">Name: ${user.name}</p>
+                                            <p class="card-text">Email: ${user.email}</p>
+                                            <p class="card-text">Mobile: ${user.mobile}</p>
+                                            <p class="card-text">DOB: ${user.dob ? user.dob : 'N/A'}</p>
+                                            <button class="btn btn-primary edit-button" 
+                                                    data-userid="${user._id}"
+                                                    data-username="${user.username}"
+                                                    data-name="${user.name}"
+                                                    data-email="${user.email}"
+                                                    data-mobile="${user.mobile}"
+                                                    data-dob="${user.dob}">
+                                                Edit
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                `;
+
+                                });
+                            })
+                            .catch(error => {
+                                console.error('There was a problem with the fetch operation:', error);
+                            });
+                    } catch (error) {
+                        console.error(error);
+                    }
+                }
+            });
+        });
     </script>
 </body>
 

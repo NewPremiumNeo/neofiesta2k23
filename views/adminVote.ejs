@@ -80,8 +80,6 @@
                 <form class="form-inline my-2 my-lg-0" action="/admin/vote" method="GET">
                     <input class="form-control mr-sm-2" id="searchInput" type="search" placeholder="Search"
                         aria-label="Search" name="search">
-                    <button style="position: absolute; z-index: 999;" class="btn btn-outline-success my-2 my-sm-0"
-                        type="submit">Search</button>
                 </form>
             </div>
 
@@ -200,10 +198,8 @@
 
 
         document.addEventListener('DOMContentLoaded', function () {
-            // Get the input element
             const searchInput = document.getElementById('searchInput');
 
-            // Event listener for keyup event
             searchInput.addEventListener('keyup', function () {
                 // Get the search query
                 const searchQuery = searchInput.value;

@@ -122,28 +122,32 @@ router.post('/vote/:idToDelete/delete', isAdminLoggedIn, async function (req, re
 
 // GET route to render admin users page
 router.get('/users', isAdminLoggedIn, async (req, res) => {
-    try {
-        let users;
-        const { search } = req.query;
-
-        if (search) {
-            // If search query is provided, filter users by username or name
-            users = await usersModel.find({
+    const { search } = req.query;
+    if (search) {
+        try {
+            const users = await usersModel.find({
                 $or: [
-                    { username: { $regex: search, $options: 'i' } }, // Case-insensitive search for username
-                    { name: { $regex: search, $options: 'i' } } // Case-insensitive search for name
+                    { username: { $regex: search, $options: 'i' } },
+                    { name: { $regex: search, $options: 'i' } }
                 ]
             }, 'username name email mobile dob');
-        } else {
-            // If no search query, fetch all users
-            users = await usersModel.find({}, 'username name email mobile dob');
+
+            res.json(users);
+        } catch (error) {
+            console.error(error);
+            res.status(500).send('Server Error');
         }
-        const errorMessage = req.flash('error');
-        const successMessage = req.flash('success');
-        res.render('adminUsers', { users, successMessage, errorMessage });
-    } catch (error) {
-        console.error(error);
-        res.status(500).send('Server Error');
+    } else {
+        try {
+            let users = await usersModel.find({}, 'username name email mobile dob');
+
+            const errorMessage = req.flash('error');
+            const successMessage = req.flash('success');
+            res.render('adminUsers', { users, successMessage, errorMessage });
+        } catch (error) {
+            console.error(error);
+            res.status(500).send('Server Error');
+        }
     }
 });
 
