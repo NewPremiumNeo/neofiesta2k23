@@ -51,8 +51,6 @@
     height: 100vh;
     object-fit: cover;
     overflow: hidden;
-    /* -webkit-mask-image:url(/heart.png) ;
-    -webkit-mask-size: contain; */
   }
   /* Gallery Section CSS Starts here */
   #GallerySection {

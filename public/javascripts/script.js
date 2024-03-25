@@ -87,19 +87,15 @@ t1.from(".imp-heading h1,.btn",{
   opacity:0
 })
 
-
-
-
-
-gsap.from(".person", {
-  y: 50,
+gsap.from(".profile", {
+  x: 50,
   opacity: 0,
-  duration: 1.5,
+  duration: 1,
   stagger: 0.4,
   scrollTrigger: {
-    trigger: ".person",
+    trigger: ".profile",
     scroller: "body",
-    scrub: 4,
+    scrub: 1,
   },
 });
 
