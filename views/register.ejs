@@ -4,8 +4,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> -->
     <title>Register | 2k23 Freshers</title>
     <style>
         * {
@@ -85,11 +83,6 @@
             background-color: #624efe;
         }
 
-        .alert {
-            background-color: red;
-            color: white;
-        }
-
         #existing-user {
             margin: 3rem 0;
             font-size: 1.5rem;
@@ -99,6 +92,23 @@
             font-weight: 700;
             color: #7e6dfd;
         }
+
+        .alert {
+            margin-bottom: 20px;
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        .alert ul li {
+            margin-left: 1rem;
+            font-size: 1.6rem;
+        }
+
+        .alert-danger {
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+            color: #721c24;
+        }
     </style>
 </head>
 
@@ -107,7 +117,11 @@
         <h1>Registration Form</h1>
         <% if (messages && messages.length> 0) { %>
             <div class="alert alert-danger" role="alert">
-                <%= messages[0] %>
+                <ul>
+                    <li>
+                        <%= messages[0] %>
+                    </li>
+                </ul>
             </div>
             <% } %>
                 <hr>
@@ -136,9 +150,12 @@
                 </form>
                 <div id="existing-user">Already Registered? <a href="/login">Log in</a>
                 </div>
+
+                <script>
+                    setTimeout(() => {
+                        document.getElementById('msg').style.display = 'none';
+                    }, 3000);
+                </script>
 </body>
-
-
-
 
 </html>

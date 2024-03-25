@@ -129,4 +129,66 @@ router.post('/vote/:idToDelete/delete', isAdminLoggedIn, async function (req, re
 });
 
 
+// GET route to render admin users page
+router.get('/users', isAdminLoggedIn, async (req, res) => {
+    try {
+        let users;
+        const { search } = req.query;
+
+        if (search) {
+            // If search query is provided, filter users by username or name
+            users = await usersModel.find({
+                $or: [
+                    { username: { $regex: search, $options: 'i' } }, // Case-insensitive search for username
+                    { name: { $regex: search, $options: 'i' } } // Case-insensitive search for name
+                ]
+            }, 'username name email mobile dob');
+        } else {
+            // If no search query, fetch all users
+            users = await usersModel.find({}, 'username name email mobile dob');
+        }
+        const errorMessage = req.flash('error');
+        const successMessage = req.flash('success');
+        res.render('adminUsers', { users, successMessage, errorMessage });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Server Error');
+    }
+});
+
+// POST route to update user details
+router.post('/users/:userId', isAdminLoggedIn, async (req, res) => {
+    const { username, name, email, mobile, dob, newPassword } = req.body;
+    const { userId } = req.params;
+    try {
+        const user = await usersModel.findById(userId);
+        if (!user) {
+            return res.status(404).send('User not found');
+        }
+        if (!username || !name || !email || !mobile) {
+            req.flash('error', 'Some Important Credintial Missing');
+            return res.redirect('/admin/users');
+        }
+        user.username = username;
+        user.name = name;
+        user.email = email;
+        user.mobile = mobile;
+        user.dob = dob;
+
+        // Update user's password if a new password is provided
+        if (newPassword) {
+            await user.setPassword(newPassword);
+        }
+        await user.save();
+
+        req.flash('success', 'User details updated successfully');
+        res.redirect('/admin/users');
+    } catch (error) {
+        console.error(error);
+        req.flash('error', 'Failed to update user details');
+        res.redirect('/admin/users');
+    }
+});
+
+
 module.exports = router;

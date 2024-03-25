@@ -10,6 +10,7 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            font-family: Arial, sans-serif;
         }
 
         html {
@@ -17,7 +18,6 @@
         }
 
         body {
-            font-family: Arial, sans-serif;
             background-repeat: no-repeat;
             background-size: cover;
             background-image: url(/images/layered-waves-haikei.svg);
@@ -81,11 +81,6 @@
             background-color: #624efe;
         }
 
-        .alert {
-            background-color: red;
-            color: white;
-        }
-
         .non-existing-user {
             margin: 3rem 0;
             font-size: 1.5rem;
@@ -95,6 +90,23 @@
             font-weight: 700;
             color: #7e6dfd;
         }
+
+        .alert {
+            margin-bottom: 20px;
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        .alert ul li {
+            margin-left: 1rem;
+            font-size: 1.6rem;
+        }
+
+        .alert-danger {
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+            color: #721c24;
+        }
     </style>
 </head>
 
@@ -103,8 +115,12 @@
         <h1>LOGIN</h1>
         <hr>
         <% if (messages && messages.length> 0) { %>
-            <div class="alert alert-danger" role="alert">
-                <h3>Enrollment Number or Password is Incorrect.</h3>
+            <div id="msg"  class="alert alert-danger" role="alert">
+                <ul>
+                    <li>
+                        Enrollment or Password is Incorrect.
+                    </li>
+                </ul>
             </div>
             <% } %>
                 <form action="/login" method="post" id="LogInForm">
@@ -121,6 +137,11 @@
                     <p>Haven't Registered Yet!? <a href="/register">Register</a></p>
                 </div>
     </div>
+    <script>
+        setTimeout(() => {
+            document.getElementById('msg').style.display = 'none';
+        }, 3000);
+    </script>
 </body>
 
 </html>

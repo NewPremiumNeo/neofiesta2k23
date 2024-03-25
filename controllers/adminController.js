@@ -39,34 +39,3 @@ exports.adminGetLogout = (req, res, next) => {
         res.redirect('/admin/login');
     });
 };
-
-
-// exports.postEditProfile = async function (req, res) {
-//     const {username, email, fullname, bio, userOldDp} = req.body;
-//     try {
-//         const existingEmailUser = await userModel.findOne({ email, _id: { $ne: req.user._id } });
-//         const existingEnrollmentUser = await userModel.findOne({ username, _id: { $ne: req.user._id } });
-//         if (existingEmailUser) {
-//             req.flash('error', 'Email is already used');
-//             return res.redirect('/profile');
-//         }
-//         if (existingEnrollmentUser) {
-//             req.flash('error', 'Username is already used');
-//             return res.redirect('/profile');
-//         }
-//         const userdp = req.file ? req.file.filename : userOldDp;
-//         let updatedUserData = await userModel.findByIdAndUpdate(req.user._id, {
-// enrollment,
-// name,
-// email,
-// mobile,
-// dob
-// // userDp: userdp
-//         })
-//         console.log(updatedUserData);
-//         res.redirect('/profile');
-//     } catch (err) {
-//         console.error('Error in editing profile:', err.message);
-//         res.status(500).send('Internal Server Error');
-//     }
-// };

@@ -124,6 +124,29 @@ exports.getLogout = (req, res, next) => {
     });
 };
 
+exports.updatePassword = async (req, res) => {
+    try {
+        const { oldPassword, newPassword } = req.body;
+
+        req.user.changePassword(oldPassword, newPassword, (err, user) => {
+            if (err) {
+                if (err.name === 'IncorrectPasswordError') {
+                    req.flash('error', 'Incorrect old password');
+                    return res.redirect('/changepassword'); // Redirect to change password page
+                }
+                console.error(err);
+                req.flash('error', 'Failed to update password');
+                return res.redirect('/changepassword'); // Redirect to change password page
+            }
+            req.flash('success', 'Password updated successfully');
+            return res.redirect('/changepassword'); // Redirect to change password page
+        });
+    } catch (error) {
+        console.error(error);
+        req.flash('error', 'Server Error');
+        res.redirect('/changepassword'); // Redirect to change password page
+    }
+};
 
 // exports.postEditProfile = async function (req, res) {
 //     const {username, email, fullname, bio, userOldDp} = req.body;

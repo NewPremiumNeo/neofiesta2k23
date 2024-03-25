@@ -78,5 +78,13 @@ router.get('/videos', isLoggedIn, function (req, res, next) {
 //   res.render('photos2');
 // });
 
+router.get('/changepassword', isLoggedIn, (req, res) => {
+  res.render('changePassword', { 
+    successMsg: req.flash('success'), 
+    errorMsg: req.flash('error') 
+  });
+});
+
+router.post('/changePassword', isLoggedIn, userController.updatePassword);
 
 module.exports = router;
