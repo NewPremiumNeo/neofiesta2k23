@@ -139,7 +139,7 @@ exports.updatePassword = async (req, res) => {
                 return res.redirect('/changepassword'); // Redirect to change password page
             }
             req.flash('success', 'Password updated successfully');
-            return res.redirect('/changepassword'); // Redirect to change password page
+            return res.redirect('/login'); // Redirect to login page
         });
     } catch (error) {
         console.error(error);
