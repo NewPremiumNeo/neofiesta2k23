@@ -2,13 +2,13 @@ var express = require('express');
 var router = express.Router();
 const photoModel = require('../models/photoModel.js');
 const multer = require('../middleware/multer.js');
-const { uploadOnCloudinary } = require('../middleware/cloudinary.js');
 const { isLoggedIn, isAdminLoggedIn } = require('../middleware/authMiddleware.js');
 // const photosController = require('../controllers/photosController.js')
 const adminController = require('../controllers/adminController.js');
 const usersModel = require('../models/usersModel.js');
 const videoModel = require('../models/videoModel.js');
 const voteModel = require('../models/voteModel');
+const voteController = require('../controllers/voteController.js')
 
 
 router.use(express.urlencoded({ extended: false }));
@@ -58,44 +58,7 @@ router.get('/photos/upload/', isAdminLoggedIn, function (req, res, next) {
     res.render('adminPhotoUpload', { messages: req.flash('error') });
 });
 
-router.post('/photos/upload/', isAdminLoggedIn, multer.uploadImg.array('photos', 10), async (req, res) => {
-    const { postTitle, postDescription, year } = req.body;
-    if (!req.files || req.files.length === 0) {
-        return res.status(400).send('No files uploaded.');
-    }
-    const uploadedPhotos = req.files.map(file => ({ imageUrl: file.path }));
-    try {
-        const savedPhotos = await Promise.all(
-            uploadedPhotos.map(async photo => {
-                const result = await uploadOnCloudinary(photo.imageUrl);
-                if (result) {
-                    const newPhoto = new photoModel({
-                        postImageUrl: result.secure_url,
-                        postTitle: postTitle,
-                        postDescription: postDescription,
-                        year: year,
-                        ownerIds: req.user._id
-                    });
-                    // Save the new photo document to MongoDB
-                    const savedPhoto = await newPhoto.save();
-                    // console.log("savedPhoto :- ", savedPhoto)
-                    return savedPhoto.postImageUrl;
-
-                } else {
-                    return null; // Handle if upload fails
-                }
-            })
-        );
-
-        // Filter out any null values
-        const filteredPhotos = savedPhotos.filter(photo => photo !== null);
-
-        res.json(filteredPhotos); // Send back the saved photo details
-    } catch (err) {
-        console.error(err);
-        res.status(500).send('Internal Server Error');
-    }
-});
+router.post('/photos/upload/', isAdminLoggedIn, multer.uploadImg.array('photos', 10), voteController.photoUploadPost);
 
 router.get('/photo/:photoId/liked', isAdminLoggedIn, async function (req, res, next) {
     try {
@@ -109,8 +72,36 @@ router.get('/photo/:photoId/liked', isAdminLoggedIn, async function (req, res, n
 
 //Admin Vote
 router.get('/vote', isAdminLoggedIn, async function (req, res, next) {
-    const allVotes = await voteModel.find().populate('user')
-    res.render('adminVote', { allVotes, messages: req.flash('success') });
+    const { search } = req.query;
+    if (search) {
+        try {
+            let allVotes = await voteModel.find().populate('user');
+            allVotes = allVotes.filter(vote => {
+                return (
+                    vote.user.username.toLowerCase().includes(search.toLowerCase()) ||
+                    vote.user.name.toLowerCase().includes(search.toLowerCase()) ||
+                    vote.votedMember.toLowerCase().includes(search.toLowerCase()) ||
+                    vote.name.toLowerCase().includes(search.toLowerCase())
+                );
+            });
+            res.json(allVotes);
+        } catch (error) {
+            console.error(error);
+            res.status(500).send('Server Error');
+        }
+    } else {
+        try {
+            const { voteCounts, winners, message, error } = await voteController.calculateWinners();
+            if (error) {
+                return res.status(500).json({ error });
+            }
+            let allVotes = await voteModel.find().populate('user');
+            res.render('adminVote', { allVotes, messages: req.flash('success'), voteCounts, winners, message });
+        } catch (error) {
+            console.error(error);
+            res.status(500).send('Server Error');
+        }
+    }
 });
 
 router.post('/vote/:idToDelete/delete', isAdminLoggedIn, async function (req, res, next) {

@@ -32,12 +32,12 @@ function validateEnrollment(enrollment) {
             }
             break;
         case "2022":
-            if (!(XXXX >= 3001 && XXXX <= 3025) || XXXX == 3005 || XXXX == 3007 || XXXX == 3019 || XXXX == 3022 || !(XXXX >= 4001 && XXXX <= 4009)) {
+            if (!(XXXX >= 3001 && XXXX <= 3025) || XXXX == 3005 || XXXX == 3007 || XXXX == 3019 || XXXX == 3022) {
                 return false;
             }
             break;
         case "2023":
-            if (!(XXXX >= 3001 && XXXX <= 3030) || !(XXXX >= 4002 && XXXX <= 4020) || XXXX == 4013) {
+            if (!(XXXX >= 3001 && XXXX <= 3030)) {
                 return false;
             }
             break;
@@ -64,7 +64,7 @@ exports.postRegister = async (req, res) => {
             req.flash('error', 'Email is already used');
             return res.redirect('/register');
         }
-
+        console.log(enrollment)
         // Check if enrollment number is already used
         const existingEnrollmentUser = await userModel.findOne({ username: enrollment });
         if (existingEnrollmentUser) {

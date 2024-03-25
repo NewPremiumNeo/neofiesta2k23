@@ -4,6 +4,7 @@ const checkVoted = require('../middleware/checkVoted');
 const voteModel = require('../models/voteModel');
 const { isLoggedIn } = require('../middleware/authMiddleware.js');
 const usersModel = require('../models/usersModel.js');
+const voteController = require('../controllers/voteController.js')
 
 
 router.get('/', isLoggedIn, checkVoted, async (req, res) => {
@@ -12,7 +13,6 @@ router.get('/', isLoggedIn, checkVoted, async (req, res) => {
 
 router.get('/voted', isLoggedIn, checkVoted, async (req, res) => {
     const votedMemberId = await voteModel.findOne({ "user": req.user._id })
-    // const votedMemberId = await voteModel.findOne({ "user": req.user._id }).populate('votedMemberId')
     res.render('voted', { votedMemberId });
 });
 
@@ -50,6 +50,17 @@ router.post('/', isLoggedIn, checkVoted, async (req, res) => {
     } catch (error) {
         console.error("Error:", error.message);
         res.status(500).send('Internal Server Error');
+    }
+});
+
+
+router.get('/winner', isLoggedIn, async (req, res) => {
+    try {
+        const { winners, message } = await voteController.calculateWinners();
+        res.render('winner', { winners, message });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "Internal Server Error" });
     }
 });
 

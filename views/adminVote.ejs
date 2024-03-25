@@ -41,9 +41,9 @@
                         <i class="uil uil-thumbs-up"></i>
                         <span class="link-name">Vote Panel</span>
                     </a></li>
-                <li><a href="#">
+                <li><a href="/admin/users">
                         <i class="uil uil-comments"></i>
-                        <span class="link-name">Comments</span>
+                        <span class="link-name">Users</span>
                     </a></li>
                 <li><a href="#">
                         <i class="uil uil-share"></i>
@@ -52,7 +52,7 @@
             </ul>
 
             <ul class="logout-mode">
-                <li><a href="/admin/login">
+                <li><a href="/admin/logout">
                         <i class="uil uil-signout"></i>
                         <span class="link-name">Logout</span>
                     </a></li>
@@ -77,7 +77,12 @@
 
             <div class="search-box">
                 <i class="uil uil-search"></i>
-                <input type="text" placeholder="Search here...">
+                <form class="form-inline my-2 my-lg-0" action="/admin/vote" method="GET">
+                    <input class="form-control mr-sm-2" id="searchInput" type="search" placeholder="Search"
+                        aria-label="Search" name="search">
+                    <button style="position: absolute; z-index: 999;" class="btn btn-outline-success my-2 my-sm-0"
+                        type="submit">Search</button>
+                </form>
             </div>
 
             <img src="images/profile.jpg" alt="">
@@ -102,7 +107,16 @@
                         <i class="uil uil-comments"></i>
                         <span class="text">Highest Votes</span>
                         <span class="number">
-                            N/A
+                            <% if (winners && winners.length> 0) { %>
+                                <% winners.forEach(winner=> { %>
+                                    <small>
+                                        <%= winner.name %>
+                                            <%= winner.count %> votes!
+                                    </small>
+                                    <% }); %>
+                                        <% } else { %>
+                                            <p>N/A</p>
+                                            <% } %>
                         </span>
                     </div>
                     <div class="box box3">
@@ -167,8 +181,11 @@
         </div>
     </section>
     <script src="/javascripts/admin.js"></script>
+
     <script>
         async function deleteVote(id) {
+
+
             try {
                 const response = await fetch(`/admin/vote/${id}/delete`, { method: 'post' });
                 if (response.ok) {
@@ -180,6 +197,78 @@
                 console.error('Error:', error);
             }
         }
+
+
+        document.addEventListener('DOMContentLoaded', function () {
+            // Get the input element
+            const searchInput = document.getElementById('searchInput');
+
+            // Event listener for keyup event
+            searchInput.addEventListener('keyup', function () {
+                // Get the search query
+                const searchQuery = searchInput.value;
+
+                // Fetch data from the server only if search query is not empty
+                if (searchQuery !== '') {
+                    try {
+                        fetch(`/admin/vote?search=${searchQuery}`)
+                            .then(response => {
+                                if (!response.ok) {
+                                    throw new Error('Network response was not ok');
+                                }
+                                return response.json(); // Parse response as JSON
+                            })
+                            .then(data => {
+                                const activityData = document.querySelector('.activity-data');
+                                const names = document.querySelector('.names');
+                                const email = document.querySelector('.email');
+                                const joined = document.querySelector('.joined');
+                                const type = document.querySelector('.type');
+                                const status = document.querySelector('.status');
+                                names.innerHTML = '<span class="data-title">Name</span>';
+                                email.innerHTML = '<span class="data-title">Enrollment</span>';
+                                joined.innerHTML = '<span class="data-title">Voted To</span>';
+                                type.innerHTML = '<span class="data-title">Enrollment</span>';
+                                status.innerHTML = '<span class="data-title">Delete</span>';
+
+                                data.forEach(vote => {
+                                    names.innerHTML += `
+                                <span class="data-list">${vote.user.name}</span> `;
+
+                                });
+                                data.forEach(vote => {
+                                    email.innerHTML += `
+                                <span class="data-list">${vote.user.username}</span> `;
+
+                                });
+                                data.forEach(vote => {
+                                    joined.innerHTML += `
+                                <span class="data-list">${vote.name}</span> `;
+
+                                });
+                                data.forEach(vote => {
+                                    type.innerHTML += `
+                                <span class="data-list">${vote.votedMember}</span> `;
+
+                                });
+                                data.forEach(vote => {
+                                    status.innerHTML += `
+                                    <span class="data-list">
+                                        <button onclick="deleteVote('${vote._id}')">Delete</button>
+                                        </span> `;
+                                });
+
+                            })
+                            .catch(error => {
+                                console.error('There was a problem with the fetch operation:', error);
+                            });
+                    } catch (error) {
+                        console.error(error);
+                    }
+                }
+            });
+        });
+
     </script>
 </body>
 

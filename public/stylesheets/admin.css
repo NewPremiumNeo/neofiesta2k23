@@ -267,6 +267,20 @@ nav.close ~ .dashboard .top {
   transform: translateY(-50%);
   color: var(--black-light-color);
 }
+.top .search-box .btn {
+  position: absolute;
+  right: 15px;
+  font-size: 18px;
+  padding: 2px 5px;
+  z-index: 10;
+  top: 50%;
+  transform: translateY(-50%);
+  color: black;
+  background-color: var(--box1-color) ;
+  outline: none;
+  border: none;
+  border-radius: 5px;
+}
 .top img {
   width: 40px;
   border-radius: 50%;
