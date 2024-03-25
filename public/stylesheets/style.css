@@ -42,6 +42,9 @@ html {
   font-size: 62.5%;
   scroll-behavior: smooth;
 }
+body{
+  overflow-y: hidden;
+}
 
 #mainLoader{
   position: absolute;
@@ -322,7 +325,7 @@ nav h1 {
   font-size: 10rem;
   font-weight: 900;
   text-align: center;
-  background: linear-gradient(to right,#C33764 ,#1D2671);
+  /* background: linear-gradient(to right,#C33764 ,#1D2671); */
   -webkit-text-fill-color: transparent;
   -webkit-background-clip:text;
   text-shadow: 0 0 60px rgba(255, 0, 0, 0.803);
@@ -415,16 +418,50 @@ main {
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
-  position: relative;
 }
 
-main h1 {
-  margin-top: 2rem;
-  margin-bottom: 2rem;
-  color: rgb(6, 246, 74);
-  text-align: center;
-  font-size: 3rem;
+:root {
+  --gold: #ffb338;
+  --light-shadow: #77571d;
+  --dark-shadow: #3e2904;
 }
+
+.wrapper {
+  display: grid;
+  grid-template-areas: 'overlap';
+  place-content: center;
+  text-transform: uppercase;  
+}
+.wrapper > div {
+  background-clip: text;  
+  -webkit-background-clip: text;
+  color: #363833;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 900;
+  font-size: clamp( 1rem, 18vw, 3rem);
+  grid-area: overlap;
+  letter-spacing: 1px;
+  -webkit-text-stroke: 4px transparent;
+}
+div.bg {
+  background-image: repeating-linear-gradient( 105deg, 
+    var(--gold) 0% , 
+    var(--dark-shadow) 5%,
+    var(--gold) 12%);
+  color: transparent;
+  filter: drop-shadow(5px 15px 15px rgb(238, 234, 234));
+  transform: scaleY(1.05);
+  transform-origin: top;
+}
+div.fg{
+  background-image: repeating-linear-gradient( 5deg,  
+    var(--gold) 0% , 
+    var(--light-shadow) 23%, 
+    var(--gold) 31%);
+  color: #ebecf0;
+  transform: scale(1);
+}
+
 /* Profile Section CSS */
 .person {
   width: 100%;
@@ -469,18 +506,23 @@ main h1 {
   border: 1px solid white;
   outline: none;
   cursor: pointer;
-  margin-top: 1rem;
 }
-.profile button:hover{
+.profile button:hover {
   transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
-  box-shadow: 0.3rem 0.3rem 0 #dadada;
+  box-shadow: 0.5rem 0.5rem 0 white;
   transform: translate(-0.2rem, -0.2rem);
   -webkit-transform: translate(-0.2rem, -0.2rem);
-  background-color: #111;
+}
+
+.profile h3 {
+  font-size: 1.6rem;
+}
+
+.profile h6 {
+  font-size: 1rem;
 }
 
 .pic {
-  /* background-image: url('data:image/svg+xml,<svg id="visual" viewBox="0 0 300 300" width="180" height="180" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1"><g transform="translate(177.6722013752853 176.8834193433201)"><path d="M72.5 -83.1C93.2 -51.9 108.6 -25.9 106.7 -1.9C104.8 22.1 85.5 44.2 64.9 60.9C44.2 77.5 22.1 88.8 -8.3 97C-38.7 105.3 -77.3 110.6 -108.1 94C-139 77.3 -162 38.7 -162.2 -0.2C-162.5 -39.1 -139.9 -78.3 -109.1 -109.5C-78.3 -140.8 -39.1 -164.1 -6.6 -157.5C25.9 -150.9 51.9 -114.4 72.5 -83.1" fill="%23cde704"></path></g></svg>'); */
   background-repeat: no-repeat;
   background-size: auto;
   position: relative;
@@ -492,8 +534,47 @@ main h1 {
 }
 
 .pic img{
-  width: 75%;
+  width: 85%;
   aspect-ratio: 1/1;
+}
+
+.dialog {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.dialog-content {
+  background-color: rgba(255, 255, 255, 0.5);
+  box-shadow: rgba(157, 157, 157, 1) 0px 4px 10px;
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(10px);
+
+
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  max-width: 600px;
+
+}
+
+.close {
+  color: #000;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: crimson;
+  text-decoration: none;
+  cursor: pointer;
 }
 
 
@@ -620,13 +701,10 @@ form button:hover {
   place-items: center;
  
 }
-.event .heading{
-  font-size: 3.5rem;
-  font-weight: 500;
-  color: rgb(6, 246, 74);
+.heading {
   text-align: center;
-  margin-bottom: 6rem;
   position: relative;
+  font-size: 1.6rem
 }
 .heading::after{
   position: absolute;
@@ -635,13 +713,14 @@ form button:hover {
   height: 4px;
   left: 50%;
   bottom: -5px;
-  background-image: linear-gradient(to right,rgb(106,6,236),rgb(220,0,240));
+  background-image: linear-gradient(to bottom, #ffb338,#77571d,#3e2904);
   transform: translateX(-50%);
 }
 .cont-event{
   width: 70%;
   height: auto;
   position: relative;
+  margin-top: 6rem;
 
 }
 .cont-event::after{
@@ -649,7 +728,7 @@ form button:hover {
   content: '';
   width: 2px;
   height: 100%;
-  background-image: linear-gradient(to bottom,rgb(106,6,236),rgb(220,0,240));
+  background-image: linear-gradient(to bottom, #ffb338,#77571d,#3e2904);
   top: 0;
   left: 50%;
   transform: translateX(-50%);
@@ -686,13 +765,13 @@ form button:hover {
   clear: left;
   transform: translateX(30px);
 }
-.cont-event ul li:nth-child(4){
+.cont-event ul li:nth-child(6){
   margin-bottom: 0;
 }
 .cont-event ul li .title{
   font-size: 20px;
   font-weight: 500;
-  color: rgb(106, 6, 236);
+  color: var(--gold);
 }
 ul li p{
   font-size: 15px;
@@ -708,7 +787,7 @@ ul li .time{
   height: 35px;
   border-radius: 20px;
   color: #fff;
-  background-image: linear-gradient(to right,rgb(106,6,236),rgb(220,0,240));
+  background-image: linear-gradient(to bottom, #ffb338,#77571d,#3e2904);
   display: grid;
   place-items: center;
   font-size: 15px;
@@ -716,7 +795,7 @@ ul li .time{
 .cont-event ul li .circle{
   width: 30px;
   height: 30px;
-  background-color: rgb(220,0,240,0.403);
+  background-color: var(--light-shadow);
   border-radius: 50%;
   position:absolute;
   top: 0;
@@ -726,7 +805,7 @@ ul li .time{
   content: '';
   width: 15px;
   height: 15px;
-  background-color: rgb(106, 6, 236);
+  background-color: var(--gold);
   border-radius: 50%;
   position: absolute;
   top: 50%;
