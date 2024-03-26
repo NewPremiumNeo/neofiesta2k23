@@ -53,7 +53,7 @@ router.get('/gallery', isLoggedIn, function (req, res, next) {
   res.render('gallery');
 });
 
-router.get('/gallery/photos/:year', isLoggedIn, async function (req, res, next) {
+router.get('/gallery/photos/:year',isLoggedIn, async function (req, res, next) {
   try {
     const year = req.params.year
     const validYear = ["2k21", "2k22", "2k23"]
@@ -83,6 +83,19 @@ router.get('/changepassword', isLoggedIn, (req, res) => {
     successMsg: req.flash('success'), 
     errorMsg: req.flash('error') 
   });
+});
+
+router.get('/profile/:username', async (req, res) => {
+  try {
+      const user = await usersModel.findOne({ username: req.params.username }).populate('likePhotoIds likeVideoIds');
+      if (!user) {
+          return res.status(404).send('User not found');
+      }
+      res.render('profile', { user });
+  } catch (err) {
+      console.error(err);
+      res.status(500).send('Server Error');
+  }
 });
 
 router.post('/changePassword', isLoggedIn, userController.updatePassword);
