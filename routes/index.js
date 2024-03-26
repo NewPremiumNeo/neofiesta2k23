@@ -88,7 +88,6 @@ router.get('/changepassword', isLoggedIn, (req, res) => {
 
 router.get('/profile', isLoggedIn, async (req, res) => {
   try {
-    // const user = await usersModel.findOne({ username: req.params.username }).populate('likePhotoIds likeVideoIds');
     const user = await usersModel.findOne({ _id: req.user._id }).populate('likePhotoIds likeVideoIds');
     if (!user) {
       return res.status(404).send('User not found');
@@ -99,6 +98,18 @@ router.get('/profile', isLoggedIn, async (req, res) => {
     res.status(500).send('Server Error');
   }
 });
+router.get('/profile/moredetail',async (req,res)=>{
+  try {
+    const user = await usersModel.findOne({ _id: req.user._id }).populate('likePhotoIds likeVideoIds');
+    if (!user) {
+      return res.status(404).send('User not found');
+    }
+    res.render('moredetail', { user });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Server Error');
+  }
+})
 
 router.post('/changePassword', isLoggedIn, userController.updatePassword);
 
