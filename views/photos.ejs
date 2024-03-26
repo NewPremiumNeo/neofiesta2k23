@@ -1,71 +1,91 @@
-<!-- <!DOCTYPE html> -->
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Photos</title>
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/stylesheets/photos.css">
+    <link rel="stylesheet" href="/stylesheets/responsive_design.css">
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/css/lightbox.css"
         integrity="sha512-Woz+DqWYJ51bpVk5Fv0yES/edIMXjj3Ynda+KWTIkGoynAMHrqTcDUQltbipuiaD5ymEo9520lyoVOo9jCQOCA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous" />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" />
-    <link rel="stylesheet" href="/stylesheets/photos.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" />
 </head>
 
 <body>
     <main>
-        <div class="jumbotron">
-            <h1><i class="fa fa-camera-retro"></i>
-                <%= title %>
-            </h1>
-            <p>Just a Gallary Full of Beautiful Images...</p>
-        </div>
 
-        <div class="container">
-            <div class="gallery">
-                <% if (allPhotos && allPhotos.length> 0) { %>
-                    <% allPhotos.forEach(post=> { %>
-                        <div class="grid__images">
-                            <a href="<%= post.postImageUrl %>" data-lightbox="models" data-title="Photos">
-                                <img src="<%= post.postImageUrl %>" alt="Photos">
-                            </a>
-                            <div class="button-container">
-                                <button class="btn btn-primary btn-download">Download</button>
-                                <button onclick="liketoggle('<%= post._id %>')" class="btn btn-success btn-like"
-                                    id="<%= post._id %>">
-                                    <i class="fa fa-heart"></i> Like
-                                    <h6 id="totalLike-<%= post._id %>">
-                                        <%= post.likeUserIds.length %> like
-                                    </h6>
-                                </button>
-                            </div>
-                        </div>
-                        <% }); %>
-                            <% } else{ %>
-                                <h1 style="color: #f1f1f1;">NO Photos of <%= title %>
-                                </h1>
-                                <% } %>
+        <div class="other-categories">
+            <div class="blur-background"></div>
+            <div class="containing-div">
+                <div class="details">
+                    <div class="title">
+                        <%= title %>
+                    </div>
+                    <div class="content">
+                        <p>A beautifull memories</p>
+                    </div>
+                </div>
             </div>
         </div>
+
+
+        <section class="gallery" style="display: block;">
+            <% if (allPhotos && allPhotos.length> 0) { %>
+                <% allPhotos.forEach(post=> { %>
+                    <div class="grid__images">
+                        <a href="<%= post.postImageUrl %>" data-lightbox="models" data-title="Photos">
+                            <img src="<%= post.postImageUrl %>" alt="Photos" loading="lazy" class="gallery-image">
+                        </a>
+                        <div class="button-container">
+                            <div class="button__like">
+                                <span class="img_like">
+                                    <i onclick="liketoggle('<%= post._id %>')" id="<%= post._id %>"
+                                        class="ri-heart-line btn-like"></i>
+                                    <i class="ri-bookmark-3-line"></i>
+                                    <!-- <i class="ri-bookmark-3-fill"></i> -->
+                                </span>
+                                <i class="ri-download-fill"></i>
+                            </div>
+                            <h6 id="totalLike-<%= post._id %>"></h6>
+                        </div>
+                    </div>
+                    <% }); %>
+                        <% } else{ %>
+                            <h1 style="color: #f1f1f1;">NO Photos of <%= title %>
+                            </h1>
+                            <% } %>
+
+        </section>
     </main>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/js/lightbox-plus-jquery.js"
         integrity="sha512-oaWLach/xXzklmJDBjHkXngTCAkPch9YFqOSphnw590sy86CVEnAbcpw17QjkUGppGmVJojwqHmGO/7Xxx6HCw=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-
     <script src="/socket.io/socket.io.js"></script>
     <script>
+        lightbox.option({
+            'resizeDuration': 200,
+            'wrapAround': true,
+            'alwaysShowNavOnTouchDevices': true,
+            'disableScrolling': true,
+        })
+
         const socket = io();
         socket.on('like', (data) => {
             const likeCount = document.getElementById(`totalLike-${data.photoId}`);
             if (likeCount) {
-                likeCount.textContent = `${data.totalLikes} like${data.totalLikes !== 1 ? 's' : ''}`;
+                if (data.totalLikes == 0) {
+                    likeCount.textContent = ''
+                } else
+                    likeCount.textContent = `${data.totalLikes} like${data.totalLikes !== 1 ? 's' : ''}`;
             }
-        });
 
+        });
 
         document.addEventListener("DOMContentLoaded", function () {
             var likeButtons = document.querySelectorAll(".btn-like");
@@ -73,6 +93,7 @@
             // Check if the user has already liked posts and update button appearance
             likeButtons.forEach((button) => {
                 var photoId = button.getAttribute("id");
+                const likeCount = document.getElementById(`totalLike-${photoId}`);
                 fetch(`/photo/${photoId}/isliked`, {
                     method: 'GET',
                     headers: {
@@ -82,19 +103,21 @@
                     .then(response => response.json())
                     .then(data => {
                         if (data.liked) {
-                            button.innerHTML = `<i class='fa fa-heart'></i> Liked <h6 id='totalLike-${photoId}'> ${data.totalLikes} like</h6>`;
-                            button.classList.add("liked");
+                            button.classList.remove("ri-heart-line");
+                            button.classList.add("ri-heart-fill");
+                            likeCount.textContent = `${data.totalLikes} like${data.totalLikes !== 1 ? 's' : ''}`;
+                        }
+                        if (data.totalLikes == 0) {
+                            likeCount.textContent = ''
                         }
                     })
                     .catch(error => console.error('Error:', error));
             });
         });
 
-
         // Function to handle like button click
         async function liketoggle(photoId) {
             const button = document.getElementById(`${photoId}`);
-            const likeCount = document.getElementById(`totalLike-${photoId}`);
             fetch(`/photo/like`, {
                 method: 'PUT',
                 headers: {
@@ -105,19 +128,20 @@
                 .then(response => response.json())
                 .then(data => {
                     if (data.liked) {
-                        button.innerHTML = `<i class='fa fa-heart'></i> Liked <h6 id='totalLike-${photoId}'> ${data.totalLikes} like</h6>`;
-                        button.classList.add("liked");
+                        button.classList.remove("ri-heart-line");
+                        button.classList.add("ri-heart-fill");
                     } else {
-                        button.innerHTML = `<i class='fa fa-heart'></i> Like <h6 id='totalLike-${photoId}'> ${data.totalLikes} like</h6>`;
-                        button.classList.remove("liked");
+                        button.classList.remove("ri-heart-fill");
+                        button.classList.add("ri-heart-line");
                     }
-                    likeCount.textContent = `${data.totalLikes} like`;
 
                     // Emit 'like' event to notify server about the like
                     socket.emit('like', photoId);
                 })
                 .catch(error => console.error('Error:', error));
         }
+
+
     </script>
 </body>
 

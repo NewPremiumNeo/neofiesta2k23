@@ -53,7 +53,7 @@ router.get('/gallery', isLoggedIn, function (req, res, next) {
   res.render('gallery');
 });
 
-router.get('/gallery/photos/:year',isLoggedIn, async function (req, res, next) {
+router.get('/gallery/photos/:year', isLoggedIn, async function (req, res, next) {
   try {
     const year = req.params.year
     const validYear = ["2k21", "2k22", "2k23"]
@@ -70,31 +70,33 @@ router.get('/gallery/photos/:year',isLoggedIn, async function (req, res, next) {
   }
 });
 
-router.get('/videos', isLoggedIn, function (req, res, next) {
-  res.render('videos');
-});
-
-// router.get('/photos2', function (req, res, next) {
-//   res.render('photos2');
+// router.get('/videos', isLoggedIn, function (req, res, next) {
+//   res.render('videos');
 // });
 
+router.get('/photos2', async function (req, res, next) {
+  const allPhotos = await photoModel.find();
+  res.render('photos', { allPhotos, title: `Image Gallery 2222` });
+});
+
 router.get('/changepassword', isLoggedIn, (req, res) => {
-  res.render('changePassword', { 
-    successMsg: req.flash('success'), 
-    errorMsg: req.flash('error') 
+  res.render('changePassword', {
+    successMsg: req.flash('success'),
+    errorMsg: req.flash('error')
   });
 });
 
-router.get('/profile/:username', async (req, res) => {
+router.get('/profile', isLoggedIn, async (req, res) => {
   try {
-      const user = await usersModel.findOne({ username: req.params.username }).populate('likePhotoIds likeVideoIds');
-      if (!user) {
-          return res.status(404).send('User not found');
-      }
-      res.render('profile', { user });
+    // const user = await usersModel.findOne({ username: req.params.username }).populate('likePhotoIds likeVideoIds');
+    const user = await usersModel.findOne({ _id: req.user._id }).populate('likePhotoIds likeVideoIds');
+    if (!user) {
+      return res.status(404).send('User not found');
+    }
+    res.render('profile', { user });
   } catch (err) {
-      console.error(err);
-      res.status(500).send('Server Error');
+    console.error(err);
+    res.status(500).send('Server Error');
   }
 });
 
