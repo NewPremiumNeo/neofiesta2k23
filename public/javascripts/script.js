@@ -99,20 +99,6 @@ gsap.from(".profile", {
   },
 });
 
-gsap.from(".event", {
-  y: 50,
-  opacity: 0,
-  duration: 1.5,
-  stagger: 0.4,
-  scrollTrigger: {
-    trigger: ".event",
-    scroller: "body",
-  },
-});
-
-
-
-
 function hamwork() {
   const hambox = document.querySelector(".ham-box");
   const hambarbox = document.querySelector(".ham-bar-box");
