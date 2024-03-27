@@ -14,62 +14,15 @@
     <div class="profile-card">
         <div class="avatar"><img src="<%= user.userDp %>" alt="profile-img"></div>
         <div class="salutation">
-            <div class="name"><strong><%= user.username %></strong></div>
+            <div class="name"><p><%= user.username %></p></div>
             <div class="designation"><%= user.name %></div>
         </div>
         <div class="options">
-            <a class="button" href="/logout"><span>Logout</span></a>
-            <a class="button"><span>Edit Profile</span></a>
-            <a class="button" href="/profile/moredetail"><span>More</span></a>
+            <a class="button" href="/logout"><img src="/images/icons8-logout-30.png" alt=""><span>Logout</span></a>
+            <a class="button"> <img src="/images/edit profile.gif" alt=""> <span>Edit Profile</span></a>
+            <a class="button" href="/profile/moredetail"> <img src="/images/more.png" alt=""> <span>More</span></a>
         </div>
     </div>
 </body>
 <script src="/javascripts/profile.js"></script>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-</head>
-<body>
-    <h1>User Profile</h1>
-    <div>
-        <div>
-            <img src="<%= user.userDp %>" alt="Profile Picture" style="width: 200px; height: 200px; border-radius: 50%;">
-        </div>
-        <p><strong>Username:</strong> <%= user.username %></p>
-        <p><strong>Name:</strong> <%= user.name %></p>
-        <p><strong>Email:</strong> <%= user.email %></p>
-        <p><strong>Mobile:</strong> <%= user.mobile %></p>
-        <p><strong>Date of Birth:</strong> <%= user.dob || "Not specified" %></p>
-        <h2>Liked Photos:</h2>
-        <ul> -->
-            <!-- <% user.likePhotoIds.forEach(function(photoId) { %> -->
-                <!-- <li><%= photoId %></li> Replace this with actual display of photo information -->
-            <!-- <% }); %> -->
-        <!-- </ul> -->
-        <!-- <h2>Liked Videos:</h2> -->
-        <!-- <ul> -->
-            <!-- <% user.likeVideoIds.forEach(function(videoId) { %> -->
-                <!-- <li><%= videoId %></li> Replace this with actual display of video information -->
-            <!-- <% }); %>
-        </ul>
-    </div>
-</body>
-</html> -->
