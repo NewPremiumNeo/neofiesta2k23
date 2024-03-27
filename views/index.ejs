@@ -50,7 +50,13 @@
         <li><a href="/gallery">Gallery</a></li>
         <li><a href="/about">About</a></li>
         <li><a href="#contact">Contact</a></li>
-        <li><a href="#">Contact</a></li>
+        <li>
+          <% if (user) { %>
+            <a href="/logout">Logout</a>
+            <% } else {%>
+              <a href="/login">Login</a>
+              <% } %>
+        </li>
       </ul>
     </div>
     <div class="ham-box">
@@ -70,6 +76,11 @@
       <a href="/about">About</a>
 
       <a href="#contact">Contact</a>
+      <% if (user) { %>
+        <a href="/logout">Logout</a>
+        <% } else {%>
+          <a href="/login">Login</a>
+          <% } %>
     </div>
   </div>
   <section class="first__page" id="home">
@@ -99,7 +110,11 @@
     </div>
     <!-- Register Button -->
     <div class="btn">
-      <button onclick="window.location.href =' /gallery';">View Photos</button>
+      <% if (user) { %>
+        <button onclick="window.location.href ='/gallery';">View Photos</button>
+        <% } else { %>
+          <button onclick="showAlert()">View Photos</button>
+          <% } %>
     </div>
   </section>
   <!-- Main Section of the Page -->

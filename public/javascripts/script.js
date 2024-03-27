@@ -237,3 +237,15 @@ function toggleLoginLogout() {
 
 // Call the function when the page loads
 window.onload = toggleLoginLogout;
+
+
+function showAlert() {
+  var choice = confirm('Please Login First');
+  if (choice == true) {
+      // Redirect to the login route
+      window.location.href = '/login';
+  } else {
+      // User clicked cancel or closed the alert
+      // Handle the cancellation if needed
+  }
+}
