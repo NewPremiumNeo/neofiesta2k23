@@ -37,16 +37,26 @@ const userSchema = mongoose.Schema({
     },
     userDp: {
         type: String,
-        default: ''
+        default: 'neoFiesta.png'
     },
     likePhotoIds: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Photos',
         default: []
     }],
-    likeVideoIds: [{
+    savedPhotos: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Photos',
+        default: []
+    }],
+    likeVideoIds: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Videos',
+        default: []
+    }],
+    savedVideos: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Videos',
         default: []
     }],
     postIds: {
@@ -56,7 +66,8 @@ const userSchema = mongoose.Schema({
             postId: { type: mongoose.Schema.Types.ObjectId, required: true, refPath: 'postIds.type' }
         }],
         default: []
-    }
+    },
+
 }, { timestamps: true });
 
 userSchema.plugin(plm);

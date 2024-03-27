@@ -10,6 +10,7 @@ const commentSchema = new mongoose.Schema({
 
 
 const postSchema = mongoose.Schema({
+    year: { type: String, required: true },
     postVideoUrl: {
         type: String,
     },

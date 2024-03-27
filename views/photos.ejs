@@ -5,7 +5,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%= title %></title>
+    <title>
+        <%= title %>
+    </title>
     <link rel="stylesheet" href="/stylesheets/photos.css">
     <link rel="stylesheet" href="/stylesheets/responsive_design.css">
 
@@ -43,9 +45,10 @@
                         <div class="button-container">
                             <div class="button__like">
                                 <span class="img_like">
-                                    <i onclick="liketoggle('<%= post._id %>')" id="<%= post._id %>"
-                                        class="ri-heart-line btn-like"></i>
-                                    <i class="ri-bookmark-3-line"></i>
+                                    <i onclick="liketoggle('<%= post._id %>')" data-photo-id="<%= post._id %>"
+                                        id="like-<%= post._id %>" class="ri-heart-line btn-like"></i>
+                                    <i onclick="savetoggle('<%= post._id %>')" data-photo-id="<%= post._id %>"
+                                        id="save-<%= post._id %>" class="ri-bookmark-3-line btn-save"></i>
                                     <!-- <i class="ri-bookmark-3-fill"></i> -->
                                 </span>
                                 <i class="ri-download-fill"></i>
@@ -67,82 +70,7 @@
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <script src="/socket.io/socket.io.js"></script>
-    <script>
-        lightbox.option({
-            'resizeDuration': 200,
-            'wrapAround': true,
-            'alwaysShowNavOnTouchDevices': true,
-            'disableScrolling': true,
-        })
-
-        const socket = io();
-        socket.on('like', (data) => {
-            const likeCount = document.getElementById(`totalLike-${data.photoId}`);
-            if (likeCount) {
-                if (data.totalLikes == 0) {
-                    likeCount.textContent = ''
-                } else
-                    likeCount.textContent = `${data.totalLikes} like${data.totalLikes !== 1 ? 's' : ''}`;
-            }
-
-        });
-
-        document.addEventListener("DOMContentLoaded", function () {
-            var likeButtons = document.querySelectorAll(".btn-like");
-
-            // Check if the user has already liked posts and update button appearance
-            likeButtons.forEach((button) => {
-                var photoId = button.getAttribute("id");
-                const likeCount = document.getElementById(`totalLike-${photoId}`);
-                fetch(`/photo/${photoId}/isliked`, {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
-                })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.liked) {
-                            button.classList.remove("ri-heart-line");
-                            button.classList.add("ri-heart-fill");
-                            likeCount.textContent = `${data.totalLikes} like${data.totalLikes !== 1 ? 's' : ''}`;
-                        }
-                        if (data.totalLikes == 0) {
-                            likeCount.textContent = ''
-                        }
-                    })
-                    .catch(error => console.error('Error:', error));
-            });
-        });
-
-        // Function to handle like button click
-        async function liketoggle(photoId) {
-            const button = document.getElementById(`${photoId}`);
-            fetch(`/photo/like`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ photoId: photoId }),
-            })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.liked) {
-                        button.classList.remove("ri-heart-line");
-                        button.classList.add("ri-heart-fill");
-                    } else {
-                        button.classList.remove("ri-heart-fill");
-                        button.classList.add("ri-heart-line");
-                    }
-
-                    // Emit 'like' event to notify server about the like
-                    socket.emit('like', photoId);
-                })
-                .catch(error => console.error('Error:', error));
-        }
-
-
-    </script>
+    <script src="/javascripts/photos.js"></script>
 </body>
 
 </html>

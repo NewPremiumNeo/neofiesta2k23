@@ -23,6 +23,7 @@
     <span class="textLoading">LOADING...</span>
   </div>
 </div>
+
 <body>
   <img class="backgroundIMG" src="/images/backg.jpeg">
   <!-- Hero of the page -->
@@ -30,23 +31,33 @@
     <div id="navbar">
       <!-- <nav> -->
       <div class="projectName">
-        <h1>Project X</h1>
+        <% if (user) { %>
+          <div onclick="window.location.href = '/profile'" class="user__dp">
+            <img src="/uploads/userDp/<%= user.userDp || `neoFiesta.png` %>" alt="">
+          </div>
+          <h1>Hey, <%= user.name.split(' ')[0] %></h1>
+        <% } else{ %>
+          <div onclick="window.location.href = ' /profile'" class="user__dp">
+              <img src="/uploads/userDp/neoFiesta.png" alt="">
       </div>
-      <div class="menu">
-        <ul>
-          <li><a href="#home">Home</a></li>
-          <li><a href="#programs">Event</a></li>
-          <li><a href="/gallery">Gallery</a></li>
-          <li><a href="/about">About</a></li>
-          <li><a href="#contact">Contact</a></li>
-          <li><a href="#">Contact</a></li>
-        </ul>
-      </div>
-      <div class="ham-box">
-        <div class="ham-top"></div>
-        <div class="ham-middle"></div>
-        <div class="ham-bottom"></div>
-      </div>
+      <h1>Neo Fiesta</h1>
+      <% } %>
+    </div>
+    <div class="menu">
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#programs">Event</a></li>
+        <li><a href="/gallery">Gallery</a></li>
+        <li><a href="/about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </div>
+    <div class="ham-box">
+      <div class="ham-top"></div>
+      <div class="ham-middle"></div>
+      <div class="ham-bottom"></div>
+    </div>
     </div>
   </header>
   <div class="ham-bar-box">
@@ -88,7 +99,7 @@
     </div>
     <!-- Register Button -->
     <div class="btn">
-      <button onclick="window.location.href ='/gallery';">View Photos</button>
+      <button onclick="window.location.href =' /gallery';">View Photos</button>
     </div>
   </section>
   <!-- Main Section of the Page -->
@@ -167,93 +178,93 @@
         <ul id="dialogMemberList"></ul>
       </div>
     </div>
-     <!-- Organiser Section -->
-      <!-- creating dialog box -->
-      <div id="dialog" class="dialog">
-        <div id="dialogContent" class="dialog-content">
-          <span class="close" onclick="closeDialog()">&times;</span>
-          <ul id="dialogMemberList"></ul>
-        </div>
+    <!-- Organiser Section -->
+    <!-- creating dialog box -->
+    <div id="dialog" class="dialog">
+      <div id="dialogContent" class="dialog-content">
+        <span class="close" onclick="closeDialog()">&times;</span>
+        <ul id="dialogMemberList"></ul>
       </div>
-      <div class="wrapper">
-        <div class="bg"> Check Our Organisers </div>
-        <div class="fg">Check Our Organisers  </div>
+    </div>
+    <div class="wrapper">
+      <div class="bg"> Check Our Organisers </div>
+      <div class="fg">Check Our Organisers </div>
+    </div>
+    <h3 class="heading"></h3>
+    <div class="person">
+      <div class="profile">
+        <div class="pic">
+          <img src="/images/organisers/rohit.png" alt="profile" />
+        </div>
+        <h3>Rohit Raj</h3>
+        <h6>Head of Management</h6>
+        <button onclick="openDialog('management')">View Members</button>
+        <!-- <ul id="managementMembers"></ul> -->
       </div>
-      <h3 class="heading"></h3>
-      <div class="person">
-        <div class="profile">
-          <div class="pic">
-            <img src="/images/organisers/rohit.png" alt="profile" />
-          </div>
-          <h3>Rohit Raj</h3>
-          <h6>Head of Management</h6>
-          <button onclick="openDialog('management')">View Members</button>
-          <!-- <ul id="managementMembers"></ul> -->
+      <div class="profile">
+        <div class="pic">
+          <img src="/images/organisers/Aaryan_pic.png" alt="profile" />
         </div>
-        <div class="profile">
-          <div class="pic">
-            <img src="/images/organisers/Aaryan_pic.png" alt="profile" />
-          </div>
-          <h3>Aaryan Raj</h3>
-          <h6>Technical Head</h6>
-          <button onclick="openDialog('technical')">View Members</button>
-          <!-- <ul id="technicalMembers"></ul> -->
-        </div>
-        <div class="profile">
-          <div class="pic">
-            <img src="/images/organisers/jayantika.png" alt="profile" />
-          </div>
-          <h3>Jayantika Prateek</h3>
-          <h6>Performance Coordinator</h6>
-          <button onclick="openDialog('performance')">View Members</button>
-          <!-- <ul id="performanceMembers"></ul> -->
-        </div>
-        <div class="profile">
-          <div class="pic">
-            <img src="/images/organisers/Riteek pic.png" alt="profile" />
-          </div>
-          <h3>Riteek Raj</h3>
-          <h6>Stage Management</h6>
-          <button onclick="openDialog('stage')">View Members</button>
-          <!-- <ul id="stageMembers"></ul> -->
-        </div>
-        <div class="profile">
-          <div class="pic">
-            <img src="/images/organisers/pavan.png" alt="profile" />
-          </div>
-          <h3>Pavan Kumar</h3>
-          <h6>Sound and Backstage</h6>
-          <button onclick="openDialog('backstage')">View Members</button>
-          <!-- <ul id="backstageMembers"></ul> -->
-        </div>
-        <div class="profile">
-          <div class="pic">
-            <img src="/images/organisers/prince.png" alt="profile" />
-          </div>
-          <h3>Prince Kumar</h3>
-          <h6>Finance Management</h6>
-          <button onclick="openDialog('finance')">View Members</button>
-          <!-- <ul id="financeMembers"></ul> -->
-        </div>
-        <div class="profile">
-          <div class="pic">
-            <img src="/images/organisers/rohikt.png" alt="profile" />
-          </div>
-          <h3>Rohit Kumar</h3>
-          <h6>Catering Management</h6>
-          <button onclick="openDialog('catering')">View Members</button>
-          <!-- <ul id="cateringMembers"></ul> -->
-        </div>
-        <div class="profile">
-          <div class="pic">
-            <img src="/images/organisers/muskan.png" alt="profile" />
-          </div>
-          <h3>Muskan Kumari</h3>
-          <h6>Decoration Head</h6>
-          <button onclick="openDialog('decoration')">View Members</button>
-          <!-- <ul id="decorationMembers"></ul> -->
-        </div>
+        <h3>Aaryan Raj</h3>
+        <h6>Technical Head</h6>
+        <button onclick="openDialog('technical')">View Members</button>
+        <!-- <ul id="technicalMembers"></ul> -->
       </div>
+      <div class="profile">
+        <div class="pic">
+          <img src="/images/organisers/jayantika.png" alt="profile" />
+        </div>
+        <h3>Jayantika Prateek</h3>
+        <h6>Performance Coordinator</h6>
+        <button onclick="openDialog('performance')">View Members</button>
+        <!-- <ul id="performanceMembers"></ul> -->
+      </div>
+      <div class="profile">
+        <div class="pic">
+          <img src="/images/organisers/Riteek pic.png" alt="profile" />
+        </div>
+        <h3>Riteek Raj</h3>
+        <h6>Stage Management</h6>
+        <button onclick="openDialog('stage')">View Members</button>
+        <!-- <ul id="stageMembers"></ul> -->
+      </div>
+      <div class="profile">
+        <div class="pic">
+          <img src="/images/organisers/pavan.png" alt="profile" />
+        </div>
+        <h3>Pavan Kumar</h3>
+        <h6>Sound and Backstage</h6>
+        <button onclick="openDialog('backstage')">View Members</button>
+        <!-- <ul id="backstageMembers"></ul> -->
+      </div>
+      <div class="profile">
+        <div class="pic">
+          <img src="/images/organisers/prince.png" alt="profile" />
+        </div>
+        <h3>Prince Kumar</h3>
+        <h6>Finance Management</h6>
+        <button onclick="openDialog('finance')">View Members</button>
+        <!-- <ul id="financeMembers"></ul> -->
+      </div>
+      <div class="profile">
+        <div class="pic">
+          <img src="/images/organisers/rohikt.png" alt="profile" />
+        </div>
+        <h3>Rohit Kumar</h3>
+        <h6>Catering Management</h6>
+        <button onclick="openDialog('catering')">View Members</button>
+        <!-- <ul id="cateringMembers"></ul> -->
+      </div>
+      <div class="profile">
+        <div class="pic">
+          <img src="/images/organisers/muskan.png" alt="profile" />
+        </div>
+        <h3>Muskan Kumari</h3>
+        <h6>Decoration Head</h6>
+        <button onclick="openDialog('decoration')">View Members</button>
+        <!-- <ul id="decorationMembers"></ul> -->
+      </div>
+    </div>
   </main>
 
   <div class="event" id="programs">
@@ -267,7 +278,9 @@
         <li>
           <h3 class="title">Vandana</h3>
           <p>
-            The Freshers Party will start with "Lamp Lightning" accompanied by a Vandana on ---. After this new comers will set the stage on fire with their "Ramp Walk"
+            The Freshers Party will start with "Lamp Lightning" accompanied by a Vandana on ---. After this new
+            comers
+            will set the stage on fire with their "Ramp Walk"
           </p>
 
           <span class="circle"></span>
@@ -276,7 +289,7 @@
         <li>
           <h3 class="title">Singing</h3>
           <p>
-           Now we will witness some muscial tones from "Ashish","Aadil". And a beautiful poem from "Gyan
+            Now we will witness some muscial tones from "Ashish","Aadil". And a beautiful poem from "Gyan
           </p>
 
           <span class="circle"></span>
@@ -294,7 +307,9 @@
         <li>
           <h3 class="title">Dance</h3>
           <p>
-            Setting the stage on fire "Shruti", "Riya" ,and "Ashish" with their solo performances. Team ---- and ---- for their group dance.
+            Setting the stage on fire "Shruti", "Riya" ,and "Ashish" with their solo performances. Team ---- and
+            ----
+            for their group dance.
           </p>
 
           <span class="circle"></span>
@@ -303,7 +318,7 @@
         <li>
           <h3 class="title">Drama</h3>
           <p>
-            Team --- with their play. Team includes-- "     ", "     ", "    ", and "  ".
+            Team --- with their play. Team includes-- " ", " ", " ", and " ".
           </p>
 
           <span class="circle"></span>
@@ -312,7 +327,9 @@
         <li>
           <h3 class="title">Closing Event</h3>
           <p>
-            Now this wonderfull night will end with some funny games , accompained by prize distribution wait wait... khana to abhi bakki hai mere dost.
+            Now this wonderfull night will end with some funny games , accompained by prize distribution wait
+            wait...
+            khana to abhi bakki hai mere dost.
           </p>
 
           <span class="circle"></span>
@@ -328,7 +345,7 @@
       <div class="contact-card" id="left-contact">
         <h3>Get In Touch</h3>
         <p>Feel free to contact us regarding any query of freshers party.</p>
-        <button onclick="window.location.href = 'mailto:prince02072006@gmail.com';">Say Hello</button>
+        <button onclick="window.location.href = 'mailto:neofiesta2k23@gmail.com';">Say Hello</button>
       </div>
       <div class="contact-card" id="right-contact">
         <h3>Send Message</h3>

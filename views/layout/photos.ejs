@@ -1,0 +1,40 @@
+<!-- Bootstrap modal for Liked Photos -->
+<div class="modal fade" id="<%= id %>" tabindex="-1" aria-labelledby="<%= id %>Label" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="<%= id %>Label">Edit lalal</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <main>
+                    <section class="gallery" style="display: block;">
+                        <% if (allposts && allposts.length> 0) { %>
+                            <% allposts.forEach(post=> { %>
+                                <div class="grid__images">
+                                    <a href="<%= post.postImageUrl %>" data-lightbox="models" data-title="Photos">
+                                        <img src="<%= post.postImageUrl %>" alt="Photos" loading="lazy"
+                                            class="gallery-image">
+                                    </a>
+                                    <div class="button-container">
+                                        <div class="button__like">
+                                            <span class="img_like">
+                                                <i onclick="liketoggle('<%= post._id %>')" id="<%= post._id %>"
+                                                    class="ri-heart-line btn-like"></i>
+                                                <i class="ri-bookmark-3-line"></i>
+                                            </span>
+                                            <i class="ri-download-fill"></i>
+                                        </div>
+                                        <h6 id="totalLike-<%= post._id %>"></h6>
+                                    </div>
+                                </div>
+                                <% }); %>
+                                    <% } else { %>
+                                        <h1 style="color: #f1f1f1;">No Liked Photo</h1>
+                                        <% } %>
+                    </section>
+                </main>
+            </div>
+        </div>
+    </div>
+</div>
