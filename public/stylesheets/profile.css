@@ -26,7 +26,7 @@ body {
   background-color: white;
   color: var(--main-txt-color);
   width: 50%;
-  max-height: 50svh;
+  max-height: 80svh;
   padding: 2rem;
   border-radius: 2rem;
   box-shadow: 0 0 5px 5px #e1e7fb;
@@ -103,8 +103,11 @@ body {
   color: #000;
 }
 
+span{
+  font-size: 0.75rem;
+}
 .button img {
-  width: 2rem;
+  width: 1.2rem;
   aspect-ratio: 1/1;
 }
 
