@@ -42,12 +42,8 @@ html {
   font-size: 62.5%;
   scroll-behavior: smooth;
 }
-body{
-  overflow-y: hidden;
-}
-
 #mainLoader{
-  position: absolute;
+  position: fixed;
   width: 100%;
   height: 100svh;
   display: flex;
