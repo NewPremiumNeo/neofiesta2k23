@@ -5,7 +5,7 @@ const commentSchema = new mongoose.Schema({
     text: { type: String, required: true },
     createdAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now }
-});
+}); 
 
 const photoSchema = mongoose.Schema({
     year: { type: String, required: true },

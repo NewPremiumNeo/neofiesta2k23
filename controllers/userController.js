@@ -86,14 +86,13 @@ exports.postRegister = async (req, res) => {
             email,
             mobile,
         };
-        console.log(userData)
 
         // Register the user
         await userModel.register(userData, password)
             .then(() => {
                 passport.authenticate('local')(req, res, () => {
                     req.flash('success', 'Registration successful. You are now logged in.');
-                    res.redirect('/gallery');
+                    res.redirect('/');
                 });
             })
             .catch((err) => {
@@ -120,7 +119,7 @@ exports.postLogin = passport.authenticate('local', {
 exports.getLogout = (req, res, next) => {
     req.logout((err) => {
         if (err) return next(err);
-        res.redirect('/login');
+        res.redirect('/');
     });
 };
 

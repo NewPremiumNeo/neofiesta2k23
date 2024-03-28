@@ -24,8 +24,13 @@ router.use((err, req, res, next) => {
 })
 
 
-router.get('/', function (req, res, next) {
-  res.render('index');
+router.get('/', async function (req, res, next) {
+  var user = null
+  console.log(req.user)
+  if (req.user) {
+    user = await usersModel.findById(req.user._id)
+  }
+  res.render('index', { user });
 });
 
 router.get('/register', function (req, res, next) {
@@ -70,20 +75,91 @@ router.get('/gallery/photos/:year', isLoggedIn, async function (req, res, next) 
   }
 });
 
-router.get('/videos', isLoggedIn, function (req, res, next) {
-  res.render('videos');
-});
+// router.get('/videos', isLoggedIn, function (req, res, next) {
+//   res.render('videos');
+// });
 
-// router.get('/photos2', function (req, res, next) {
-//   res.render('photos2');
+// router.get('/photos2', async function (req, res, next) {
+//   const allPhotos = await photoModel.find();
+//   res.render('photos', { allPhotos, title: `Image Gallery 2222` });
 // });
 
 router.get('/changepassword', isLoggedIn, (req, res) => {
-  res.render('changePassword', { 
-    successMsg: req.flash('success'), 
-    errorMsg: req.flash('error') 
+  res.render('changePassword', {
+    successMsg: req.flash('success'),
+    errorMsg: req.flash('error')
   });
 });
+
+router.get('/profile', isLoggedIn, async (req, res) => {
+  try {
+    const user = await usersModel.findById(req.user._id).populate('likePhotoIds likeVideoIds');
+    if (!user) {
+      return res.status(404).send('User not found');
+    }
+    const errorMessage = req.flash('error');
+    const successMessage = req.flash('success');
+    res.render('profile', { user, errorMessage, successMessage });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Server Error');
+  }
+});
+router.get('/profile/moredetail', isLoggedIn, async (req, res) => {
+  try {
+    const user = await usersModel.findById(req.user._id).populate('likePhotoIds savedPhotos likeVideoIds savedVideos');
+    if (!user) {
+      return res.status(404).send('User not found');
+    }
+    console.log("like ids ", user.likePhotoIds)
+    res.render('moredetail', { user });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Server Error');
+  }
+})
+
+// POST route to update user details
+router.post('/profile/edit', isLoggedIn, async (req, res) => {
+  const { name, email, mobile, dob, userOldDp } = req.body;
+  try {
+    const user = await usersModel.findById(req.user._id);
+    if (!user) {
+      return res.status(404).send('User not found');
+    }
+
+    if (!name || !email || !mobile) {
+      req.flash('error', 'Some Important Credintial Missing');
+      return res.redirect('/profile');
+    }
+
+    const existingEmailUser = await usersModel.findOne({ email, _id: { $ne: req.user._id } });
+    const existingNumberUser = await usersModel.findOne({ mobile, _id: { $ne: req.user._id } });
+    if (existingEmailUser) {
+      req.flash('error', 'Email is already used');
+      return res.redirect('/profile');
+    }
+    if (existingNumberUser) {
+      req.flash('error', 'Number is already used');
+      return res.redirect('/profile');
+    }
+    const userdp = req.file ? req.file.filename : userOldDp;
+    user.name = name;
+    user.email = email;
+    user.mobile = mobile;
+    user.dob = dob;
+    user.userDp = userdp;
+      await user.save();
+
+    req.flash('success', 'Your details updated successfully');
+    res.redirect('/profile');
+  } catch (error) {
+    console.error(error);
+    req.flash('error', 'Failed to update your details');
+    res.redirect('/profile');
+  }
+});
+
 
 router.post('/changePassword', isLoggedIn, userController.updatePassword);
 

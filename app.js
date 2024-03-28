@@ -10,6 +10,7 @@ const { Server } = require('socket.io');
 var usersModel = require('./models/usersModel.js');
 var indexRouter = require('./routes/index');
 var likeRouter = require('./routes/like');
+var saveRouter = require('./routes/save');
 var adminRouter = require('./routes/admin');
 var voteRouter = require('./routes/vote');
 require('./models/connectDB');
@@ -44,6 +45,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/admin', adminRouter);
 app.use('/', likeRouter.router)
+app.use('/', saveRouter.router)
 app.use('/vote', voteRouter);
 // app.use('/users', usersRouter);
 

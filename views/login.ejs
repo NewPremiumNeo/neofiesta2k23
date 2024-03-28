@@ -18,14 +18,21 @@
         }
 
         body {
-            background-repeat: no-repeat;
-            background-size: cover;
-            background-image: url(/images/layered-waves-haikei.svg);
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100svh;
             color: #fef8f8;
+        }
+
+        .background{
+            background-repeat: no-repeat;
+            position: fixed;
+            z-index: -1;
+            width: 100%;
+            height: 100svh;
+            object-fit: cover;
+            overflow: hidden;
         }
 
         .container {
@@ -111,6 +118,7 @@
 </head>
 
 <body>
+    <img class="background" src="/images/layered-waves-haikei.svg" alt="">
     <div class="container">
         <h1>LOGIN</h1>
         <hr>

@@ -99,20 +99,6 @@ gsap.from(".profile", {
   },
 });
 
-gsap.from(".event", {
-  y: 50,
-  opacity: 0,
-  duration: 1.5,
-  stagger: 0.4,
-  scrollTrigger: {
-    trigger: ".event",
-    scroller: "body",
-  },
-});
-
-
-
-
 function hamwork() {
   const hambox = document.querySelector(".ham-box");
   const hambarbox = document.querySelector(".ham-bar-box");
@@ -186,21 +172,9 @@ event.preventDefault();
 
 setTimeout(() => {
   gsap.to(loader, { autoAlpha: 0, duration: 1 }).then(() => {
-    body.style.overflowY = "visible";
     loader.style.display = "none";
   });
-}, 300);
-
-const pageContent = document.querySelector(".page-content");
-if (pageContent) {
-  gsap.fromTo(pageContent, { y: -window.innerHeight / 4 }, { y: 0, duration: 1 });
-}
-
-const tl = gsap.timeline({ paused: true, onComplete: doneLoading });
-tl.add("start").add(gsap.utils.toChars("loading"), "start").timeScale(2).progress(0).eventCallback("onUpdate", updateProgressBar, [tl]);
-
-document.querySelectorAll(".img-lazyload").forEach(img => addLazyLoad(img, tl));
-document.querySelectorAll("a[data-link]").forEach(link => link.addEventListener("click", linkClicked));
+}, 1000);
 });
 
 
@@ -245,4 +219,33 @@ function closeDialog() {
   const dialog = document.getElementById('dialog');
   dialog.style.display = 'none';
   document.body.style.overflowY = "auto";
+}
+
+
+function toggleLoginLogout() {
+  var loginLogoutLink = document.getElementById("loginLogoutLink");
+  var isLoggedIn = true; // Replace this with your actual authentication logic
+
+  if (isLoggedIn) {
+      loginLogoutLink.textContent = "Log out";
+      loginLogoutLink.href = "/logout"; // Replace "/logout" with your logout URL
+  } else {
+      loginLogoutLink.textContent = "Log in";
+      loginLogoutLink.href = "/login"; // Replace "/login" with your login URL
+  }
+}
+
+// Call the function when the page loads
+window.onload = toggleLoginLogout;
+
+
+function showAlert() {
+  var choice = confirm('Please Login First');
+  if (choice == true) {
+      // Redirect to the login route
+      window.location.href = '/login';
+  } else {
+      // User clicked cancel or closed the alert
+      // Handle the cancellation if needed
+  }
 }
