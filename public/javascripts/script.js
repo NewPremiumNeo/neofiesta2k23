@@ -76,15 +76,15 @@ gsap.to("#navbar", {
   },
 });
 t1.from("#navbar h1, #navbar a", {
-  y:-100,
-  opacity:0,
-  stagger:0.2
+  y: -100,
+  opacity: 0,
+  stagger: 0.2
 })
 
-t1.from(".imp-heading h1,.btn",{
-  x:-500,
-  duration:1,
-  opacity:0
+t1.from(".imp-heading h1,.btn", {
+  x: -500,
+  duration: 1,
+  opacity: 0
 })
 
 gsap.from(".profile", {
@@ -167,14 +167,14 @@ hambarboxHeight();
 const loader = document.getElementById("mainLoader");
 const body = document.querySelector("body");
 
-window.addEventListener("load", function(event) {
-event.preventDefault();
+window.addEventListener("load", function (event) {
+  event.preventDefault();
 
-setTimeout(() => {
-  gsap.to(loader, { autoAlpha: 0, duration: 1 }).then(() => {
-    loader.style.display = "none";
-  });
-}, 1000);
+  setTimeout(() => {
+    gsap.to(loader, { autoAlpha: 0, duration: 1 }).then(() => {
+      loader.style.display = "none";
+    });
+  }, 1000);
 });
 
 
@@ -184,13 +184,13 @@ setTimeout(() => {
 function openDialog(role) {
   const members = {
     'technical': ['Prince Kumar', 'Ankit Raj'],
-    'management': ['Aaryan', 'Abhishek', 'Akshansh','Ankit','Divyanshu','Hariom','Jayantika','Muskan','Naina','Pavan','Prince','Raj','Rajeev','Rishab','Riteek','Adarsh','Aarya','Rohit','Saurav','Vishal'],
-    'catering':['Adarsh','Raj','Rajeev','Saurav','Hariom'],
-    'stage':['Naina','Jayantika','Arya','Akshansh','Rishab'],
-    'backstage':['Ankit'],
-    'finance':['Abhishek'],
-    'performance':['Abhishek','Raj','Muskan','Divyanshu'],
-    'decoration':['Riteek','Aaryan','Naina','Rohit']
+    'management': ['Aaryan', 'Abhishek', 'Akshansh', 'Ankit', 'Divyanshu', 'Hariom', 'Jayantika', 'Muskan', 'Naina', 'Pavan', 'Prince', 'Raj', 'Rajeev', 'Rishab', 'Riteek', 'Adarsh', 'Aarya', 'Rohit', 'Saurav', 'Vishal'],
+    'catering': ['Adarsh', 'Raj', 'Rajeev', 'Saurav', 'Hariom'],
+    'stage': ['Naina', 'Jayantika', 'Arya', 'Akshansh', 'Rishab'],
+    'backstage': ['Ankit'],
+    'finance': ['Abhishek'],
+    'performance': ['Abhishek', 'Raj', 'Muskan', 'Divyanshu'],
+    'decoration': ['Riteek', 'Aaryan', 'Naina', 'Rohit']
     // Add more roles and members as needed
   };
 
@@ -227,11 +227,11 @@ function toggleLoginLogout() {
   var isLoggedIn = true; // Replace this with your actual authentication logic
 
   if (isLoggedIn) {
-      loginLogoutLink.textContent = "Log out";
-      loginLogoutLink.href = "/logout"; // Replace "/logout" with your logout URL
+    loginLogoutLink.textContent = "Log out";
+    loginLogoutLink.href = "/logout"; // Replace "/logout" with your logout URL
   } else {
-      loginLogoutLink.textContent = "Log in";
-      loginLogoutLink.href = "/login"; // Replace "/login" with your login URL
+    loginLogoutLink.textContent = "Log in";
+    loginLogoutLink.href = "/login"; // Replace "/login" with your login URL
   }
 }
 
@@ -242,10 +242,6 @@ window.onload = toggleLoginLogout;
 function showAlert() {
   var choice = confirm('Please Login First');
   if (choice == true) {
-      // Redirect to the login route
-      window.location.href = '/login';
-  } else {
-      // User clicked cancel or closed the alert
-      // Handle the cancellation if needed
+    window.location.href = '/login';
   }
 }

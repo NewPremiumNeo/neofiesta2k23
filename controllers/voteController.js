@@ -16,8 +16,8 @@ exports.photoUploadPost = async (req, res) => {
                 if (result) {
                     const newPhoto = new photoModel({
                         postImageUrl: result.secure_url,
-                        postTitle: postTitle,
-                        postDescription: postDescription,
+                        imageTitle: postTitle,
+                        imageDescription: postDescription,
                         year: year,
                         ownerIds: req.user._id
                     });
@@ -51,7 +51,7 @@ exports.calculateWinners = async () => {
                 }
             },
             {
-                $sort: { count: -1 } 
+                $sort: { count: -1 }
             }
         ]);
 

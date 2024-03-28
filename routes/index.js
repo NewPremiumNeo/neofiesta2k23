@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 const photoModel = require('../models/photoModel.js');
+const videoModel = require('../models/videoModel.js');
 const { isLoggedIn } = require('../middleware/authMiddleware.js');
 // const photosController = require('../controllers/photosController.js')
 const userController = require('../controllers/userController.js');
@@ -26,7 +27,6 @@ router.use((err, req, res, next) => {
 
 router.get('/', async function (req, res, next) {
   var user = null
-  console.log(req.user)
   if (req.user) {
     user = await usersModel.findById(req.user._id)
   }
@@ -75,6 +75,25 @@ router.get('/gallery/photos/:year', isLoggedIn, async function (req, res, next) 
   }
 });
 
+
+router.get('/gallery/videos/:year', isLoggedIn, async function (req, res, next) {
+  try {
+    const year = req.params.year
+    const validYear = ["2k21", "2k22", "2k23"]
+    if (validYear.includes(year)) {
+      const allVideos = await videoModel.find({ year });
+      res.render('videos', { allVideos, title: `Video Gallery ${year}` });
+    } else {
+      throw Error("Page Not Found")
+    }
+  }
+  catch (err) {
+    console.error('Error in geting Post Data:- ', err.message);
+    next(err);
+  }
+});
+
+
 // router.get('/videos', isLoggedIn, function (req, res, next) {
 //   res.render('videos');
 // });
@@ -111,7 +130,6 @@ router.get('/profile/moredetail', isLoggedIn, async (req, res) => {
     if (!user) {
       return res.status(404).send('User not found');
     }
-    console.log("like ids ", user.likePhotoIds)
     res.render('moredetail', { user });
   } catch (err) {
     console.error(err);

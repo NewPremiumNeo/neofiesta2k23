@@ -58,7 +58,7 @@ router.get('/photos/upload/', isAdminLoggedIn, function (req, res, next) {
     res.render('adminPhotoUpload', { messages: req.flash('error') });
 });
 
-router.post('/photos/upload/', isAdminLoggedIn, multer.uploadImg.array('photos', 10), voteController.photoUploadPost);
+router.post('/photos/upload/', isAdminLoggedIn, multer.upload.single('photos'), voteController.photoUploadPost);
 
 router.get('/photo/:photoId/liked', isAdminLoggedIn, async function (req, res, next) {
     try {
@@ -107,8 +107,6 @@ router.get('/vote', isAdminLoggedIn, async function (req, res, next) {
 router.post('/vote/:idToDelete/delete', isAdminLoggedIn, async function (req, res, next) {
     try {
         const del = await voteModel.findByIdAndDelete(req.params.idToDelete)
-        console.log(req.params.idToDelete)
-        console.log("del ", del)
         if (del) {
             req.flash('success', "Vote Deleted!!");
         }
@@ -150,6 +148,18 @@ router.get('/users', isAdminLoggedIn, async (req, res) => {
         }
     }
 });
+
+//User delete
+router.delete('/users/:user__id/delete', isAdminLoggedIn, async function (req, res, next) {
+    const del = await usersModel.findByIdAndDelete(req.params.user__id)
+    if (del) {
+        req.flash('success', "User Account Deleted!!");
+    } else {
+        req.flash('error', "User Not Found!!");
+    }
+    res.redirect('/admin/users');
+});
+
 
 // POST route to update user details
 router.post('/users/:userId', isAdminLoggedIn, async (req, res) => {
