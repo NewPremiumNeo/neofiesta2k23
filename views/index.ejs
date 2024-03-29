@@ -92,20 +92,20 @@
       <h1>Neo Fiesta 2023</h1>
     </div>
     <!-- CountDown Clock -->
-    <% if (bool && bool.isVoteOn) { %>
+    <% if (bool && bool.isWinnerOn) { %>
       <div class="btn">
         <% if (user) { %>
-          <button onclick="window.location.href ='/vote';">Vote Now</button>
+          <button onclick="window.location.href ='/vote/winner';">See Winner</button>
           <% } else { %>
-            <button onclick="showAlert()">Vote Now</button>
+            <button onclick="showAlert()">See Winner</button>
             <% } %>
       </div>
-      <% } else if (bool && bool.isWinnerOn) { %>
+      <% } else if (bool && bool.isVoteOn) { %>
         <div class="btn">
           <% if (user) { %>
-            <button onclick="window.location.href ='/vote/winner';">See Winner</button>
+            <button onclick="window.location.href ='/vote';">Vote Now</button>
             <% } else { %>
-              <button onclick="showAlert()">See Winner</button>
+              <button onclick="showAlert()">Vote Now</button>
               <% } %>
         </div>
         <% } else { %>

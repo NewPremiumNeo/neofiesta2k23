@@ -134,32 +134,3 @@ span{
   width: 100%;
 }
 
-/* .more-options {
-  bottom: -60px;
-  right: -120px;
-  position: absolute;
-  display: flex;
-  flex-direction: column;
-  padding: 10px;
-  background: var(--main-txt-color);
-  color: white;
-  border-radius: 5px;
-  gap: 5px;
-  transition: all 500ms ease;
-}
-.notVisible {
-  transform: scale(0);
-} */
-
-/* .option {
-  display: flex;
-  align-items: center;
-  height: 30px;
-  cursor: pointer;
-  transition: all 500ms ease;
-  border-radius: inherit;
-  padding: 10px;
-  &:hover {
-    background-color: #2d255a;
-  }
-} */
