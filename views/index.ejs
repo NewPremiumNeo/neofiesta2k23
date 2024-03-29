@@ -5,9 +5,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/public/images/favicon_io/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/public/images/favicon_io/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/public/images/favicon_io/favicon-16x16.png">
-<link rel="manifest" href="/site.webmanifest">
+  <link rel="icon" type="image/png" sizes="32x32" href="/public/images/favicon_io/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/public/images/favicon_io/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
 
   <title>2k23 Freshers</title>
 
@@ -92,33 +92,52 @@
       <h1>Neo Fiesta 2023</h1>
     </div>
     <!-- CountDown Clock -->
-    <p>Countdown To Launch In T-Minus</p>
-    <div id="clockdiv">
-      <div>
-        <span class="days"></span>
-        <div class="smalltext">Days</div>
+    <% if (bool && bool.isVoteOn) { %>
+      <div class="btn">
+        <% if (user) { %>
+          <button onclick="window.location.href ='/vote';">Vote Now</button>
+          <% } else { %>
+            <button onclick="showAlert()">Vote Now</button>
+            <% } %>
       </div>
-      <div>
-        <span class="hours"></span>
-        <div class="smalltext">Hours</div>
-      </div>
-      <div>
-        <span class="minutes"></span>
-        <div class="smalltext">Minutes</div>
-      </div>
-      <div>
-        <span class="seconds"></span>
-        <div class="smalltext">Seconds</div>
-      </div>
-    </div>
-    <!-- Register Button -->
-    <div class="btn">
-      <% if (user) { %>
-        <button onclick="window.location.href ='/gallery';">View Photos</button>
+      <% } else if (bool && bool.isWinnerOn) { %>
+        <div class="btn">
+          <% if (user) { %>
+            <button onclick="window.location.href ='/vote/winner';">See Winner</button>
+            <% } else { %>
+              <button onclick="showAlert()">See Winner</button>
+              <% } %>
+        </div>
         <% } else { %>
-          <button onclick="showAlert()">View Photos</button>
+          <p>Countdown To Launch In T-Minus</p>
+          <div id="clockdiv">
+            <div>
+              <span class="days"></span>
+              <div class="smalltext">Days</div>
+            </div>
+            <div>
+              <span class="hours"></span>
+              <div class="smalltext">Hours</div>
+            </div>
+            <div>
+              <span class="minutes"></span>
+              <div class="smalltext">Minutes</div>
+            </div>
+            <div>
+              <span class="seconds"></span>
+              <div class="smalltext">Seconds</div>
+            </div>
+          </div>
+
           <% } %>
-    </div>
+            <!-- Register Button -->
+            <div class="btn">
+              <% if (user) { %>
+                <button onclick="window.location.href ='/gallery';">View Photos</button>
+                <% } else { %>
+                  <button onclick="showAlert()">View Photos</button>
+                  <% } %>
+            </div>
   </section>
   <!-- Main Section of the Page -->
   <main>

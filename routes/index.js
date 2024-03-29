@@ -3,9 +3,9 @@ var router = express.Router();
 const photoModel = require('../models/photoModel.js');
 const videoModel = require('../models/videoModel.js');
 const { isLoggedIn } = require('../middleware/authMiddleware.js');
-// const photosController = require('../controllers/photosController.js')
 const userController = require('../controllers/userController.js');
 const usersModel = require('../models/usersModel.js');
+const boolModel = require('../models/boolModel.js');
 
 
 router.use(express.urlencoded({ extended: false }));
@@ -27,10 +27,12 @@ router.use((err, req, res, next) => {
 
 router.get('/', async function (req, res, next) {
   var user = null
+  const bool = await boolModel.findOne()
   if (req.user) {
     user = await usersModel.findById(req.user._id)
   }
-  res.render('index', { user });
+  console.log(bool)
+  res.render('index', { user, bool });
 });
 
 router.get('/register', function (req, res, next) {
@@ -167,7 +169,7 @@ router.post('/profile/edit', isLoggedIn, async (req, res) => {
     user.mobile = mobile;
     user.dob = dob;
     user.userDp = userdp;
-      await user.save();
+    await user.save();
 
     req.flash('success', 'Your details updated successfully');
     res.redirect('/profile');

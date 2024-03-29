@@ -57,8 +57,7 @@
                                                 data-dob="<%= user.dob %>">
                                                 Edit
                                             </button>
-                                            <button class="btn btn-danger"
-                                                onclick="deleteUser('<%= user._id %>')">
+                                            <button class="btn btn-danger" onclick="deleteUser('<%= user._id %>')">
                                                 Delete
                                             </button>
                                         </div>
@@ -194,7 +193,8 @@
                                                     data-dob="${user.dob}">
                                                 Edit
                                             </button>
-                                            <button class="btn btn-secondary edit-button" data-userid="${user._id}">
+                                            <button class="btn btn-danger"
+                                                onclick="deleteUser('${user._id}')">
                                                 Delete
                                             </button>
                                         </div>

@@ -12,13 +12,22 @@ passport.use(
 
 
 function validateEnrollment(enrollment) {
-    const regex = /^MGCU(2020|2021|2022|2023)CSIT(30(01|0[2-9]|[1-3]\d)|303([0-2]\d|3[0-3]))$/;
-    if (!regex.test(enrollment)) {
-        return false;
+    const AAAA = enrollment.slice(0, 4);
+    const YYYY = enrollment.slice(4, 8);
+    const BBBB = enrollment.slice(8, 12);
+    const XXXX = enrollment.slice(12);
+
+    // Special condition for 6-letter enrollments
+    if (enrollment.length === 6 && AAAA === 'MGCU') {
+        const year = parseInt(enrollment.slice(4, 6));
+        if (year >= 1 && year <= 18) {
+            return true;
+        }
     }
 
-    const YYYY = enrollment.slice(4, 8);
-    const XXXX = enrollment.slice(12);
+    if (!(AAAA == 'MGCU' && BBBB == 'CSIT')) {
+        return false;
+    }
 
     switch (YYYY) {
         case "2020":
@@ -32,12 +41,12 @@ function validateEnrollment(enrollment) {
             }
             break;
         case "2022":
-            if (!(XXXX >= 3001 && XXXX <= 3025) || XXXX == 3005 || XXXX == 3007 || XXXX == 3019 || XXXX == 3022) {
+            if (!((XXXX >= 3001 && XXXX <= 3025) || (XXXX >= 4001 && XXXX <= 4009) && !(XXXX == 4003 || XXXX == 4004 || XXXX == 4007) || XXXX == 3005 || XXXX == 3007 || XXXX == 3019 || XXXX == 3022)) {
                 return false;
             }
             break;
         case "2023":
-            if (!(XXXX >= 3001 && XXXX <= 3030)) {
+            if (!((XXXX >= 3001 && XXXX <= 3030) || (XXXX >= 4002 && XXXX <= 4020) && !(XXXX == 4013))) {
                 return false;
             }
             break;
