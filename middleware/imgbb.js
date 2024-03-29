@@ -40,8 +40,14 @@ exports.uploadOnImgbb = async function uploadImage(localFilePath) {
         });
 
         // Delete temporary files
-        if (fs.existsSync(localFilePath)) {
-            fs.unlinkSync(localFilePath);
+        try {
+            if (fs.existsSync(localFilePath)) {
+                fs.unlinkSync(localFilePath);
+            } else {
+                console.log('File not found:', localFilePath);
+            }
+        } catch (error) {
+            console.error('Error deleting file:', error);
         }
         fs.unlinkSync(tempFilePath);
 

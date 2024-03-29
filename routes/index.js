@@ -33,7 +33,6 @@ router.get('/', async function (req, res, next) {
   if (req.user) {
     user = await usersModel.findById(req.user._id)
   }
-  console.log(bool)
   res.render('index', { user, bool });
 });
 
