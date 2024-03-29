@@ -7,16 +7,16 @@ function handleEdit(userDp, username, name, email, mobile, dob) {
     $('#editEmail').val(email);
     $('#editMobile').val(mobile);
     $('#editDob').val(dob);
-    $('#editProfilePicture').attr('value', userDp);
-    $('#userOldDp').attr('value', userDp);
-    $('#previewProfilePicture').attr('src', `/uploads/userDp/${userDp || `default.png`}`);
+    // $('#editProfilePicture').attr('value', userDp);
+    // $('#userOldDp').attr('value', userDp);
+    $('#previewProfilePicture').attr('src', `${userDp || `/uploads/userDp/default.png`}`);
     $('#editForm').attr('action', '/profile/edit');
     $('#editModal').modal('show');
 }
 
 // Attach event listener to edit button
 $('#edit-button').click(function () {
-    const userDp = $(this).data('userDp');
+    const userDp = $(this).data('userdp');
     const username = $(this).data('username');
     const name = $(this).data('name');
     const email = $(this).data('email');

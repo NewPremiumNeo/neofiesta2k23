@@ -302,18 +302,20 @@ nav h1 {
 .projectName h1{
   font-size: 2rem;
 }
-.projectName .user__dp{
+.projectName .avatar{
   position: relative;
   cursor: pointer;
   width: 5rem;
   height: 5rem;
   border-radius: 50%;
-  border: 2px solid #E2AB70;
+  outline: 2px solid #E2AB70;
 }
-.projectName .user__dp img{
+.projectName .avatar img{
+  border-radius: 50%;
   width: 100%;
   height: 100%;
-  border-radius: 50%;
+  aspect-ratio: 1/1;
+  object-fit: cover;
 }
 /* Hero section background CSS */
 .first__page{

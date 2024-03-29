@@ -7,6 +7,7 @@ const userController = require('../controllers/userController.js');
 const usersModel = require('../models/usersModel.js');
 const boolModel = require('../models/boolModel.js');
 const multer = require('../middleware/multer.js')
+const { uploadOnImgbb } = require('../middleware/imgbb.js');
 
 
 router.use(express.urlencoded({ extended: false }));
@@ -142,13 +143,8 @@ router.get('/profile/moredetail', isLoggedIn, async (req, res) => {
 
 // POST route to update user details
 router.post('/profile/edit', isLoggedIn, multer.upload.single('userDp'), async (req, res) => {
-  const { name, email, mobile, dob, userOldDp } = req.body;
+  const { name, email, mobile, dob } = req.body;
   try {
-    const user = await usersModel.findById(req.user._id);
-    if (!user) {
-      return res.status(404).send('User not found');
-    }
-
     if (!name || !email || !mobile) {
       req.flash('error', 'Some Important Credintial Missing');
       return res.redirect('/profile');
@@ -164,12 +160,24 @@ router.post('/profile/edit', isLoggedIn, multer.upload.single('userDp'), async (
       req.flash('error', 'Number is already used');
       return res.redirect('/profile');
     }
-    const userdp = req.file ? req.file.filename : userOldDp;
+
+    const user = await usersModel.findById(req.user._id);
+    if (!user) {
+      return res.status(404).send('User not found');
+    }
+
+    let result = null;
+    if (req.file) {
+      result = await uploadOnImgbb(req.file.path);
+    }
+
     user.name = name;
     user.email = email;
     user.mobile = mobile;
     user.dob = dob;
-    user.userDp = userdp;
+    if (result) {
+      user.userDp = result;
+    }
     await user.save();
 
     req.flash('success', 'Your details updated successfully');

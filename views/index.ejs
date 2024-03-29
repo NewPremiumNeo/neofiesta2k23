@@ -35,12 +35,12 @@
       <!-- <nav> -->
       <div class="projectName">
         <% if (user) { %>
-          <div onclick="window.location.href = '/profile'" class="user__dp">
-            <img src="/uploads/userDp/<%= user.userDp || `neoFiesta.png` %>" alt="">
+          <div onclick="window.location.href = '/profile'" class="avatar">
+            <img src="<%= user.userDp || `/uploads/userDp/neoFiesta.png` %>" alt="">
           </div>
           <h1>Hey, <%= user.name.split(' ')[0] %></h1>
         <% } else{ %>
-          <div onclick="window.location.href = ' /profile'" class="user__dp">
+          <div onclick="window.location.href = ' /profile'" class="avatar">
               <img src="/uploads/userDp/neoFiesta.png" alt="">
       </div>
       <h1>Neo Fiesta</h1>

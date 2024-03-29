@@ -26,8 +26,8 @@
                     </div>
                     <% } %>
 
-                        <div title="Your Dp" class="avatar"><img
-                                src="<%= user.userDp || `/uploads/userDp/default.png` %>" alt="profile-img"></div>
+                        <div title="Dp" class="avatar"><img src="<%= user.userDp || `/uploads/userDp/default.png` %>"
+                                alt="profile-img"></div>
                         <div class="salutation">
                             <div class="name">
                                 <p>
@@ -41,7 +41,7 @@
                         <div class="options">
                             <a title="Logout" class="button" href="/logout"><img src="/images/icons8-logout-30.png"></a>
                             <button title="Edit profile" class="button" id="edit-button"
-                                data-userDp="<%= user.userDp %>" data-username="<%= user.username %>"
+                                data-userdp="<%= user.userDp %>" data-username="<%= user.username %>"
                                 data-name="<%= user.name %>" data-email="<%= user.email %>"
                                 data-mobile="<%= user.mobile %>" data-dob="<%= user.dob %>"> <img
                                     src="/images/edit profile.gif"></button>
@@ -63,7 +63,7 @@
                 </div>
                 <div class="modal-body">
                     <!-- Form for editing user details -->
-                    <div id="uploadedDpPhoto">
+                    <div class="avatar" id="uploadedDpPhoto">
                         <img id="previewProfilePicture" alt="Profile Picture">
                     </div>
                     <form id="editForm" method="POST" enctype="multipart/form-data">
@@ -71,7 +71,6 @@
                             <label for="editProfilePicture">Profile Picture</label>
                             <input type="file" accept="image/*" class="form-control-file" id="editProfilePicture"
                                 name="userDp">
-                            <input type="hidden" name="userOldDp">
                         </div>
                         <div class="form-group">
                             <label for="editUsername">Username</label>

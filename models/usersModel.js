@@ -37,7 +37,6 @@ const userSchema = mongoose.Schema({
     },
     userDp: {
         type: String,
-        default: 'neoFiesta.png'
     },
     likePhotoIds: [{
         type: mongoose.Schema.Types.ObjectId,
