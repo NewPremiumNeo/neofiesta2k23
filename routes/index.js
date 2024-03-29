@@ -6,6 +6,7 @@ const { isLoggedIn } = require('../middleware/authMiddleware.js');
 const userController = require('../controllers/userController.js');
 const usersModel = require('../models/usersModel.js');
 const boolModel = require('../models/boolModel.js');
+const multer = require('../middleware/multer.js')
 
 
 router.use(express.urlencoded({ extended: false }));
@@ -140,7 +141,7 @@ router.get('/profile/moredetail', isLoggedIn, async (req, res) => {
 })
 
 // POST route to update user details
-router.post('/profile/edit', isLoggedIn, async (req, res) => {
+router.post('/profile/edit', isLoggedIn, multer.upload.single('userDp'), async (req, res) => {
   const { name, email, mobile, dob, userOldDp } = req.body;
   try {
     const user = await usersModel.findById(req.user._id);
