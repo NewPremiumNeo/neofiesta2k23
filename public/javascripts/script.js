@@ -158,10 +158,11 @@ const loader = document.getElementById("mainLoader");
 
 window.addEventListener("load", function (event) {
   event.preventDefault();
-
+  document.body.style.overflow = 'hidden';
   setTimeout(() => {
     gsap.to(loader, { autoAlpha: 0, duration: 1 }).then(() => {
       loader.style.display = "none";
+      document.body.style.overflow = '';
     });
   }, 1000);
 });
