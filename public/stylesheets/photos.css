@@ -106,13 +106,20 @@ main  .other-categories .containing-div .content{
 
 .grid__images a{
     display: inline-block;
+    max-height: 60vh;
     background-color: black;
+    object-position: center;
+    object-fit: cover;
+    overflow: hidden;
+    position: relative;
 }
 
 main .gallery .gallery-image{
+    object-position: center;
     object-fit: cover;
+    overflow: hidden;
     width: 100%;
-    height: auto;
+    height: 100%;
     cursor: zoom-in;
 }  
 

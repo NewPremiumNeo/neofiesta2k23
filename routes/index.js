@@ -60,7 +60,7 @@ router.get('/gallery', isLoggedIn, function (req, res, next) {
   res.render('gallery');
 });
 
-router.get('/gallery/photos/:year', async function (req, res, next) {
+router.get('/gallery/photos/:year', isLoggedIn, async function (req, res, next) {
   try {
     const year = req.params.year
     const validYear = ["2k21", "2k22", "2k23"]
