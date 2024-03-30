@@ -7,7 +7,6 @@ const userController = require('../controllers/userController.js');
 const usersModel = require('../models/usersModel.js');
 const boolModel = require('../models/boolModel.js');
 const multer = require('../middleware/multer.js')
-const { uploadOnImgbb } = require('../middleware/imgbb.js');
 
 
 router.use(express.urlencoded({ extended: false }));
@@ -61,13 +60,13 @@ router.get('/gallery', isLoggedIn, function (req, res, next) {
   res.render('gallery');
 });
 
-router.get('/gallery/photos/:year', isLoggedIn, async function (req, res, next) {
+router.get('/gallery/photos/:year', async function (req, res, next) {
   try {
     const year = req.params.year
     const validYear = ["2k21", "2k22", "2k23"]
     if (validYear.includes(year)) {
       const allPhotos = await photoModel.find({ year });
-      res.render('photos', { allPhotos, title: `Image Gallery ${year}` });
+      res.render('photos', { allPhotos, title: `Image Gallery ${year}`, bgimg: `/images/imageBG${year}.jpg` });
     } else {
       throw Error("Page Not Found")
     }
@@ -141,52 +140,7 @@ router.get('/profile/moredetail', isLoggedIn, async (req, res) => {
 })
 
 // POST route to update user details
-router.post('/profile/edit', isLoggedIn, multer.upload.single('userDp'), async (req, res) => {
-  const { name, email, mobile, dob } = req.body;
-  try {
-    if (!name || !email || !mobile) {
-      req.flash('error', 'Some Important Credintial Missing');
-      return res.redirect('/profile');
-    }
-
-    const existingEmailUser = await usersModel.findOne({ email, _id: { $ne: req.user._id } });
-    const existingNumberUser = await usersModel.findOne({ mobile, _id: { $ne: req.user._id } });
-    if (existingEmailUser) {
-      req.flash('error', 'Email is already used');
-      return res.redirect('/profile');
-    }
-    if (existingNumberUser) {
-      req.flash('error', 'Number is already used');
-      return res.redirect('/profile');
-    }
-
-    const user = await usersModel.findById(req.user._id);
-    if (!user) {
-      return res.status(404).send('User not found');
-    }
-
-    let result = null;
-    if (req.file) {
-      result = await uploadOnImgbb(req.file.path);
-    }
-
-    user.name = name;
-    user.email = email;
-    user.mobile = mobile;
-    user.dob = dob;
-    if (result) {
-      user.userDp = result;
-    }
-    await user.save();
-
-    req.flash('success', 'Your details updated successfully');
-    res.redirect('/profile');
-  } catch (error) {
-    console.error(error);
-    req.flash('error', 'Failed to update your details');
-    res.redirect('/profile');
-  }
-});
+router.post('/profile/edit', isLoggedIn, multer.upload.single('userDp'), userController.postProfileEdit);
 
 
 router.post('/changePassword', isLoggedIn, userController.updatePassword);

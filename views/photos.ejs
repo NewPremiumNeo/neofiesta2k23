@@ -21,15 +21,15 @@
     <main>
 
         <div class="other-categories">
-            <div class="blur-background"></div>
+            <div class="blur-background" style="background-image: url('<%= bgimg %>');"></div>
             <div class="containing-div">
                 <div class="details">
                     <div class="title">
                         <%= title %>
                     </div>
-                    <div class="content">
-                        <p>A beautifull memories</p>
-                    </div>
+                    <!-- <div class="content">
+                        <p>A beautiful memories</p>
+                    </div> -->
                 </div>
             </div>
         </div>
@@ -57,7 +57,7 @@
                     </div>
                     <% }); %>
                         <% } else{ %>
-                            <h1 style="color: #111;">NO Photos of <%= title %>
+                            <h1 style="color: #111;">No Photos of <%= title %>
                             </h1>
                             <% } %>
 

@@ -1,6 +1,8 @@
 const userModel = require('../models/usersModel');
 const passport = require('passport');
 const localStrategy = require('passport-local').Strategy;
+const usersModel = require('../models/usersModel.js');
+const { uploadOnImgbb } = require('../middleware/imgbb.js');
 
 passport.use(
     new localStrategy({
@@ -57,13 +59,26 @@ function validateEnrollment(enrollment) {
     return true;
 }
 
+function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+
 exports.postRegister = async (req, res) => {
     try {
         const { enrollment, email, name, mobile, password } = req.body;
 
-        // Check if enrollment number is provided
-        if (!enrollment) {
-            req.flash('error', 'Enrollment number is required.');
+        const requiredFields = ['enrollment', 'email', 'name', 'mobile', 'password'];
+        for (const field of requiredFields) {
+            if (!req.body[field]) {
+                req.flash('error', `${capitalizeFirstLetter(field)} is required.`);
+                return res.redirect('/register');
+            }
+        }
+
+        // Validate mobile number length
+        if (mobile.length !== 10) {
+            req.flash('error', 'Mobile Number is incorrect.');
             return res.redirect('/register');
         }
 
@@ -73,7 +88,7 @@ exports.postRegister = async (req, res) => {
             req.flash('error', 'Email is already used');
             return res.redirect('/register');
         }
-        console.log(enrollment)
+
         // Check if enrollment number is already used
         const existingEnrollmentUser = await userModel.findOne({ username: enrollment });
         if (existingEnrollmentUser) {
@@ -116,6 +131,66 @@ exports.postRegister = async (req, res) => {
         res.redirect('/register');
     }
 };
+
+
+
+exports.postProfileEdit = async (req, res) => {
+    const { name, email, mobile, dob } = req.body;
+    try {
+        const requiredFields = ['email', 'name', 'mobile'];
+        for (const field of requiredFields) {
+            if (!req.body[field]) {
+                req.flash('error', `${capitalizeFirstLetter(field)} is required.`);
+                return res.redirect('/profile');
+            }
+        }
+        // Validate mobile number length
+        if (mobile.length !== 10) {
+            req.flash('error', 'Mobile Number is incorrect.');
+            return res.redirect('/register');
+        }
+
+        const existingEmailUser = await usersModel.findOne({ email, _id: { $ne: req.user._id } });
+        const existingNumberUser = await usersModel.findOne({ mobile, _id: { $ne: req.user._id } });
+        if (existingEmailUser) {
+            req.flash('error', 'Email is already used');
+            return res.redirect('/profile');
+        }
+        if (existingNumberUser) {
+            req.flash('error', 'Number is already used');
+            return res.redirect('/profile');
+        }
+
+        const user = await usersModel.findById(req.user._id);
+        if (!user) {
+            return res.status(404).send('User not found');
+        }
+
+        let result = null;
+        if (req.file) {
+            result = await uploadOnImgbb(req.file.path);
+        }
+
+        user.name = name;
+        user.email = email;
+        user.mobile = mobile;
+        user.dob = dob;
+        if (result) {
+            user.userDp = result;
+        }
+        await user.save();
+
+        req.flash('success', 'Your details updated successfully');
+        res.redirect('/profile');
+    } catch (error) {
+        console.error(error);
+        req.flash('error', 'Failed to update your details');
+        res.redirect('/profile');
+    }
+}
+
+
+
 
 
 exports.postLogin = passport.authenticate('local', {

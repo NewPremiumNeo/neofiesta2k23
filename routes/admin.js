@@ -56,7 +56,9 @@ router.post('/photo/:photo__id/delete', isAdminLoggedIn, async function (req, re
 // Route for uploading photos
 // router.post('/upload', multer.uploadImg.single('image'), photosController.handleUpload);
 router.get('/photos/upload/', isAdminLoggedIn, function (req, res, next) {
-    res.render('adminPhotoUpload', { messages: req.flash('error') });
+    const errorMessage = req.flash('error');
+    const successMessage = req.flash('success');
+    res.render('adminPhotoUpload', { errorMessage, successMessage });
 });
 
 router.post('/photos/upload/', isAdminLoggedIn, multer.upload.single('photos'), voteController.photoUploadPost);

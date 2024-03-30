@@ -48,21 +48,6 @@
 
 /* when the screen width is less than 615px */
 @media screen and (max-width:615px){
-    main  .editorial-title-details .containing-div{
-        margin: auto;
-        margin-right: 0px;
-        margin-left: 20px;
-        width: fit-content;
-    }
-
-    main  .editorial-title-details .containing-div .title{
-        font-size: 24px;
-    }
-
-    main  .editorial-title-details .containing-div .content{
-        font-size: 15px;
-    }
-
     main  .other-categories .containing-div .title{
         font-size: 28px;
     }
@@ -72,8 +57,9 @@
     }
 
     main  .other-categories .containing-div{
-        margin: auto 20px;
-        width: fit-content;
+        margin: auto;
+        width: 100%;
+        text-align: center;
     }
 
     i{
