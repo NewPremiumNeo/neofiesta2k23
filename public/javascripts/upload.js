@@ -2,10 +2,15 @@ const form = document.querySelector("form"),
   fileInput = document.querySelector(".file-input"),
   progressArea = document.querySelector(".progress-area"),
   uploadedArea = document.querySelector(".uploaded-area"),
-  year = document.querySelector("#year");
+  year = document.querySelector("#year"),
+  service = document.querySelector("#service");
 
 
 year.addEventListener("click", () => {
+  event.stopPropagation();
+});
+
+service.addEventListener("click", () => {
   event.stopPropagation();
 });
 
@@ -30,6 +35,7 @@ async function uploadFile(name, file) {
     let formData = new FormData();
     formData.append('photos', file);
     formData.append('year', document.getElementById("year").value); // Add year
+    formData.append('service', document.getElementById("service").value); // Add service
     formData.append('postTitle', document.querySelector('input[name="postTitle"]').value); // Add post title
     formData.append('postDescription', document.querySelector('textarea[name="postDescription"]').value); // Add post description
 

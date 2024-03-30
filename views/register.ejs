@@ -165,6 +165,10 @@
                     <input type="password" id="password" name="password" placeholder="Password" class="form-control"
                         required>
 
+                    <label for="password">Confirm Password :</label>
+                    <input type="password" class="form-control" placeholder="Confirm Password" id="confirm_password"
+                        required>
+
                     <label for="mobile">Mobile Number :</label>
                     <input type="tel" id="mobile" name="mobile" pattern="[0-9]{10}" placeholder="Mobile"
                         class="form-control" required oninput="this.value = this.value.replace(/[^0-9]/g, '')">
@@ -181,6 +185,22 @@
                     setTimeout(() => {
                         document.getElementById('msg').style.display = 'none';
                     }, 3000);
+
+                    var password = document.getElementById("password")
+                        , confirm_password = document.getElementById("confirm_password");
+
+                    function validatePassword() {
+                        if (password.value != confirm_password.value) {
+                            confirm_password.setCustomValidity("Passwords Don't Match");
+                        } else {
+                            confirm_password.setCustomValidity('');
+                        }
+                    }
+
+                    password.onchange = validatePassword;
+                    confirm_password.onkeyup = validatePassword;
+
+
                 </script>
 </body>
 

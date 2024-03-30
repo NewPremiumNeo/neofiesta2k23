@@ -3,6 +3,7 @@ const passport = require('passport');
 const localStrategy = require('passport-local').Strategy;
 const usersModel = require('../models/usersModel.js');
 const { uploadOnImgbb } = require('../middleware/imgbb.js');
+const { uploadOnCloudinary } = require('../middleware/cloudinary.js');
 
 passport.use(
     new localStrategy({
@@ -168,7 +169,7 @@ exports.postProfileEdit = async (req, res) => {
 
         let result = null;
         if (req.file) {
-            result = await uploadOnImgbb(req.file.path);
+            result = await uploadOnCloudinary(req.file.path);
         }
 
         user.name = name;

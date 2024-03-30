@@ -27,6 +27,10 @@
     --secondary: #46011c;
     --accent: #e1fb18;
     --bg: url(../images/circle-scatter-haikei-dark.svg);
+    --gard: linear-gradient(to right,rgb(106,6,236),rgb(220,0,240));
+    --gold: #ffb338;
+    --light-shadow: #77571d;
+    --dark-shadow: #3e2904;
   }
 }
 
@@ -520,6 +524,7 @@ div.fg{
   padding: 2rem 3rem;
   gap: 10px;
   white-space: nowrap; /* Prevents wrapping of items */
+  overflow-x: auto;
 }
 
 .profile1 {

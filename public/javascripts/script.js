@@ -234,27 +234,27 @@ function showAlert() {
   }
 }
 
-gsap.registerPlugin(ScrollTrigger);
 
-gsap.to(".profile1", {
-    scrollTrigger: {
-        trigger: ".profile1",
-        start: "left center", // Start scrolling from the left edge of .profile
-        end: "right center", // End scrolling at the right edge of .profile
-        scrub: 1,
-    },
-    x: -(document.querySelector('.person').scrollWidth - document.querySelector('.person').offsetWidth) // Scrolls the .profile horizontally
-});
 
-gsap.to(".profile2", {
-  duration: 3,
-  scrollTrigger: {
-      trigger: ".profile2",
-      start: "left center", // Start scrolling from the left edge of .profile
-      end: "right center", // End scrolling at the right edge of .profile
-      scrub: 1,
-      onEnter: () => document.body.classList.add("no-scroll"), // Disable vertical scrolling when scrolling starts
-      onLeaveBack: () => document.body.classList.remove("no-scroll") // Enable vertical scrolling when scrolling ends
-  },
-  x: -(document.querySelector('.person').scrollWidth - document.querySelector('.person').offsetWidth) // Scrolls the .profile horizontally
-});
+// gsap.registerPlugin(ScrollTrigger);
+
+// gsap.to(".profile1", {
+//   scrollTrigger: {
+//     trigger: ".profile1",
+//     start: "left center", // Start scrolling from the left edge of .profile
+//     end: "right center", // End scrolling at the right edge of .profile
+//     scrub: 1,
+//   },
+//   x: -(document.querySelector('.person').scrollWidth - document.querySelector('.person').offsetWidth) // Scrolls the .profile horizontally
+// });
+
+// gsap.to(".profile2", {
+//   duration: 3,
+//   scrollTrigger: {
+//     trigger: ".profile2",
+//     start: "left center", // Start scrolling from the left edge of .profile
+//     end: "right center", // End scrolling at the right edge of .profile
+//     scrub: 1,
+//   },
+//   // x: -(document.querySelector('.person').scrollWidth - document.querySelector('.person').offsetWidth) // Scrolls the .profile horizontally
+// });
