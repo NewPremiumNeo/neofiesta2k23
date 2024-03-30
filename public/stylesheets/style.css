@@ -7,7 +7,10 @@
     --secondary: #feb9d3;
     --accent: #cde704;
     --bg: url(../images/circle-scatter-haikei.svg);
-    --gard: linear-gradient(to right,rgb(106,6,236),rgb(220,0,240))
+    --gard: linear-gradient(to right,rgb(106,6,236),rgb(220,0,240));
+    --gold: #ffb338;
+    --light-shadow: #77571d;
+    --dark-shadow: #3e2904;
   }
 }
 /* circle-scatter-haikei.svg */
@@ -120,7 +123,7 @@ html {
   position: fixed;
   z-index: -1;
   width: 100%;
-  height: 100vh;
+  height: 100svh;
   object-fit: cover;
   overflow: hidden;
 }
@@ -382,6 +385,41 @@ nav h1 {
   -webkit-transform: translate(-0.5rem, -0.5rem);
 }
 
+.VoteBtn button{
+  appearance: none;
+  background-color: #FFFFFF;
+  border-radius: 40em;
+  border-style: none;
+  box-shadow: #ADCFFF 0 -12px 6px inset;
+  color: #000000;
+  cursor: pointer;
+  font-family: -apple-system,sans-serif;
+  font-size: 1.8rem;
+  font-weight: 700;
+  letter-spacing: -.24px;
+  margin: 5rem 0;
+  outline: none;
+  padding: 2.5rem 3rem;
+  quotes: auto;
+  text-align: center;
+  text-decoration: none;
+  transition: all .15s;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.VoteBtn button:hover {
+  background-color: #FFC229;
+  box-shadow: #FF6314 0 -6px 8px inset;
+  transform: scale(1.125);
+  -webkit-transform: scale(-0.5rem, -0.5rem);
+}
+
+.VoteBtn button:active {
+  transform: scale(1.025);
+}
+
 
 
 .partybg>p {
@@ -433,12 +471,6 @@ main {
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
-}
-
-:root {
-  --gold: #ffb338;
-  --light-shadow: #77571d;
-  --dark-shadow: #3e2904;
 }
 
 .wrapper {

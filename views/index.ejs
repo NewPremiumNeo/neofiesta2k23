@@ -93,7 +93,7 @@
     </div>
     <!-- CountDown Clock -->
     <% if (bool && bool.isWinnerOn) { %>
-      <div class="btn">
+      <div class="VoteBtn">
         <% if (user) { %>
           <button onclick="window.location.href ='/vote/winner';">See Winner</button>
           <% } else { %>
@@ -101,11 +101,11 @@
             <% } %>
       </div>
       <% } else if (bool && bool.isVoteOn) { %>
-        <div class="btn">
+        <div class="VoteBtn">
           <% if (user) { %>
-            <button onclick="window.location.href ='/vote';">Vote Now</button>
+            <button onclick="window.location.href ='/vote';">🗳️ Vote Now</button>
             <% } else { %>
-              <button onclick="showAlert()">Vote Now</button>
+              <button onclick="showAlert()">🗳️ Vote Now</button>
               <% } %>
         </div>
         <% } else { %>
@@ -157,6 +157,13 @@
       </div>
       <div class="profile">
         <div class="pic">
+          <img src="/images/cheif_guest/hod.png" alt="profile">
+        </div>
+        <h3>Prof. Vikas Pareek</h3>
+        <h6>HOD(B.Tech)</h6>
+      </div>
+      <div class="profile">
+        <div class="pic">
           <img src="/images/cheif_guest/dean.png" alt="profile">
         </div>
 
@@ -170,13 +177,6 @@
 
         <h3>Prof. Prasoon Dutta</h3>
         <h6>Proctor(MGCUB)</h6>
-      </div>
-      <div class="profile">
-        <div class="pic">
-          <img src="/images/cheif_guest/hod.png" alt="profile">
-        </div>
-        <h3>Prof. Vikas Pareek</h3>
-        <h6>HOD(B.Tech)</h6>
       </div>
       <div class="profile">
 
@@ -249,21 +249,21 @@
       </div>
       <div class="profile">
         <div class="pic">
-          <img src="/images/organisers/jayantika.png" alt="profile" />
-        </div>
-        <h3>Jayantika Prateek</h3>
-        <h6>Performance Coordinator</h6>
-        <button onclick="openDialog('performance')">View Members</button>
-        <!-- <ul id="performanceMembers"></ul> -->
-      </div>
-      <div class="profile">
-        <div class="pic">
           <img src="/images/organisers/Riteek pic.png" alt="profile" />
         </div>
         <h3>Riteek Raj</h3>
         <h6>Stage Management</h6>
         <button onclick="openDialog('stage')">View Members</button>
         <!-- <ul id="stageMembers"></ul> -->
+      </div>
+      <div class="profile">
+        <div class="pic">
+          <img src="/images/organisers/jayantika.png" alt="profile" />
+        </div>
+        <h3>Jayantika Pratik</h3>
+        <h6>Performance Coordinator</h6>
+        <button onclick="openDialog('performance')">View Members</button>
+        <!-- <ul id="performanceMembers"></ul> -->
       </div>
       <div class="profile">
         <div class="pic">
