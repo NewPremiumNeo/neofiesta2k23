@@ -88,18 +88,6 @@ t1.from(".imp-heading h1,.btn", {
   opacity: 0
 })
 
-gsap.from(".profile", {
-  x: 50,
-  opacity: 0,
-  duration: 1,
-  stagger: 0.4,
-  scrollTrigger: {
-    trigger: ".profile",
-    scroller: "body",
-    scrub: 1,
-  },
-});
-
 function hamwork() {
   const hambox = document.querySelector(".ham-box");
   const hambarbox = document.querySelector(".ham-bar-box");
@@ -166,7 +154,6 @@ hambarboxHeight();
 //Loader
 
 const loader = document.getElementById("mainLoader");
-const body = document.querySelector("body");
 
 window.addEventListener("load", function (event) {
   event.preventDefault();
@@ -246,3 +233,28 @@ function showAlert() {
     window.location.href = '/login';
   }
 }
+
+gsap.registerPlugin(ScrollTrigger);
+
+gsap.to(".profile1", {
+    scrollTrigger: {
+        trigger: ".profile1",
+        start: "left center", // Start scrolling from the left edge of .profile
+        end: "right center", // End scrolling at the right edge of .profile
+        scrub: 1,
+    },
+    x: -(document.querySelector('.person').scrollWidth - document.querySelector('.person').offsetWidth) // Scrolls the .profile horizontally
+});
+
+gsap.to(".profile2", {
+  duration: 3,
+  scrollTrigger: {
+      trigger: ".profile2",
+      start: "left center", // Start scrolling from the left edge of .profile
+      end: "right center", // End scrolling at the right edge of .profile
+      scrub: 1,
+      onEnter: () => document.body.classList.add("no-scroll"), // Disable vertical scrolling when scrolling starts
+      onLeaveBack: () => document.body.classList.remove("no-scroll") // Enable vertical scrolling when scrolling ends
+  },
+  x: -(document.querySelector('.person').scrollWidth - document.querySelector('.person').offsetWidth) // Scrolls the .profile horizontally
+});

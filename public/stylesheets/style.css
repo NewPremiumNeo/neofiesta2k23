@@ -44,6 +44,8 @@ html {
   font-weight: 400;
   font-size: 62.5%;
   scroll-behavior: smooth;
+  overflow-x: hidden;
+  overflow-y: auto; /* Enable vertical scrolling */
 }
 #mainLoader{
   position: fixed;
@@ -515,14 +517,12 @@ div.fg{
   display: flex;
   align-items: center;
   text-align: center;
-  overflow-x: auto;
-  overflow-y: hidden;
-  flex-wrap:nowrap;
   padding: 2rem 3rem;
   gap: 10px;
+  white-space: nowrap; /* Prevents wrapping of items */
 }
 
-.profile {
+.profile1 {
   width: auto;
   height: 75%;
   display: flex;
@@ -537,15 +537,15 @@ div.fg{
   flex-shrink: 0;
 }
 
-.profile h3{
+.profile1 h3{
   font-size: 1.6rem;
 }
 
-.profile h6{
+.profile1 h6{
   font-size: 1rem;
 }
 
-.profile button{
+.profile1 button{
   text-align: center;
   width: 80%;
   height: 2.5rem;
@@ -557,18 +557,18 @@ div.fg{
   outline: none;
   cursor: pointer;
 }
-.profile button:hover {
+.profile1 button:hover {
   transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
   box-shadow: 0.5rem 0.5rem 0 white;
   transform: translate(-0.2rem, -0.2rem);
   -webkit-transform: translate(-0.2rem, -0.2rem);
 }
 
-.profile h3 {
+.profile1 h3 {
   font-size: 1.6rem;
 }
 
-.profile h6 {
+.profile1 h6 {
   font-size: 1rem;
 }
 
@@ -587,6 +587,61 @@ div.fg{
   width: 85%;
   aspect-ratio: 1/1;
 }
+
+.no-scroll {
+  overflow: hidden !important; /* Disable vertical scrolling */
+}
+
+.profile2 {
+  width: auto;
+  height: 75%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-direction: column;
+  background: transparent;
+  background-color: rgba(0, 0, 0, 0.097);
+  backdrop-filter: blur(10px);
+  padding: 0 1rem 2rem 1rem;
+  border-radius: 3rem;
+  flex-shrink: 0;
+}
+
+.profile2 h3{
+  font-size: 1.6rem;
+}
+
+.profile2 h6{
+  font-size: 1rem;
+}
+
+.profile2 button{
+  text-align: center;
+  width: 80%;
+  height: 2.5rem;
+  border: none;
+  border-radius: 8px;
+  background-color: transparent;
+  color: white;
+  border: 1px solid white;
+  outline: none;
+  cursor: pointer;
+}
+.profile2 button:hover {
+  transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
+  box-shadow: 0.5rem 0.5rem 0 white;
+  transform: translate(-0.2rem, -0.2rem);
+  -webkit-transform: translate(-0.2rem, -0.2rem);
+}
+
+.profile2 h3 {
+  font-size: 1.6rem;
+}
+
+.profile2 h6 {
+  font-size: 1rem;
+}
+
 
 .dialog {
   display: none;
@@ -812,8 +867,8 @@ form button:hover {
 }
   .cont-event ul li:nth-child(even){
     float: right;
-  clear: left;
-  transform: translateX(30px);
+    clear: left;
+    transform: translateX(30px);
 }
 .cont-event ul li:nth-child(6){
   margin-bottom: 0;
