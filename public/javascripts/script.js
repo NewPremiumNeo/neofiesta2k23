@@ -210,23 +210,6 @@ function closeDialog() {
 }
 
 
-function toggleLoginLogout() {
-  var loginLogoutLink = document.getElementById("loginLogoutLink");
-  var isLoggedIn = true; // Replace this with your actual authentication logic
-
-  if (isLoggedIn) {
-    loginLogoutLink.textContent = "Log out";
-    loginLogoutLink.href = "/logout"; // Replace "/logout" with your logout URL
-  } else {
-    loginLogoutLink.textContent = "Log in";
-    loginLogoutLink.href = "/login"; // Replace "/login" with your login URL
-  }
-}
-
-// Call the function when the page loads
-window.onload = toggleLoginLogout;
-
-
 function showAlert() {
   var choice = confirm('Please Login First');
   if (choice == true) {
@@ -234,27 +217,32 @@ function showAlert() {
   }
 }
 
+function profileAsWidthChanges() {
+  var width = window.innerWidth;
+  if (width > 768) {
+    gsap.registerPlugin(ScrollTrigger);
 
+    gsap.to(".profile1", {
+      scrollTrigger: {
+        trigger: ".profile1",
+        start: "left center", // Start scrolling from the left edge of .profile
+        end: "right center", // End scrolling at the right edge of .profile
+        scrub: 1,
+      },
+      x: -(document.querySelector('.person').scrollWidth - document.querySelector('.person').offsetWidth) // Scrolls the .profile horizontally
+    });
 
-// gsap.registerPlugin(ScrollTrigger);
+    gsap.to(".profile2", {
+      duration: 3,
+      scrollTrigger: {
+        trigger: ".profile2",
+        start: "left center", // Start scrolling from the left edge of .profile
+        end: "right center", // End scrolling at the right edge of .profile
+        scrub: 1,
+      },
+      x: -(document.querySelector('.person').scrollWidth - document.querySelector('.person').offsetWidth) // Scrolls the .profile horizontally
+    });
+  }
+}
 
-// gsap.to(".profile1", {
-//   scrollTrigger: {
-//     trigger: ".profile1",
-//     start: "left center", // Start scrolling from the left edge of .profile
-//     end: "right center", // End scrolling at the right edge of .profile
-//     scrub: 1,
-//   },
-//   x: -(document.querySelector('.person').scrollWidth - document.querySelector('.person').offsetWidth) // Scrolls the .profile horizontally
-// });
-
-// gsap.to(".profile2", {
-//   duration: 3,
-//   scrollTrigger: {
-//     trigger: ".profile2",
-//     start: "left center", // Start scrolling from the left edge of .profile
-//     end: "right center", // End scrolling at the right edge of .profile
-//     scrub: 1,
-//   },
-//   // x: -(document.querySelector('.person').scrollWidth - document.querySelector('.person').offsetWidth) // Scrolls the .profile horizontally
-// });
+profileAsWidthChanges()
