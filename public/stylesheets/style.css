@@ -49,8 +49,6 @@ html {
   font-size: 62.5%;
   scroll-behavior: smooth;
 }
-
-
 #mainLoader{
   position: fixed;
   width: 100%;
@@ -1013,7 +1011,8 @@ form button:hover {
 .cont-event ul li:nth-child(even){
     float: right;
     clear: left;
-    transform: translateX(30px);
+    transform: translateX(3rem);
+    
 }
 .cont-event ul li:nth-child(6){
   margin-bottom: 0;
@@ -1108,7 +1107,7 @@ ul li .time{
     transform: translate(-50%,-50%);
   }
   .cont-event ul li:nth-child(even){
-    transform: translateX(0);
+    transform: translateX(-0.4rem);
   }
   /* Contact Section CSS */
   .contact {
