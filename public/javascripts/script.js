@@ -73,6 +73,7 @@ gsap.to("#navbar", {
     // markers:true,
     start: "top -1vh",
     end: "top -1.1vh",
+    // markers:"true",
     scrub: 1,
   },
 });
@@ -233,7 +234,6 @@ function profileAsWidthChanges() {
     });
 
     gsap.to(".profile2", {
-      duration: 3,
       scrollTrigger: {
         trigger: ".profile2",
         start: "left center", // Start scrolling from the left edge of .profile
