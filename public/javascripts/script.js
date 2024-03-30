@@ -184,7 +184,7 @@ window.addEventListener("load", function (event) {
 
 function openDialog(role) {
   const members = {
-    'technical': ['Prince Kumar', 'Ankit Raj'],
+    'technical': ['Prince', 'Ankit'],
     'management': ['Aaryan', 'Abhishek', 'Akshansh', 'Ankit', 'Divyanshu', 'Hariom', 'Jayantika', 'Muskan', 'Naina', 'Pavan', 'Prince', 'Raj', 'Rajeev', 'Rishab', 'Riteek', 'Adarsh', 'Aarya', 'Rohit', 'Saurav', 'Vishal'],
     'catering': ['Adarsh', 'Raj', 'Rajeev', 'Saurav', 'Hariom'],
     'stage': ['Naina', 'Jayantika', 'Arya', 'Akshansh', 'Rishab'],
