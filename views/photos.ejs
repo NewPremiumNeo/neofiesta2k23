@@ -8,7 +8,7 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon_io/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon_io/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon_io/favicon-16x16.png">
-    <link rel="manifest" href="/site.webmanifest">
+    <link rel="manifest" href="/images/favicon_io/site.webmanifest">
     <title>
         <%= title %>
     </title>
@@ -54,7 +54,8 @@
                                     <i onclick="savetoggle('<%= post._id %>')" data-photo-id="<%= post._id %>"
                                         id="save-<%= post._id %>" class="ri-bookmark-3-line btn-save"></i>
                                 </span>
-                                <i class="ri-download-fill"></i>
+                                <i class="ri-download-fill"
+                                    onclick="window.location.href = '<%= post.postImageUrl.replace('/upload/', '/upload/fl_attachment/') %>'"></i>
                             </div>
                             <h6 id="totalLike-<%= post._id %>"></h6>
                         </div>

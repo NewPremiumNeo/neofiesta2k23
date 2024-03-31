@@ -382,7 +382,7 @@ nav h1 {
   animation: anime 1s infinite alternate;
   cursor: help;
   display: inline;
-
+  line-height: 10rem;
 }
 @keyframes anime {
   100%{
@@ -1141,6 +1141,7 @@ ul li .time{
   }
   #navbar{
     height: 6.5rem;
+    padding: 1rem 1.8rem;
   }
   .ham-bar-box-contant a {
     font-size: 2rem;

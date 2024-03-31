@@ -6,7 +6,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon_io/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon_io/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon_io/favicon-16x16.png">
-
+  <link rel="manifest" href="/images/favicon_io/site.webmanifest">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap" rel="stylesheet">
@@ -36,12 +36,12 @@
       <div class="projectName">
         <% if (user) { %>
           <div onclick="window.location.href = '/profile'" class="avatar">
-            <img src="<%= user.userDp || `/uploads/userDp/neoFiesta.png` %>" alt="">
+            <img src="<%= user.userDp || `/uploads/userDp/default.jpg` %>" alt="">
           </div>
           <h1>Hey<span class="wave">👋</span>, <%= user.name.split(' ')[0] %></h1>
         <% } else{ %>
           <div onclick="window.location.href = ' /profile'" class="avatar">
-              <img src="/uploads/userDp/neoFiesta.png" alt="">
+              <img src="/uploads/userDp/default.jpg" alt="">
       </div>
       <h1>Neo Fiesta</h1>
       <% } %>
