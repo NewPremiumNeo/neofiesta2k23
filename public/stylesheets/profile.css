@@ -21,6 +21,21 @@ body {
   width: auto;
   background-color: var(--main-bg);
 }
+.icon {
+  display: inline-block; /* Display the icon as an inline block */
+  position: absolute;
+  top: 2rem;
+  left: 2rem;
+  z-index: 999;
+}
+.icon a {
+  text-decoration: none; /* Remove underline from the anchor */
+}
+.icon img {
+  width: 40px; /* Set the width of the image */
+  height: 40px; /* Set the height of the image */
+  border: none; /* Remove border from the image */
+}
 
 .profile-card {
   background-color: white;
