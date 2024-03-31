@@ -33,10 +33,10 @@ router.get('/logout', adminController.adminGetLogout)
 
 router.get('/photos', isAdminLoggedIn, async function (req, res, next) {
     try {
-        const allPhotos2k21 = await photoModel.find({ year: "2k21" });
+        // const allPhotos2k21 = await photoModel.find({ year: "2k21" });
         const allPhotos2k22 = await photoModel.find({ year: "2k22" });
         const allPhotos2k23 = await photoModel.find({ year: "2k23" });
-        res.render('adminPhotos', { allPhotos2k21, allPhotos2k22, allPhotos2k23, messages: req.flash('success') });
+        res.render('adminPhotos', {allPhotos2k22, allPhotos2k23, messages: req.flash('success') });
     }
     catch (err) {
         console.error('Error in geting Post Data:- ', err.message);
