@@ -45,7 +45,10 @@
   height: 40px; /* Set the height of the image */
   border: none; /* Remove border from the image */
 }
-
+.icon img:hover{
+  scale:  1.1; /* Scale up the image when hovered over */
+  transition-duration: 0.3s;
+}
 
     .container {
       max-width: 100%;
@@ -210,6 +213,7 @@
         Photos</button>
       <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#savedVideos">Saved
         Videos</button> -->
+      <button type="button" class="btn btn-primary" onclick="window.location.href = '/changepassword' " >Change Password</button>
 
     </div>
   </div>
