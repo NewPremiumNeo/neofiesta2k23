@@ -861,12 +861,12 @@ div.fg{
   color: #FF2C7E;
 }
 #left-contact p {
-  color: #76809c;
+  color: #e6ff03;
+  
   font-size: 1.5rem;
   line-height: 2.5rem;
   margin-top: 3rem;
   width: 100%;
-  font-weight: 400;
 }
 #left-contact button {
   padding: 1.7rem 2rem;
