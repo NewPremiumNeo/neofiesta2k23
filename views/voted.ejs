@@ -132,6 +132,27 @@
         height: 7rem;
     }
 
+    .icon {
+    display: inline-block; /* Display the icon as an inline block */
+    position: absolute;
+    top: 2rem;
+    left: 2rem;
+    z-index: 999;
+  }
+  .icon a {
+    text-decoration: none; /* Remove underline from the anchor */
+  }
+  .icon img {
+    width: 32px; /* Set the width of the image */
+    height: 32px; /* Set the height of the image */
+    border: none; /* Remove border from the image */
+  }
+  .icon img:hover{
+    scale:  1.1; /* Scale up the image when hovered over */
+    transition-duration: 0.3s;
+  }
+
+
     @media screen and (-ms-high-contrast: active),
     (-ms-high-contrast: none) {
         .funds-display-on-ie {
@@ -255,6 +276,9 @@
 </style>
 
 <body>
+    <div class="icon">
+        <a href="/" > <img src="/images/icons8-home_voted.png" alt="Home Icon"/> </a>
+    </div>
     <canvas id=c></canvas>
     <div class="funds-success-message-container">
         <div class="funds-checkmark-text-container">
