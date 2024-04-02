@@ -39,10 +39,9 @@
         </div>
 
 
-        <section class="gallery">
-            <% if (allPhotos && allPhotos.length > 0) { %>
-            <% allPhotos.forEach(post => { %>
-                <div class="image-container">
+        <section class="gallery" style="display: block;">
+            <% if (allPhotos && allPhotos.length> 0) { %>
+                <% allPhotos.forEach(post=> { %>
                     <div class="grid__images">
 
                         <% let imageUrl=post.postImageUrl; if (imageUrl.endsWith('.heic')) {
@@ -64,14 +63,14 @@
                                 </div>
                                 <h6 id="totalLike-<%= post._id %>"></h6>
                             </div>
+                    </div>
+                    <% }); %>
+                        <% } else{ %>
+                            <h1 style="color: #111;">No Photos of <%= title %>
+                            </h1>
+                            <% } %>
 
-                </div>
-            <% }); %>
-            <% } else { %>
-            <h1 style="color: #111;">No Photos of <%= title %></h1>
-            <% } %>
         </section>
-
     </main>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/js/lightbox-plus-jquery.js"
