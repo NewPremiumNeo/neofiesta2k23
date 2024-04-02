@@ -78,15 +78,16 @@ gsap.to("#navbar", {
   },
 });
 t1.from("#navbar h1, #navbar a", {
-  y: -100,
+  y: -500,
   opacity: 0,
-  stagger: 0.2
+  stagger: 0.31
 })
 
 t1.from(".imp-heading h1,.btn", {
   x: -500,
   duration: 1,
-  opacity: 0
+  opacity: 0,
+  stagger: 0.69
 })
 
 function hamwork() {
