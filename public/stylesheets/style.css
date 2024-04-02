@@ -52,7 +52,7 @@ html {
 #mainLoader{
   position: fixed;
   width: 100%;
-  height: 100svh;
+  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -396,7 +396,7 @@ nav h1 {
 .first__page p{
   font-size: 1.8rem;
 }
-/* Register button CSS */
+/* Register button CSS */`
 .btn button{
   padding: 2.5rem 4rem;
   color: white;
