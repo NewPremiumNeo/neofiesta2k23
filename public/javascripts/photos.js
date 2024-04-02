@@ -19,7 +19,6 @@ socket.on('like', (data) => {
 
 document.addEventListener("DOMContentLoaded", function () {
     var likeButtons = document.querySelectorAll(".btn-like");
-
     // Check if the user has already liked posts and update button appearance
     likeButtons.forEach((button) => {
         var photoId = button.getAttribute("data-photo-id");
@@ -113,7 +112,4 @@ async function savetoggle(photoId) {
         })
         .catch(error => console.error('Error:', error));
 }
-<<<<<<< HEAD
-=======
 
->>>>>>> 388ac3172c1363d05a143ba2964c25154b3dee6c
