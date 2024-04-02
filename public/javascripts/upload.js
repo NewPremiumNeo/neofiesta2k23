@@ -19,16 +19,20 @@ form.addEventListener("click", () => {
 });
 
 fileInput.onchange = ({ target }) => {
-  let file = target.files[0];
-  if (file) {
-    let fileName = file.name;
-    if (fileName.length >= 12) {
-      let splitName = fileName.split('.');
-      fileName = splitName[0].substring(0, 13) + "... ." + splitName[1];
-    }
-    uploadFile(fileName, file);
+  let files = target.files;
+  if (files.length > 0) {
+    [...files].forEach(file => {
+      let fileName = file.name;
+      if (fileName.length >= 12) {
+        let splitName = fileName.split('.');
+        fileName = splitName[0].substring(0, 13) + "... ." + splitName[1];
+      }
+      uploadFile(fileName, file);
+    });
   }
 }
+
+// Uncaught TypeError: photoUrls.forEach is not a function
 
 async function uploadFile(name, file) {
   try {
@@ -62,7 +66,7 @@ async function uploadFile(name, file) {
                             </div>
                           </li>`;
       uploadedArea.classList.add("onprogress");
-      progressArea.innerHTML = progressHTML;
+      progressArea.innerHTML += progressHTML;
     });
 
     xhr.onreadystatechange = function () {

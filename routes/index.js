@@ -100,10 +100,9 @@ router.get('/gallery/videos/:year', isLoggedIn, async function (req, res, next) 
 //   res.render('videos');
 // });
 
-// router.get('/photos2', async function (req, res, next) {
-//   const allPhotos = await photoModel.find();
-//   res.render('photos', { allPhotos, title: `Image Gallery 2222` });
-// });
+router.get('/organisers', async function (req, res, next) {
+  res.render('organisers');
+});
 
 router.get('/changepassword', isLoggedIn, (req, res) => {
   res.render('changePassword', {
