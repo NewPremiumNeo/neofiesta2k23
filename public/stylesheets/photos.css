@@ -92,18 +92,19 @@ main  .other-categories .containing-div .content{
     justify-content: space-evenly;
     flex-wrap: wrap;
     align-items: center;
-    gap: 24px;
-    padding: 24px;
+    /* gap: 24px; */
+    /* padding: 24px; */
     max-width: 100%;
     width: 100%;
     margin: auto;
+    margin-top: 20px;
     position: relative;
 }
 
 /* Image container styles */
 .image-container {
-    width: 300px; /* Set fixed width for the image container */
-    height: 200px; /* Set fixed height for the image container */
+    width: 350px; /* Set fixed width for the image container */
+    height: 250px; /* Set fixed height for the image container */
     margin-bottom: 22px;
     display: inline-block;
     overflow: hidden; 
@@ -157,15 +158,15 @@ main  .other-categories .containing-div .content{
     gap: 20px;
 }
 
-.button__like i {
+i {
     font-size: 24px;
     color: white;
     cursor: pointer;
 }
-
 .ri-heart-fill {
     color: red;
 }
+
 
 
 
