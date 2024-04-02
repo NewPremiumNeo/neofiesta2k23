@@ -115,3 +115,21 @@ async function savetoggle(photoId) {
 }
 
 
+
+function downloadImage(imageUrl) {
+    fetch(imageUrl)
+        .then(response => response.blob())
+        .then(blob => {
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = imageUrl.substring(imageUrl.lastIndexOf('/') + 1);
+            document.body.appendChild(a);
+            a.click();
+            window.URL.revokeObjectURL(url);
+            a.remove();
+        })
+        .catch(error => {
+            console.error('Error downloading image:', error);
+        });
+}
