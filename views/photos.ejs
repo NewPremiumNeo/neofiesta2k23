@@ -46,7 +46,7 @@
                         <% let imageUrl=post.postImageUrl; if (imageUrl.endsWith('.heic')) {
                             imageUrl=imageUrl.replace('.heic', '.jpg' ); } %>
 
-                            <a href="<%= imageUrl %>" target="_blank" download data-lightbox="models" data-title="Photos">
+                            <a href="<%= imageUrl %>" target="_blank" data-lightbox="models" data-title="Photos">
                                 <img src="<%= imageUrl %>" alt="Photos" loading="lazy" class="gallery-image">
                             </a>
                             <div class="button-container">
@@ -57,7 +57,8 @@
                                         <i onclick="savetoggle('<%= post._id %>')" data-photo-id="<%= post._id %>"
                                             id="save-<%= post._id %>" class="ri-bookmark-3-line btn-save"></i>
                                     </span>
-                                   <i class="ri-download-fill" onclick="window.location.href='<%= imageUrl.replace('/upload/', '/upload/fl_attachment/') %>'"></
+                                    <i class="ri-download-fill" onclick="downloadImage('<%= imageUrl %>')"></i>
+                                    
                                 </div>
                                 <h6 id="totalLike-<%= post._id %>"></h6>
                             </div>
