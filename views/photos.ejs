@@ -43,7 +43,6 @@
             <% if (allPhotos && allPhotos.length > 0) { %>
             <% allPhotos.forEach(post => { %>
                 <div class="image-container">
-                    <div class="grid__images">
 
                         <% let imageUrl=post.postImageUrl; if (imageUrl.endsWith('.heic')) {
                             imageUrl=imageUrl.replace('.heic', '.jpg' ); } %>
@@ -64,7 +63,6 @@
                                 </div>
                                 <h6 id="totalLike-<%= post._id %>"></h6>
                             </div>
-                    </div>
                 </div>
             <% }); %>
             <% } else { %>

@@ -110,6 +110,8 @@ main  .other-categories .containing-div .content{
     overflow: hidden; 
     position: relative;
     background-color: #492467;
+    object-fit: cover;
+    
 }
 
 .image-container a {
