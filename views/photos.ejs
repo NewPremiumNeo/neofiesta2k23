@@ -57,7 +57,8 @@
                                         <i onclick="savetoggle('<%= post._id %>')" data-photo-id="<%= post._id %>"
                                             id="save-<%= post._id %>" class="ri-bookmark-3-line btn-save"></i>
                                     </span>
-                                   <i class="ri-download-fill" onclick="window.location.href='<%= imageUrl.replace('/upload/', '/upload/fl_attachment/') %>'"></
+                                    <i class="ri-download-fill"
+                                        onclick="window.location.href ='<%= imageUrl.replace('/upload/', '/upload/fl_attachment/') %>'"></i>
                                 </div>
                                 <h6 id="totalLike-<%= post._id %>"></h6>
                             </div>
