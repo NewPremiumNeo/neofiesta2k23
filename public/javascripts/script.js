@@ -225,15 +225,15 @@ function profileAsWidthChanges() {
   if (width > 768) {
     gsap.registerPlugin(ScrollTrigger);
 
-    gsap.to(".profile1", {
-      scrollTrigger: {
-        trigger: ".profile1",
-        start: "left center", // Start scrolling from the left edge of .profile
-        end: "right center", // End scrolling at the right edge of .profile
-        scrub: 1,
-      },
-      x: -(document.querySelector('.person').scrollWidth - document.querySelector('.person').offsetWidth) // Scrolls the .profile horizontally
-    });
+    // gsap.to(".profile1", {
+    //   scrollTrigger: {
+    //     trigger: ".profile1",
+    //     start: "left center", // Start scrolling from the left edge of .profile
+    //     end: "right center", // End scrolling at the right edge of .profile
+    //     scrub: 1,
+    //   },
+    //   x: -(document.querySelector('.person').scrollWidth - document.querySelector('.person').offsetWidth) // Scrolls the .profile horizontally
+    // });
 
     gsap.to(".profile2", {
       scrollTrigger: {
