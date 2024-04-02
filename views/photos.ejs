@@ -46,7 +46,7 @@
                         <% let imageUrl=post.postImageUrl; if (imageUrl.endsWith('.heic')) {
                             imageUrl=imageUrl.replace('.heic', '.jpg' ); } %>
 
-                            <a href="<%= imageUrl %>" download="<%= imageUrl %>" data-lightbox="models" data-title="Photos">
+                            <a href="<%= imageUrl %>" target="_blank" download data-lightbox="models" data-title="Photos">
                                 <img src="<%= imageUrl %>" alt="Photos" loading="lazy" class="gallery-image">
                             </a>
                             <div class="button-container">
