@@ -58,7 +58,7 @@ function initializeClock(id, endtime) {
   const timeinterval = setInterval(updateClock, 1000);
 }
 // End date of the countdown
-const deadline = new Date(Date.parse(new Date("April 8,2024 00:00:00")));
+const deadline = new Date(Date.parse(new Date("April 8,2024 17:00:00")));
 initializeClock('clockdiv', deadline);
 
 //scroll triggers on nav and main section

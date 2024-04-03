@@ -140,7 +140,7 @@ router.get('/users', isAdminLoggedIn, async (req, res) => {
         }
     } else {
         try {
-            let users = await usersModel.find({}, 'username name email mobile dob');
+            let users = await usersModel.find({}, 'username name email mobile dob').populate('likePhotoIds');
 
             const errorMessage = req.flash('error');
             const successMessage = req.flash('success');
