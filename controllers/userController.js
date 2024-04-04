@@ -228,7 +228,7 @@ exports.getLogin = function (req, res) {
     let enrollment, password;
     if (req.cookies.enrollment && req.cookies.password) {
       // Decrypt enrollment and password cookies if they exist
-      enrollment = decryptData(req.cookies.enrollment);
+      enrollment = decryptData(req.cookies.enrollment).toUpperCase();
       password = decryptData(req.cookies.password);
     }
     res.render('login', { messages: req.flash('error'), enrollment, password });
