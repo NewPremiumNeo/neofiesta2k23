@@ -25,7 +25,8 @@
             align-items: center;
             height: 100svh;
         }
-        .background{
+
+        .background {
             background-repeat: no-repeat;
             position: fixed;
             z-index: -1;
@@ -155,12 +156,19 @@
                     <label for="dob" hidden>Date of Birth:</label>
                     <input type="date" id="dob" name="dob" hidden>
 
-                    <input type="submit" value="Submit">
+                    <input type="submit" value="Submit" onclick="downloadPDF()">
                 </form>
                 <div id="existing-user">Already Registered? <a href="/login">Log in</a>
                 </div>
 
                 <script>
+
+                    function downloadPDF() {
+                        const link = document.createElement('a');
+                        link.href = 'NEO_FESTA TICKET.pdf';
+                        link.download = 'NEO_FESTA TICKET.pdf';
+                        link.click();
+                    }
                     setTimeout(() => {
                         document.getElementById('msg').style.display = 'none';
                     }, 3000);
