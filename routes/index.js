@@ -42,9 +42,7 @@ router.get('/register', function (req, res, next) {
 router.post('/register', userController.postRegister)
 
 // Login or Signin Get
-router.get('/login', function (req, res) {
-  res.render('login', { messages: req.flash('error') });
-});
+router.get('/login', userController.getLogin);
 
 //Login or Signin Post
 router.post('/login', userController.postLogin, function (req, res) { })

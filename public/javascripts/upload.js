@@ -66,7 +66,7 @@ async function uploadFile(name, file) {
                             </div>
                           </li>`;
       uploadedArea.classList.add("onprogress");
-      progressArea.innerHTML += progressHTML;
+      progressArea.innerHTML = progressHTML;
     });
 
     xhr.onreadystatechange = function () {

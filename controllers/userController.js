@@ -4,6 +4,7 @@ const localStrategy = require('passport-local').Strategy;
 const usersModel = require('../models/usersModel.js');
 const { uploadOnImgbb } = require('../middleware/imgbb.js');
 const { uploadOnCloudinary } = require('../middleware/cloudinary.js');
+const CryptoJS = require("crypto-js");
 
 
 passport.use(new localStrategy({
@@ -32,9 +33,20 @@ passport.use(new localStrategy({
         } catch (err) {
             return done(err);
         }
-    }));
+    }
+));
 
 
+// Encryption function
+function encryptData(data) {
+    return CryptoJS.AES.encrypt(data, 'secret_key').toString();
+}
+
+// Decryption function
+function decryptData(encryptedData) {
+    const bytes = CryptoJS.AES.decrypt(encryptedData, 'secret_key');
+    return bytes.toString(CryptoJS.enc.Utf8);
+}
 
 function validateEnrollment(enrollment) {
     const AAAA = enrollment.slice(0, 4);
@@ -212,6 +224,15 @@ exports.postProfileEdit = async (req, res) => {
 }
 
 
+exports.getLogin = function (req, res) {
+    let enrollment, password;
+    if (req.cookies.enrollment && req.cookies.password) {
+      // Decrypt enrollment and password cookies if they exist
+      enrollment = decryptData(req.cookies.enrollment);
+      password = decryptData(req.cookies.password);
+    }
+    res.render('login', { messages: req.flash('error'), enrollment, password });
+  }
 
 
 exports.postLogin = function (req, res, next) {
@@ -223,6 +244,8 @@ exports.postLogin = function (req, res, next) {
         }
         req.logIn(user, function (err) {
             if (err) { return next(err); }
+            res.cookie('enrollment', encryptData(req.body.enrollment), { maxAge: 604800000 }); // 7 days
+            res.cookie('password', encryptData(req.body.password), { maxAge: 604800000 }); // 7 days
             req.flash('success', 'Login Successful');
             return res.redirect('/');
         });
