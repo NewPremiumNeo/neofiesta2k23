@@ -1,24 +1,24 @@
 const express = require('express');
 const router = express.Router();
-const checkVoted = require('../middleware/checkVoted');
+const { checkVoted, checkWinnerStatus, checkVoteStatus, checkWinnerDeclared} = require('../middleware/checkVoted');
 const voteModel = require('../models/voteModel');
 const { isLoggedIn } = require('../middleware/authMiddleware.js');
 const usersModel = require('../models/usersModel.js');
 const voteController = require('../controllers/voteController.js')
 
 
-router.get('/', isLoggedIn, checkVoted, async (req, res) => {
+router.get('/', isLoggedIn, checkVoteStatus, checkWinnerDeclared, checkVoted,  async (req, res) => {
     res.render('vote');
 });
 
-router.get('/voted', isLoggedIn, checkVoted, async (req, res) => {
+router.get('/voted', isLoggedIn, checkVoteStatus, checkWinnerDeclared, checkVoted, async (req, res) => {
     const votedMemberId = await voteModel.findOne({ "user": req.user._id })
     res.render('voted', { votedMemberId });
 });
 
 
 
-router.post('/', isLoggedIn, checkVoted, async (req, res) => {
+router.post('/', isLoggedIn, checkVoteStatus, checkWinnerDeclared, checkVoted, async (req, res) => {
     try {
         names = ['Aadil Latif', 'Aditya Pratap', 'Ajain Raj', 'Akash', 'Alok Jaiswal', 'Alok Mehta', 'Ashish Kumar 1', 'Ashish Kumar 2', 'Ayush Pandey', 'Gyan Prakash', 'Kartik Sahu', 'Monu Kumawat', 'Nikhil Anand', 'Pabitra Mondal', 'Pankaj Kumar', 'Pratap Yadav', 'Prateek pandey', 'Priyanshu Kumar', 'Ranjeet Chaudhary', 'Ravi Raj', 'Rishabh Shukla', 'Riya Kumari', 'Sandeep Prajapati', 'Satyam Kumar', 'Shiva Hansda', 'Shruti Gupta', 'Shristi Gupta', 'Sudip Tikader', 'Swatantra Sahu', 'Vishal Kumar']
 
@@ -54,7 +54,7 @@ router.post('/', isLoggedIn, checkVoted, async (req, res) => {
 });
 
 
-router.get('/winner', isLoggedIn, async (req, res) => {
+router.get('/winner', isLoggedIn, checkWinnerStatus, async (req, res) => {
     try {
         const { winners, message } = await voteController.calculateWinners();
         res.render('winner', { winners, message });

@@ -4,6 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon_io/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon_io/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon_io/favicon-16x16.png">
+    <link rel="manifest" href="/images/favicon_io/site.webmanifest">
     <title>LogIn | 2k23 Freshers</title>
     <style>
         * {
@@ -25,7 +29,7 @@
             color: #fef8f8;
         }
 
-        .background{
+        .background {
             background-repeat: no-repeat;
             position: fixed;
             z-index: -1;
@@ -56,47 +60,6 @@
             margin-bottom: 2rem;
         }
 
-        label {
-            font-size: 1.7rem;
-        }
-
-        input[type="text"],
-        input[type="password"] {
-            width: 100%;
-            padding: 0.8rem 1.2rem;
-            margin: 10px 0;
-            border: 1px solid #fef8f8;
-            border-radius: 4px;
-            box-sizing: border-box;
-            color: black;
-            font-weight: 500;
-        }
-
-        input[type="submit"] {
-            background-color: #7e6dfd;
-            color: white;
-            padding: 12px 20px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            width: 100%;
-            margin-top: 2rem;
-            font-size: 1.5rem;
-        }
-
-        input[type="submit"]:hover {
-            background-color: #624efe;
-        }
-
-        .non-existing-user {
-            margin: 3rem 0;
-            font-size: 1.5rem;
-        }
-
-        .non-existing-user a {
-            font-weight: 700;
-            color: #7e6dfd;
-        }
 
         .alert {
             margin-bottom: 20px;
@@ -114,6 +77,62 @@
             border-color: #f5c6cb;
             color: #721c24;
         }
+
+
+        label {
+            display: block;
+            margin-top: 30px;
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        .form-control {
+            border: 1px solid #fef8f8;
+            display: block;
+            height: 50px;
+            width: 100%;
+            border-radius: 3px;
+            padding: 0 10px;
+            margin-top: 8px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        input[type="submit"] {
+            margin-top: 3rem;
+            width: 100%;
+            background-color: #7e6dfd;
+            color: white;
+            padding: 15px 0;
+            font-size: 1.8rem;
+            font-weight: 600;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #624efe;
+        }
+
+        .form-control:focus,
+        .form-control:not(:placeholder-shown) {
+            border-color: inherit;
+            -webkit-box-shadow: none;
+            box-shadow: none;
+            outline: 0;
+            background-color: #001220;
+            color: #ECF0F5;
+        }
+
+        .non-existing-user {
+            margin: 3rem 0;
+            font-size: 1.5rem;
+        }
+
+        .non-existing-user a {
+            font-weight: 700;
+            color: #7e6dfd;
+        }
     </style>
 </head>
 
@@ -123,22 +142,22 @@
         <h1>LOGIN</h1>
         <hr>
         <% if (messages && messages.length> 0) { %>
-            <div id="msg"  class="alert alert-danger" role="alert">
+            <div id="msg" class="alert alert-danger" role="alert">
                 <ul>
                     <li>
-                        Enrollment or Password is Incorrect.
+                        Invalid Credentials
                     </li>
                 </ul>
             </div>
             <% } %>
-                <form action="/login" method="post" id="LogInForm">
-                    <label for="enrollment">Enrollment Number :</label>
-                    <input type="text" id="enrollment" name="enrollment" required
-                        oninput="this.value = this.value.toUpperCase()">
+                <form action="/login" method="post" id="LogInForm" onsubmit="rememberMe()">
+                    <label for="enrollment">Enrollment or Email</label>
+                    <input type="text" id="enrollment" class="form-control" name="enrollment" placeholder="Enrollment"
+                        value="<%= enrollment || '' %>" required>
 
-                    <label for="password">Password:</label>
-                    <input type="password" id="password" name="password" required>
-
+                    <label for="password">Password</label>
+                    <input type="password" id="password" class="form-control" name="password" placeholder="Password"
+                        value="<%= password || '' %>" required>
                     <input type="submit" value="LogIn">
                 </form>
                 <div class="non-existing-user">

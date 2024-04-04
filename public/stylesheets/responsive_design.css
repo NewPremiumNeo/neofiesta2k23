@@ -1,23 +1,4 @@
-/* when the screen width is less than 1122px */
-/* @media screen and (max-width: 1122px) {
-    .header-section .top-header-section .mid{
-        display: none;
-    }
-    
-    .header-section .top-header-section .vertical-line{
-        display: none;
-    }
-} */
 
-/*  when the screen width is less than 1000px */
-/* @media screen and (max-width:1000px){
-    main .image-popup-window .preview-image{
-        height: 60% !important;
-    }
-} */
-
-/* when the screen width is less than 984px */
-/* Gallery columns: 2 */
 @media screen and (max-width:984px){
     main .gallery{
         columns: 2;
@@ -30,42 +11,9 @@
     }
 }
 
-/* when the screen width is less than 760px */
-/* @media screen and (max-width:760px){
-    main .image-popup-window .preview-image{
-        height: 48% !important;
-    }
-} */
 
 /* when the screen width is less than 759px */
 @media screen and (max-width: 759px){
-    main  .editorial-title-details{
-        height: 310px;
-    }
-
-    main  .other-categories{
-        height: 310px;
-    }
-
-    main .other-categories .containing-div .title{
-        font-size: 28px;
-    }
-
-    main  .other-categories .containing-div .content{
-        font-size: 18px;
-    }
-
-    main  .editorial-title-details .containing-div .title{
-        font-size: 28px;
-    }
-
-    main  .editorial-title-details .containing-div .content{
-        font-size: 18px;
-    }
-
-    main  .editorial-title-details .containing-div .search-box{
-        display: none;
-    }
 
     main .about-button{
         height: 40px;
@@ -74,10 +22,6 @@
 
     main .about-button img{
         width: 28px;
-    }
-
-    .header-section .top-header-section .branding{
-        font-size: 28px;
     }
 
 }
@@ -104,21 +48,6 @@
 
 /* when the screen width is less than 615px */
 @media screen and (max-width:615px){
-    main  .editorial-title-details .containing-div{
-        margin: auto;
-        margin-right: 0px;
-        margin-left: 20px;
-        width: fit-content;
-    }
-
-    main  .editorial-title-details .containing-div .title{
-        font-size: 24px;
-    }
-
-    main  .editorial-title-details .containing-div .content{
-        font-size: 15px;
-    }
-
     main  .other-categories .containing-div .title{
         font-size: 28px;
     }
@@ -128,8 +57,9 @@
     }
 
     main  .other-categories .containing-div{
-        margin: auto 20px;
-        width: fit-content;
+        margin: auto;
+        width: 100%;
+        text-align: center;
     }
 
     i{

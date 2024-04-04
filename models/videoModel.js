@@ -14,6 +14,9 @@ const postSchema = mongoose.Schema({
     postVideoUrl: {
         type: String,
     },
+    thumbnailLink: {
+        type: String,
+    },
     videoTitle: {
         type: String,
         default: ""
@@ -27,7 +30,7 @@ const postSchema = mongoose.Schema({
         ref: 'User',
         default: []
     }],
-    ownerIds: {
+    ownerId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
     },

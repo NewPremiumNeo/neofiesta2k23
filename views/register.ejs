@@ -4,6 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon_io/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon_io/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon_io/favicon-16x16.png">
+    <link rel="manifest" href="/images/favicon_io/site.webmanifest">
     <title>Register | 2k23 Freshers</title>
     <style>
         * {
@@ -58,39 +62,50 @@
         }
 
         label {
-            font-size: 1.7rem;
+            display: block;
+            margin-top: 10px;
+            font-size: 16px;
+            font-weight: 500;
         }
 
-        input[type="text"],
-        input[type="email"],
-        input[type="date"],
-        input[type="password"],
-        input[type="tel"] {
-            width: 100%;
-            padding: 0.8rem 1.2rem;
-            margin: 10px 0;
+        .form-control {
             border: 1px solid #fef8f8;
-            border-radius: 4px;
-            box-sizing: border-box;
-            color: black;
+            display: block;
+            height: 45px;
+            width: 100%;
+            border-radius: 3px;
+            padding: 0 10px;
+            margin-top: 8px;
+            font-size: 14px;
             font-weight: 500;
         }
 
         input[type="submit"] {
+            margin-top: 3rem;
+            width: 100%;
             background-color: #7e6dfd;
             color: white;
-            padding: 12px 20px;
-            border: none;
-            border-radius: 4px;
+            padding: 15px 0;
+            font-size: 1.8rem;
+            font-weight: 600;
+            border-radius: 5px;
             cursor: pointer;
-            width: 100%;
-            margin-top: 2rem;
-            font-size: 1.5rem;
         }
 
         input[type="submit"]:hover {
             background-color: #624efe;
         }
+
+        .form-control:focus,
+        .form-control:not(:placeholder-shown) {
+            border-color: inherit;
+            -webkit-box-shadow: none;
+            box-shadow: none;
+            outline: 0;
+            background-color: #001220;
+            color: #ECF0F5;
+        }
+
 
         #existing-user {
             margin: 3rem 0;
@@ -137,24 +152,29 @@
                 <hr>
                 <form action="/register" method="post" id="registrationForm">
                     <label for="name">Name :</label>
-                    <input type="text" id="name" name="name" required>
+                    <input type="text" id="name" name="name" placeholder="Name" class="form-control" required>
 
                     <label for="email">Email :</label>
-                    <input type="email" id="email" name="email" required>
+                    <input type="email" id="email" name="email" placeholder="Email" class="form-control" required>
 
                     <label for="enrollment">Enrollment Number :</label>
-                    <input type="text" id="enrollment" name="enrollment" required
-                        oninput="this.value = this.value.toUpperCase()">
+                    <input type="text" id="enrollment" name="enrollment" placeholder="Enrollment" class="form-control"
+                        required oninput="this.value = this.value.toUpperCase()">
 
                     <label for="password">Password :</label>
-                    <input type="password" id="password" name="password">
+                    <input type="password" id="password" name="password" placeholder="Password" class="form-control"
+                        required>
+
+                    <label for="password">Confirm Password :</label>
+                    <input type="password" class="form-control" placeholder="Confirm Password" id="confirm_password"
+                        required>
 
                     <label for="mobile">Mobile Number :</label>
-                    <input type="tel" id="mobile" name="mobile" pattern="[0-9]{10}" required
-                        oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+                    <input type="tel" id="mobile" name="mobile" pattern="[0-9]{10}" placeholder="Mobile"
+                        class="form-control" required oninput="this.value = this.value.replace(/[^0-9]/g, '')">
 
-                    <label for="dob" hidden>Date of Birth:</label>
-                    <input type="date" id="dob" name="dob" hidden>
+                    <!-- <label for="dob" hidden>Date of Birth:</label>
+                    <input type="date" id="dob" name="dob" hidden> -->
 
                     <input type="submit" value="Submit" onclick="downloadPDF()">
                 </form>
@@ -172,6 +192,22 @@
                     setTimeout(() => {
                         document.getElementById('msg').style.display = 'none';
                     }, 3000);
+
+                    var password = document.getElementById("password")
+                        , confirm_password = document.getElementById("confirm_password");
+
+                    function validatePassword() {
+                        if (password.value != confirm_password.value) {
+                            confirm_password.setCustomValidity("Passwords Don't Match");
+                        } else {
+                            confirm_password.setCustomValidity('');
+                        }
+                    }
+
+                    password.onchange = validatePassword;
+                    confirm_password.onkeyup = validatePassword;
+
+
                 </script>
 </body>
 

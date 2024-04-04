@@ -35,6 +35,7 @@ function getTimeRemaining(endtime) {
 
 function initializeClock(id, endtime) {
   const clock = document.getElementById(id);
+  if (!clock) return;
   const daysSpan = clock.querySelector('.days');
   const hoursSpan = clock.querySelector('.hours');
   const minutesSpan = clock.querySelector('.minutes');
@@ -57,9 +58,30 @@ function initializeClock(id, endtime) {
   const timeinterval = setInterval(updateClock, 1000);
 }
 // End date of the countdown
-const deadline = new Date(Date.parse(new Date("April 8,2024 00:00:00")));
+const deadline = new Date(Date.parse(new Date("April 8,2024 17:00:00")));
 initializeClock('clockdiv', deadline);
 
+//Contact
+function contact() {
+  const scriptURL = 'https://script.google.com/macros/s/AKfycbxRO8RyeQa4Qk7Vqjlfe5BuU9OBOv7uKWzTjDyVERN4WlQvCYB_pBRuVX73DI6glzZG/exec'
+  const form = document.forms['submit-to-google-sheet']
+  const msg = document.getElementById('msg');
+  form.addEventListener('submit', e => {
+    e.preventDefault()
+    fetch(scriptURL, { method: 'POST', body: new FormData(form) })
+      .then(response => {
+        msg.style.display = 'block'
+        msg.innerHTML = "Message Send Successfully"
+        setTimeout(function () {
+          msg.style.display = 'none'
+          msg.innerHTML = ""
+        }, 5000);
+        form.reset();
+      })
+      .catch(error => console.error('Error!', error.message))
+  })
+}
+contact()
 //scroll triggers on nav and main section
 var t1 = gsap.timeline()
 gsap.to("#navbar", {
@@ -72,32 +94,22 @@ gsap.to("#navbar", {
     // markers:true,
     start: "top -1vh",
     end: "top -1.1vh",
+    // markers:"true",
     scrub: 1,
   },
 });
 t1.from("#navbar h1, #navbar a", {
-  y:-100,
-  opacity:0,
-  stagger:0.2
-})
-
-t1.from(".imp-heading h1,.btn",{
-  x:-500,
-  duration:1,
-  opacity:0
-})
-
-gsap.from(".profile", {
-  x: 50,
+  y: -500,
   opacity: 0,
+  stagger: 0.31
+})
+
+t1.from(".imp-heading h1,.btn", {
+  x: -500,
   duration: 1,
-  stagger: 0.4,
-  scrollTrigger: {
-    trigger: ".profile",
-    scroller: "body",
-    scrub: 1,
-  },
-});
+  opacity: 0,
+  stagger: 0.69
+})
 
 function hamwork() {
   const hambox = document.querySelector(".ham-box");
@@ -165,16 +177,16 @@ hambarboxHeight();
 //Loader
 
 const loader = document.getElementById("mainLoader");
-const body = document.querySelector("body");
 
-window.addEventListener("load", function(event) {
-event.preventDefault();
-
-setTimeout(() => {
-  gsap.to(loader, { autoAlpha: 0, duration: 1 }).then(() => {
-    loader.style.display = "none";
-  });
-}, 1000);
+window.addEventListener("load", function (event) {
+  event.preventDefault();
+  document.body.style.overflow = 'hidden';
+  setTimeout(() => {
+    gsap.to(loader, { autoAlpha: 0, duration: 1 }).then(() => {
+      loader.style.display = "none";
+      document.body.style.overflow = '';
+    });
+  }, 1000);
 });
 
 
@@ -183,14 +195,14 @@ setTimeout(() => {
 
 function openDialog(role) {
   const members = {
-    'technical': ['Prince Kumar', 'Ankit Raj'],
-    'management': ['Aaryan', 'Abhishek', 'Akshansh','Ankit','Divyanshu','Hariom','Jayantika','Muskan','Naina','Pavan','Prince','Raj','Rajeev','Rishab','Riteek','Adarsh','Aarya','Rohit','Saurav','Vishal'],
-    'catering':['Adarsh','Raj','Rajeev','Saurav','Hariom'],
-    'stage':['Naina','Jayantika','Arya','Akshansh','Rishab'],
-    'backstage':['Ankit'],
-    'finance':['Abhishek'],
-    'performance':['Abhishek','Raj','Muskan','Divyanshu'],
-    'decoration':['Riteek','Aaryan','Naina','Rohit']
+    'technical': ['Prince', 'Ankit'],
+    'management': ['Aaryan', 'Abhishek', 'Akshansh', 'Ankit', 'Divyanshu', 'Hariom', 'Jayantika', 'Muskan', 'Naina', 'Pavan', 'Prince', 'Raj', 'Rajeev', 'Rishab', 'Riteek', 'Adarsh', 'Aarya', 'Rohit', 'Saurav', 'Vishal'],
+    'catering': ['Adarsh', 'Raj', 'Rajeev', 'Saurav', 'Hariom'],
+    'stage': ['Naina', 'Jayantika', 'Arya', 'Akshansh', 'Rishab'],
+    'backstage': ['Ankit'],
+    'finance': ['Abhishek'],
+    'performance': ['Abhishek', 'Raj', 'Muskan', 'Divyanshu'],
+    'decoration': ['Riteek', 'Aaryan', 'Naina', 'Rohit']
     // Add more roles and members as needed
   };
 
@@ -222,30 +234,38 @@ function closeDialog() {
 }
 
 
-function toggleLoginLogout() {
-  var loginLogoutLink = document.getElementById("loginLogoutLink");
-  var isLoggedIn = true; // Replace this with your actual authentication logic
-
-  if (isLoggedIn) {
-      loginLogoutLink.textContent = "Log out";
-      loginLogoutLink.href = "/logout"; // Replace "/logout" with your logout URL
-  } else {
-      loginLogoutLink.textContent = "Log in";
-      loginLogoutLink.href = "/login"; // Replace "/login" with your login URL
-  }
-}
-
-// Call the function when the page loads
-window.onload = toggleLoginLogout;
-
-
 function showAlert() {
   var choice = confirm('Please Login First');
   if (choice == true) {
-      // Redirect to the login route
-      window.location.href = '/login';
-  } else {
-      // User clicked cancel or closed the alert
-      // Handle the cancellation if needed
+    window.location.href = '/login';
   }
 }
+
+// function profileAsWidthChanges() {
+//   var width = window.innerWidth;
+//   if (width > 768) {
+//     gsap.registerPlugin(ScrollTrigger);
+
+//     // gsap.to(".profile1", {
+//     //   scrollTrigger: {
+//     //     trigger: ".profile1",
+//     //     start: "left center", // Start scrolling from the left edge of .profile
+//     //     end: "right center", // End scrolling at the right edge of .profile
+//     //     scrub: 1,
+//     //   },
+//     //   x: -(document.querySelector('.person').scrollWidth - document.querySelector('.person').offsetWidth) // Scrolls the .profile horizontally
+//     // });
+
+//     gsap.to(".profile2", {
+//       scrollTrigger: {
+//         trigger: ".profile2",
+//         start: "left center", // Start scrolling from the left edge of .profile
+//         end: "right center", // End scrolling at the right edge of .profile
+//         scrub: 1,
+//       },
+//       x: -(document.querySelector('.person').scrollWidth - document.querySelector('.person').offsetWidth) // Scrolls the .profile horizontally
+//     });
+//   }
+// }
+
+// profileAsWidthChanges()
