@@ -151,9 +151,9 @@
             </div>
             <% } %>
                 <form action="/login" method="post" id="LogInForm" onsubmit="rememberMe()">
-                    <label for="enrollment">Enrollment Number</label>
+                    <label for="enrollment">Enrollment or Email</label>
                     <input type="text" id="enrollment" class="form-control" name="enrollment" placeholder="Enrollment"
-                        required oninput="this.value = this.value.toUpperCase()">
+                        required>
 
                     <label for="password">Password</label>
                     <input type="password" id="password" class="form-control" name="password" placeholder="Password"
@@ -169,22 +169,6 @@
         setTimeout(() => {
             document.getElementById('msg').style.display = 'none';
         }, 3000);
-
-        // const enrollmentInput = document.getElementById("enrollment");
-        // const passwordInput = document.getElementById("password");
-
-        // if (localStorage.checkbox && localStorage.checkbox !== "") {
-        //     enrollmentInput.value = localStorage.username;
-        //     passwordInput.value = localStorage.password;
-        // } else {
-        //     enrollmentInput.value = "";
-        //     passwordInput.value = "";
-        // }
-
-        // function rememberMe() {
-        //     localStorage.username = emailInput.value;
-        //     localStorage.password = passwordInput.value;
-        // }
     </script>
 </body>
 
