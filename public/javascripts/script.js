@@ -233,18 +233,28 @@ function profileAsWidthChanges() {
         scrub: 1,
         // markers:"true"
       },
-      x: -(document.querySelector('.person').scrollWidth - document.querySelector('.person').offsetWidth) // Scrolls the .profile horizontally
+      x: -(document.querySelector('.person1').scrollWidth - document.querySelector('.person1').offsetWidth) // Scrolls the .profile horizontally
     });
 
+    gsap.to(".profile2", {
+      scrollTrigger: {
+        trigger: ".profile2",
+        start: "top 60%", // Start scrolling from the left edge of .profile
+        end: "bottom 60%", // End scrolling at the right edge of .profile
+        scrub: 1,
+        // markers:"true"
+      },
+      x: -(document.querySelector('.person2').scrollWidth - document.querySelector('.person2').offsetWidth) // Scrolls the .profile horizontally
+    });
     gsap.to(".profile3", {
       scrollTrigger: {
         trigger: ".profile3",
         start: "top 60%", // Start scrolling from the left edge of .profile
-        end: "bottom 70%", // End scrolling at the right edge of .profile
+        end: "bottom 60%", // End scrolling at the right edge of .profile
         scrub: 1,
         markers:"true"
       },
-      x: -(document.querySelector('.person').scrollWidth - document.querySelector('.person').offsetWidth) // Scrolls the .profile horizontally
+      x: -(document.querySelector('.person3').scrollWidth - document.querySelector('.person3').offsetWidth) // Scrolls the .profile horizontally
     });
   }
 }
