@@ -273,7 +273,7 @@ function profileAsWidthChanges() {
         start: "top 60%", // Start scrolling from the left edge of .profile
         end: "bottom 60%", // End scrolling at the right edge of .profile
         scrub: 1,
-        markers:"true"
+        // markers:"true"
       },
       x: -(document.querySelector('.person3').scrollWidth - document.querySelector('.person3').offsetWidth) // Scrolls the .profile horizontally
     });
