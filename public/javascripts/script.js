@@ -200,7 +200,7 @@ function openDialog(role) {
     'technical': ['Prince', 'Ankit'],
     'management': ['Aaryan', 'Abhishek', 'Akshansh', 'Ankit', 'Divyanshu', 'Hariom', 'Jayantika', 'Muskan', 'Naina', 'Pavan', 'Prince', 'Raj', 'Rajeev', 'Rishab', 'Riteek', 'Adarsh', 'Aarya', 'Rohit', 'Saurav', 'Vishal'],
     'catering': ['Adarsh', 'Raj', 'Rajeev', 'Saurav', 'Hariom'],
-    'stage': ['Naina', 'Jayantika', 'Arya', 'Akshansh', 'Rishab'],
+    'stage': ['Naina', 'Jayantika', 'Arya', 'Akshansh', 'Rishabh'],
     'backstage': ['Ankit'],
     'finance': ['Abhishek'],
     'performance': ['Abhishek', 'Raj', 'Muskan', 'Divyanshu'],
@@ -225,6 +225,7 @@ function openDialog(role) {
   // Display the dialog
   const dialog = document.getElementById('dialog');
   dialog.style.display = 'block';
+  dialog.style.overflow = 'auto';
   document.body.style.overflowY = "hidden";
 }
 
@@ -272,7 +273,7 @@ function profileAsWidthChanges() {
     gsap.to(".profile3", {
       scrollTrigger: {
         trigger: ".profile3",
-        start: "top 60%", // Start scrolling from the left edge of .profile
+        start: "top 50%", // Start scrolling from the left edge of .profile
         end: "bottom 60%", // End scrolling at the right edge of .profile
         scrub: 1,
         // markers:"true"
