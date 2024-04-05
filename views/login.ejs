@@ -145,20 +145,19 @@
             <div id="msg" class="alert alert-danger" role="alert">
                 <ul>
                     <li>
-                        Enrollment or Password is Incorrect.
+                        Invalid Credentials
                     </li>
                 </ul>
             </div>
             <% } %>
                 <form action="/login" method="post" id="LogInForm" onsubmit="rememberMe()">
-                    <label for="enrollment">Enrollment Number</label>
+                    <label for="enrollment">Enrollment or Email</label>
                     <input type="text" id="enrollment" class="form-control" name="enrollment" placeholder="Enrollment"
-                        required oninput="this.value = this.value.toUpperCase()">
+                        value="<%= enrollment || '' %>" required>
 
                     <label for="password">Password</label>
                     <input type="password" id="password" class="form-control" name="password" placeholder="Password"
-                        required>
-
+                        value="<%= password || '' %>" required>
                     <input type="submit" value="LogIn">
                 </form>
                 <div class="non-existing-user">
@@ -169,22 +168,6 @@
         setTimeout(() => {
             document.getElementById('msg').style.display = 'none';
         }, 3000);
-
-        // const enrollmentInput = document.getElementById("enrollment");
-        // const passwordInput = document.getElementById("password");
-
-        // if (localStorage.checkbox && localStorage.checkbox !== "") {
-        //     enrollmentInput.value = localStorage.username;
-        //     passwordInput.value = localStorage.password;
-        // } else {
-        //     enrollmentInput.value = "";
-        //     passwordInput.value = "";
-        // }
-
-        // function rememberMe() {
-        //     localStorage.username = emailInput.value;
-        //     localStorage.password = passwordInput.value;
-        // }
     </script>
 </body>
 

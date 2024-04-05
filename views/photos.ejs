@@ -5,12 +5,13 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
     <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon_io/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon_io/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon_io/favicon-16x16.png">
     <link rel="manifest" href="/images/favicon_io/site.webmanifest">
     <title>
-        <%= title %>
+        <%= title %> Image Gallery
     </title>
     <link rel="stylesheet" href="/stylesheets/photos.css">
     <link rel="stylesheet" href="/stylesheets/responsive_design.css">
@@ -74,11 +75,31 @@
 
     </main>
 
+    </main>
+    <a id="button"></a>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/js/lightbox-plus-jquery.js"
         integrity="sha512-oaWLach/xXzklmJDBjHkXngTCAkPch9YFqOSphnw590sy86CVEnAbcpw17QjkUGppGmVJojwqHmGO/7Xxx6HCw=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="/socket.io/socket.io.js"></script>
     <script src="/javascripts/photos.js"></script>
+    <script>
+        var btn = $('#button');
+
+$(window).scroll(function() {
+  if ($(window).scrollTop() > 300) {
+    btn.addClass('show');
+  } else {
+    btn.removeClass('show');
+  }
+});
+
+btn.on('click', function(e) {
+  e.preventDefault();
+  $('html, body').animate({scrollTop:0}, '300');
+});
+
+
+    </script>
 </body>
 
 </html>

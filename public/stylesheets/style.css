@@ -904,6 +904,19 @@ form button:hover {
   -webkit-transform: translate(-0.5rem, -0.5rem);
 }
 
+#msg {
+  color: var(--gold);
+  font-size: 1.6rem;
+  background-color: #333;
+  padding: 10px;
+  border-radius: 5px;
+  backdrop-filter: blur(2px);
+  position: fixed;
+  bottom: 5%;
+  left: 43%;
+  z-index: 99;
+  display: none;
+}
 
 
 

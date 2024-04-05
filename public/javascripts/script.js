@@ -58,9 +58,30 @@ function initializeClock(id, endtime) {
   const timeinterval = setInterval(updateClock, 1000);
 }
 // End date of the countdown
-const deadline = new Date(Date.parse(new Date("April 8,2024 00:00:00")));
+const deadline = new Date(Date.parse(new Date("April 8,2024 17:00:00")));
 initializeClock('clockdiv', deadline);
 
+//Contact
+function contact() {
+  const scriptURL = 'https://script.google.com/macros/s/AKfycbxRO8RyeQa4Qk7Vqjlfe5BuU9OBOv7uKWzTjDyVERN4WlQvCYB_pBRuVX73DI6glzZG/exec'
+  const form = document.forms['submit-to-google-sheet']
+  const msg = document.getElementById('msg');
+  form.addEventListener('submit', e => {
+    e.preventDefault()
+    fetch(scriptURL, { method: 'POST', body: new FormData(form) })
+      .then(response => {
+        msg.style.display = 'block'
+        msg.innerHTML = "Message Send Successfully"
+        setTimeout(function () {
+          msg.style.display = 'none'
+          msg.innerHTML = ""
+        }, 5000);
+        form.reset();
+      })
+      .catch(error => console.error('Error!', error.message))
+  })
+}
+contact()
 //scroll triggers on nav and main section
 var t1 = gsap.timeline()
 gsap.to("#navbar", {
