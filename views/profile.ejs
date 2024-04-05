@@ -10,9 +10,16 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
     <link rel="stylesheet" href="/stylesheets/profile.css">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon_io/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon_io/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon_io/favicon-16x16.png">
+    <link rel="manifest" href="/images/favicon_io/site.webmanifest">
 </head>
 
 <body>
+    <div class="icon">
+        <a href="/" > <img src="/images/icons8-home-50_blackBorder.png" alt="Home Icon"/> </a>
+    </div>
 
     <div class="profile-card">
         <% if (successMessage && successMessage.length> 0) { %>
@@ -26,8 +33,8 @@
                     </div>
                     <% } %>
 
-                        <div title="Your Dp" class="avatar"><img
-                                src="/uploads/userDp/<%= user.userDp || `default.png` %>" alt="profile-img"></div>
+                        <div title="Dp" class="avatar"><img src="<%= user.userDp || `/uploads/userDp/default.png` %>"
+                                alt="profile-img"></div>
                         <div class="salutation">
                             <div class="name">
                                 <p>
@@ -41,7 +48,7 @@
                         <div class="options">
                             <a title="Logout" class="button" href="/logout"><img src="/images/icons8-logout-30.png"></a>
                             <button title="Edit profile" class="button" id="edit-button"
-                                data-userDp="<%= user.userDp %>" data-username="<%= user.username %>"
+                                data-userdp="<%= user.userDp %>" data-username="<%= user.username %>"
                                 data-name="<%= user.name %>" data-email="<%= user.email %>"
                                 data-mobile="<%= user.mobile %>" data-dob="<%= user.dob %>"> <img
                                     src="/images/edit profile.gif"></button>
@@ -63,15 +70,14 @@
                 </div>
                 <div class="modal-body">
                     <!-- Form for editing user details -->
-                    <div id="uploadedDpPhoto">
+                    <div class="avatar" id="uploadedDpPhoto">
                         <img id="previewProfilePicture" alt="Profile Picture">
                     </div>
-                    <form id="editForm" method="POST">
+                    <form id="editForm" method="POST" enctype="multipart/form-data">
                         <div class="form-group">
                             <label for="editProfilePicture">Profile Picture</label>
                             <input type="file" accept="image/*" class="form-control-file" id="editProfilePicture"
-                                name="profilePicture">
-                            <input type="hidden" name="userOldDp">
+                                name="userDp">
                         </div>
                         <div class="form-group">
                             <label for="editUsername">Username</label>

@@ -21,6 +21,25 @@ body {
   width: auto;
   background-color: var(--main-bg);
 }
+.icon {
+  display: inline-block; /* Display the icon as an inline block */
+  position: absolute;
+  top: 2rem;
+  left: 2rem;
+  z-index: 999;
+}
+.icon a {
+  text-decoration: none; /* Remove underline from the anchor */
+}
+.icon img {
+  width: 40px; /* Set the width of the image */
+  height: 40px; /* Set the height of the image */
+  border: none; /* Remove border from the image */
+}
+.icon img:hover{
+  scale:  1.1; /* Scale up the image when hovered over */
+  transition-duration: 0.3s;
+}
 
 .profile-card {
   background-color: white;
@@ -134,32 +153,3 @@ span{
   width: 100%;
 }
 
-/* .more-options {
-  bottom: -60px;
-  right: -120px;
-  position: absolute;
-  display: flex;
-  flex-direction: column;
-  padding: 10px;
-  background: var(--main-txt-color);
-  color: white;
-  border-radius: 5px;
-  gap: 5px;
-  transition: all 500ms ease;
-}
-.notVisible {
-  transform: scale(0);
-} */
-
-/* .option {
-  display: flex;
-  align-items: center;
-  height: 30px;
-  cursor: pointer;
-  transition: all 500ms ease;
-  border-radius: inherit;
-  padding: 10px;
-  &:hover {
-    background-color: #2d255a;
-  }
-} */
