@@ -45,7 +45,7 @@ html {
     background-image: url(../images/6035425.jpg);
     background-repeat: no-repeat;
     background-size: cover;
-    display: flex;
+    display: flex;   
     justify-content: center;
     flex-direction: wrap;
     flex-wrap: wrap;
