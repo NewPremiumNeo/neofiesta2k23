@@ -69,7 +69,7 @@ router.get('/gallery/photos/:year', isLoggedIn, async function (req, res, next) 
     const validYear = ["2k22", "2k23"]
     if (validYear.includes(year)) {
       const allPhotos = await photoModel.find({ year });
-      res.render('photos', { allPhotos, title: `Image Gallery ${year}`, bgimg: `/images/imageBG${year}.jpg` });
+      res.render('photos', { allPhotos, title: `Image Gallery ${year}`, bgimg: `/images/imageBG${year}.jpg`, year });
     } else {
       throw Error("Page Not Found")
     }

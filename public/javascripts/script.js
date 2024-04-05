@@ -15,10 +15,32 @@ window.matchMedia('(prefers-color-scheme: dark)').addListener(detectColorScheme)
 detectColorScheme();
 
 setTimeout(() => {
-  document.querySelector('.notification__box').style.display = 'none';
+  const notification__box = document.querySelector('.notification__box')
+  if(notification__box){
+    notification__box.style.display = 'none';
+  }
 }, 5000);
 
+
+//Loader
+
+const loader = document.getElementById("mainLoader");
+
+window.addEventListener("load", function (event) {
+  event.preventDefault();
+  document.body.style.overflow = 'hidden';
+  setTimeout(() => {
+    gsap.to(loader, { autoAlpha: 0, duration: 1 }).then(() => {
+      loader.style.display = "none";
+      document.body.style.overflow = '';
+    });
+  }, 1000);
+});
+
+
+
 // CountDown Timer
+
 function getTimeRemaining(endtime) {
   const total = Date.parse(endtime) - Date.parse(new Date());
   const seconds = Math.floor((total / 1000) % 60);
@@ -46,22 +68,54 @@ function initializeClock(id, endtime) {
   function updateClock() {
     const t = getTimeRemaining(endtime);
 
-    daysSpan.innerHTML = t.days;
-    hoursSpan.innerHTML = ('0' + t.hours).slice(-2);
-    minutesSpan.innerHTML = ('0' + t.minutes).slice(-2);
-    secondsSpan.innerHTML = ('0' + t.seconds).slice(-2);
-
     if (t.total <= 0) {
+      daysSpan.parentNode.style.display = 'none';
       clearInterval(timeinterval);
+      forwardTimer(t.total);
+    } else {
+      daysSpan.textContent = t.days;
+      hoursSpan.textContent = ('0' + t.hours).slice(-2);
+      minutesSpan.textContent = ('0' + t.minutes).slice(-2);
+      secondsSpan.textContent = ('0' + t.seconds).slice(-2);
     }
+
   }
 
   updateClock();
   const timeinterval = setInterval(updateClock, 1000);
 }
+
+function forwardTimer(duration) {
+  const timerText = document.getElementById('timerText');
+  timerText.innerText = "Performance started.";
+  const interval = setInterval(function () {
+    duration++;
+    // Update the clock display
+    const hours = Math.floor(duration / 3600);
+    const minutes = Math.floor((duration % 3600) / 60);
+    const seconds = duration % 60;
+    document.querySelector(".hours").textContent = ('0' + hours).slice(-2);
+    document.querySelector(".minutes").textContent = ('0' + minutes).slice(-2);
+    document.querySelector(".seconds").textContent = ('0' + seconds).slice(-2);
+
+    // You can adjust this condition according to your needs
+    if (duration > 1000) {
+      clearInterval(interval);
+      timerText.innerText = "Forward timer stopped.";
+    }
+  }, 1000);
+}
+
 // End date of the countdown
 const deadline = new Date(Date.parse(new Date("April 8,2024 17:00:00")));
-initializeClock('clockdiv', deadline);
+const t = getTimeRemaining(deadline);
+if (t.total <= 0) {
+  document.querySelector(".days").parentNode.style.display = 'none';
+  forwardTimer(Math.abs(t.total) / 1000);
+} else {
+  initializeClock('clockdiv', deadline);
+}
+
 
 //Contact
 function contact() {
@@ -175,22 +229,6 @@ function hambarboxHeight() {
   document.documentElement.style.setProperty('--scroll-padding', navHeight + 'px');
 }
 hambarboxHeight();
-
-//Loader
-
-const loader = document.getElementById("mainLoader");
-
-window.addEventListener("load", function (event) {
-  event.preventDefault();
-  document.body.style.overflow = 'hidden';
-  setTimeout(() => {
-    gsap.to(loader, { autoAlpha: 0, duration: 1 }).then(() => {
-      loader.style.display = "none";
-      document.body.style.overflow = '';
-    });
-  }, 1000);
-});
-
 
 
 //Organisers section

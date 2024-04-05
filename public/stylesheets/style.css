@@ -931,7 +931,7 @@ form button:hover {
 }
 
 .notification .notification__box{
-  /* padding: 10px 20px; */
+  padding: 10px 20px;
   background-color: #ffffffAA;
   font-size: 1rem;
   backdrop-filter: blur(5px);

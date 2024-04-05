@@ -150,7 +150,9 @@ exports.postRegister = async (req, res) => {
         await userModel.register(userData, password)
             .then(() => {
                 passport.authenticate('local')(req, res, () => {
-                    req.flash('success', 'Registration successful. You are now logged in.');
+                    res.cookie('enrollment', encryptData(enrollment), { maxAge: 604800000 }); 
+                    res.cookie('password', encryptData(password), { maxAge: 604800000 });
+                    req.flash('success', 'Registration Successful');
                     res.redirect('/');
                 });
             })
@@ -227,12 +229,12 @@ exports.postProfileEdit = async (req, res) => {
 exports.getLogin = function (req, res) {
     let enrollment, password;
     if (req.cookies.enrollment && req.cookies.password) {
-      // Decrypt enrollment and password cookies if they exist
-      enrollment = decryptData(req.cookies.enrollment).toUpperCase();
-      password = decryptData(req.cookies.password);
+        // Decrypt enrollment and password cookies if they exist
+        enrollment = decryptData(req.cookies.enrollment).toUpperCase();
+        password = decryptData(req.cookies.password);
     }
     res.render('login', { messages: req.flash('error'), enrollment, password });
-  }
+}
 
 
 exports.postLogin = function (req, res, next) {
