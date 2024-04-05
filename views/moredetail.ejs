@@ -31,24 +31,33 @@
 
 
     .icon {
-  display: inline-block; /* Display the icon as an inline block */
-  position: absolute;
-  top: 2rem;
-  left: 2rem;
-  z-index: 999;
-}
-.icon a {
-  text-decoration: none; /* Remove underline from the anchor */
-}
-.icon img {
-  width: 40px; /* Set the width of the image */
-  height: 40px; /* Set the height of the image */
-  border: none; /* Remove border from the image */
-}
-.icon img:hover{
-  scale:  1.1; /* Scale up the image when hovered over */
-  transition-duration: 0.3s;
-}
+      display: inline-block;
+      /* Display the icon as an inline block */
+      position: absolute;
+      top: 2rem;
+      left: 2rem;
+      z-index: 999;
+    }
+
+    .icon a {
+      text-decoration: none;
+      /* Remove underline from the anchor */
+    }
+
+    .icon img {
+      width: 40px;
+      /* Set the width of the image */
+      height: 40px;
+      /* Set the height of the image */
+      border: none;
+      /* Remove border from the image */
+    }
+
+    .icon img:hover {
+      scale: 1.1;
+      /* Scale up the image when hovered over */
+      transition-duration: 0.3s;
+    }
 
     .container {
       max-width: 100%;
@@ -181,7 +190,7 @@
 
 <body>
   <div class="icon">
-    <a href="/" > <img src="/images/icons8-home-50_blackBorder.png" alt="Home Icon"/> </a>
+    <a href="/"> <img src="/images/icons8-home-50_blackBorder.png" alt="Home Icon" /> </a>
   </div>
   <h1>User Profile</h1>
   <div class="container">
@@ -213,7 +222,8 @@
         Photos</button>
       <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#savedVideos">Saved
         Videos</button> -->
-      <button type="button" class="btn btn-primary" onclick="window.location.href = '/changepassword' " >Change Password</button>
+      <button type="button" class="btn btn-primary" onclick="window.location.href = '/changepassword' ">Change
+        Password</button>
 
     </div>
   </div>
@@ -233,21 +243,23 @@
               <% if (user.likePhotoIds && user.likePhotoIds.length> 0) { %>
                 <% user.likePhotoIds.forEach(post=> { %>
                   <div class="grid__images">
-                    <a href="<%= post.postImageUrl %>" data-lightbox="models" data-title="Photos">
-                      <img src="<%= post.postImageUrl %>" alt="Photos" loading="lazy" class="gallery-image">
-                    </a>
-                    <div class="button-container">
-                      <div class="button__like">
-                        <span class="img_like">
-                          <i onclick="liketoggle('<%= post._id %>')" data-photo-id="<%= post._id %>"
-                            id="like-<%= post._id %>" class="ri-heart-line btn-like"></i>
-                          <i onclick="savetoggle('<%= post._id %>')" data-photo-id="<%= post._id %>"
-                            id="save-<%= post._id %>" class="ri-bookmark-3-line btn-save"></i>
-                        </span>
-                        <i class="ri-download-fill"></i>
+                    <% let imageUrl=post.postImageUrl; if (imageUrl.endsWith('.heic')) {
+                      imageUrl=imageUrl.replace('.heic', '.jpg' ); } %>
+                      <a href="<%= imageUrl %>" data-lightbox="models" data-title="Photos">
+                        <img src="<%= imageUrl %>" alt="Photos" loading="lazy" class="gallery-image">
+                      </a>
+                      <div class="button-container">
+                        <div class="button__like">
+                          <span class="img_like">
+                            <i onclick="liketoggle('<%= post._id %>')" data-photo-id="<%= post._id %>"
+                              id="like-<%= post._id %>" class="ri-heart-line btn-like"></i>
+                            <i onclick="savetoggle('<%= post._id %>')" data-photo-id="<%= post._id %>"
+                              id="save-<%= post._id %>" class="ri-bookmark-3-line btn-save"></i>
+                          </span>
+                          <i class="ri-download-fill"></i>
+                        </div>
+                        <h6 id="totalLike-<%= post._id %>"></h6>
                       </div>
-                      <h6 id="totalLike-<%= post._id %>"></h6>
-                    </div>
                   </div>
                   <% }); %>
                     <% } else { %>
@@ -275,107 +287,27 @@
               <% if (user.savedPhotos && user.savedPhotos.length> 0) { %>
                 <% user.savedPhotos.forEach(post=> { %>
                   <div class="grid__images">
-                    <a href="<%= post.postImageUrl %>" data-lightbox="models" data-title="Photos">
-                      <img src="<%= post.postImageUrl %>" alt="Photos" loading="lazy" class="gallery-image">
-                    </a>
-                    <div class="button-container">
-                      <div class="button__like">
-                        <span class="img_like">
-                          <i onclick="liketoggle('<%= post._id %>')" data-photo-id="<%= post._id %>"
-                            id="like-<%= post._id %>" class="ri-heart-line btn-like"></i>
-                          <i onclick="savetoggle('<%= post._id %>')" data-photo-id="<%= post._id %>"
-                            id="save-<%= post._id %>" class="ri-bookmark-3-line btn-save"></i>
-                        </span>
-                        <i class="ri-download-fill"></i>
+                    <% let imageUrl=post.postImageUrl; if (imageUrl.endsWith('.heic')) {
+                      imageUrl=imageUrl.replace('.heic', '.jpg' ); } %>
+                      <a href="<%= imageUrl %>" data-lightbox="models" data-title="Photos">
+                        <img src="<%= imageUrl %>" alt="Photos" loading="lazy" class="gallery-image">
+                      </a>
+                      <div class="button-container">
+                        <div class="button__like">
+                          <span class="img_like">
+                            <i onclick="liketoggle('<%= post._id %>')" data-photo-id="<%= post._id %>"
+                              id="like-<%= post._id %>" class="ri-heart-line btn-like"></i>
+                            <i onclick="savetoggle('<%= post._id %>')" data-photo-id="<%= post._id %>"
+                              id="save-<%= post._id %>" class="ri-bookmark-3-line btn-save"></i>
+                          </span>
+                          <i class="ri-download-fill"></i>
+                        </div>
+                        <h6 id="totalLike-<%= post._id %>"></h6>
                       </div>
-                      <h6 id="totalLike-<%= post._id %>"></h6>
-                    </div>
                   </div>
                   <% }); %>
                     <% } else { %>
                       <h1 style="color: #333;">No Saved Photos</h1>
-                      <% } %>
-            </section>
-          </main>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Bootstrap modal for Liked Videos -->
-  <div class="modal fade" id="likedVideos" tabindex="-1" aria-labelledby="likedVideosLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="likedVideosLabel">Liked Videos:- <%= user.likeVideoIds.length || 0 %>
-          </h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <main>
-            <section class="gallery" style="display: block;">
-              <% if (user.likeVideoIds && user.likeVideoIds.length> 0) { %>
-                <% user.likeVideoIds.forEach(post=> { %>
-                  <div class="grid__images">
-                    <a href="<%= post.postVideoUrl %>" data-lightbox="models" data-title="Photos">
-                      <img src="<%= post.postVideoUrl %>" alt="Photos" loading="lazy" class="gallery-image">
-                    </a>
-                    <div class="button-container">
-                      <div class="button__like">
-                        <span class="img_like">
-                          <i onclick="liketoggle('<%= post._id %>')" id="<%= post._id %>"
-                            class="ri-heart-line btn-like"></i>
-                          <i class="ri-bookmark-3-line"></i>
-                        </span>
-                        <i class="ri-download-fill"></i>
-                      </div>
-                      <h6 id="totalLike-<%= post._id %>"></h6>
-                    </div>
-                  </div>
-                  <% }); %>
-                    <% } else { %>
-                      <h1 style="color: #333;">No Liked Video</h1>
-                      <% } %>
-            </section>
-          </main>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Bootstrap modal for Saved Videos -->
-  <div class="modal fade" id="savedVideos" tabindex="-1" aria-labelledby="savedVideosLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="savedVideosLabel">Saved Videos:- <%= user.savedVideos.length || 0 %>
-          </h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <main>
-            <section class="gallery" style="display: block;">
-              <% if (user.savedVideos && user.savedVideos.length> 0) { %>
-                <% user.savedVideos.forEach(post=> { %>
-                  <div class="grid__images">
-                    <a href="<%= post.postVideoUrl %>" data-lightbox="models" data-title="Photos">
-                      <img src="<%= post.postVideoUrl %>" alt="Photos" loading="lazy" class="gallery-image">
-                    </a>
-                    <div class="button-container">
-                      <div class="button__like">
-                        <span class="img_like">
-                          <i onclick="liketoggle('<%= post._id %>')" id="<%= post._id %>"
-                            class="ri-heart-line btn-like"></i>
-                          <i class="ri-bookmark-3-line"></i>
-                        </span>
-                        <i class="ri-download-fill"></i>
-                      </div>
-                      <h6 id="totalLike-<%= post._id %>"></h6>
-                    </div>
-                  </div>
-                  <% }); %>
-                    <% } else { %>
-                      <h1 style="color: #333;">No Saved Video</h1>
                       <% } %>
             </section>
           </main>

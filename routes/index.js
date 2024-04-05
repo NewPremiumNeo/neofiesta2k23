@@ -32,7 +32,12 @@ router.get('/', async function (req, res, next) {
   if (req.user) {
     user = await usersModel.findById(req.user._id)
   }
-  res.render('index', { user, bool });
+  const successMsg = req.flash('success')[0];
+  const errorMsg = req.flash('error')[0]
+  res.render('index', {
+    user, bool, successMsg,
+    errorMsg
+  });
 });
 
 router.get('/register', function (req, res, next) {
@@ -61,7 +66,7 @@ router.get('/gallery', isLoggedIn, function (req, res, next) {
 router.get('/gallery/photos/:year', isLoggedIn, async function (req, res, next) {
   try {
     const year = req.params.year
-    const validYear = ["2k21", "2k22", "2k23"]
+    const validYear = ["2k22", "2k23"]
     if (validYear.includes(year)) {
       const allPhotos = await photoModel.find({ year });
       res.render('photos', { allPhotos, title: `Image Gallery ${year}`, bgimg: `/images/imageBG${year}.jpg` });

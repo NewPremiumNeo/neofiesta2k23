@@ -14,7 +14,9 @@ window.matchMedia('(prefers-color-scheme: dark)').addListener(detectColorScheme)
 // first detection of mode
 detectColorScheme();
 
-
+setTimeout(() => {
+  document.querySelector('.notification__box').style.display = 'none';
+}, 5000);
 
 // CountDown Timer
 function getTimeRemaining(endtime) {
@@ -241,31 +243,43 @@ function showAlert() {
   }
 }
 
-// function profileAsWidthChanges() {
-//   var width = window.innerWidth;
-//   if (width > 768) {
-//     gsap.registerPlugin(ScrollTrigger);
+function profileAsWidthChanges() {
+  var width = window.innerWidth;
+  if (width > 768) {
+    gsap.registerPlugin(ScrollTrigger);
 
-//     // gsap.to(".profile1", {
-//     //   scrollTrigger: {
-//     //     trigger: ".profile1",
-//     //     start: "left center", // Start scrolling from the left edge of .profile
-//     //     end: "right center", // End scrolling at the right edge of .profile
-//     //     scrub: 1,
-//     //   },
-//     //   x: -(document.querySelector('.person').scrollWidth - document.querySelector('.person').offsetWidth) // Scrolls the .profile horizontally
-//     // });
+    gsap.to(".profile1", {
+      scrollTrigger: {
+        trigger: ".profile1",
+        start: "top 50%", // Start scrolling from the left edge of .profile
+        end: "bottom 65%", // End scrolling at the right edge of .profile
+        scrub: 1,
+        // markers:"true"
+      },
+      x: -(document.querySelector('.person1').scrollWidth - document.querySelector('.person1').offsetWidth) // Scrolls the .profile horizontally
+    });
 
-//     gsap.to(".profile2", {
-//       scrollTrigger: {
-//         trigger: ".profile2",
-//         start: "left center", // Start scrolling from the left edge of .profile
-//         end: "right center", // End scrolling at the right edge of .profile
-//         scrub: 1,
-//       },
-//       x: -(document.querySelector('.person').scrollWidth - document.querySelector('.person').offsetWidth) // Scrolls the .profile horizontally
-//     });
-//   }
-// }
+    gsap.to(".profile2", {
+      scrollTrigger: {
+        trigger: ".profile2",
+        start: "top 60%", // Start scrolling from the left edge of .profile
+        end: "bottom 60%", // End scrolling at the right edge of .profile
+        scrub: 1,
+        // markers:"true"
+      },
+      x: -(document.querySelector('.person2').scrollWidth - document.querySelector('.person2').offsetWidth) // Scrolls the .profile horizontally
+    });
+    gsap.to(".profile3", {
+      scrollTrigger: {
+        trigger: ".profile3",
+        start: "top 60%", // Start scrolling from the left edge of .profile
+        end: "bottom 60%", // End scrolling at the right edge of .profile
+        scrub: 1,
+        // markers:"true"
+      },
+      x: -(document.querySelector('.person3').scrollWidth - document.querySelector('.person3').offsetWidth) // Scrolls the .profile horizontally
+    });
+  }
+}
 
-// profileAsWidthChanges()
+profileAsWidthChanges()
