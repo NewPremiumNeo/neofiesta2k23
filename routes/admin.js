@@ -208,8 +208,10 @@ router.get('/votestatus', isAdminLoggedIn, async (req, res) => {
         const isVoteOn = boolValues ? boolValues.isVoteOn : false;
         const isWinnerOn = boolValues ? boolValues.isWinnerOn : false;
 
+        const { voteCounts } = await voteController.calculateWinners();
+        console.log(voteCounts)
         // Render the admin panel with actual values from the database
-        res.render('adminPageAccess', { isVoteOn, isWinnerOn });
+        res.render('adminPageAccess', { isVoteOn, isWinnerOn, voteCounts });
     } catch (error) {
         console.error(error);
         res.status(500).send('Internal Server Error');
