@@ -22,14 +22,14 @@
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" />
 </head>
 
-<body style="background-color: <%= (year === '2k23') ? '#362F66' : '#4F185995' %>">
+<body style="background-color: <%= (year === '2k23') ? '#362F66' : (year === '2k21') ? '#1A1A1ABB' : '#4F185995' %>">
     <main>
-
         <div class="other-categories">
             <div class="blur-background year<%= year %>" style="background-image: url('<%= bgimg %>');"></div>
             <div class="containing-div">
                 <div class="details">
-                    <div class="title" style="color: <%= (year === '2k23') ? '#FCC364' : '#492467' %>">
+                    <div class="title"
+                        style="color: <%= (year === '2k23') ? '#FCC364' : (year === '2k21') ? '#D2882D' : '#492467' %>">
                         <%= title %>
                     </div>
                 </div>

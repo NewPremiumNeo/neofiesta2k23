@@ -29,6 +29,38 @@
       <% } %>
 
         <div class="jumbotron">
+          <h1>2k21 Photos:-</h1>
+        </div>
+
+        <section class="gallery">
+          <% if (allPhotos2k21 && allPhotos2k21.length> 0) { %>
+            <% allPhotos2k21.forEach(post=> { %>
+              <div class="image-container">
+                <% let imageUrl=post.postImageUrl; if (imageUrl.endsWith('.heic')) {
+                  imageUrl=imageUrl.replace('.heic', '.jpg' ); } %>
+
+                  <a href="<%= imageUrl %>" data-lightbox="models" data-title="Photos">
+                    <img src="<%= imageUrl %>" alt="Photos" loading="lazy" class="gallery-image">
+                  </a>
+                  <div class="button-container">
+                    <button onclick="deletePhoto('<%= post._id %>')" class="btn btn-primary btn-download">
+                      Delete
+                    </button>
+                    <button data-bs-toggle="modal" data-bs-target="#userLiked" onclick="likedby('<%= post._id %>')"
+                      class="btn btn-success btn-like">
+                      <i class="fa fa-heart"></i> Liked by?
+                    </button>
+                  </div>
+              </div>
+              <% }); %>
+                <% } else { %>
+                  <h1 style="color: #111;">No Photos of 2k21
+                  </h1>
+                  <% } %>
+        </section>
+
+
+        <div class="jumbotron">
           <h1>2k22 Photos:-</h1>
         </div>
 
