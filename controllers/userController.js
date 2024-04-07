@@ -67,7 +67,15 @@ function validateEnrollment(enrollment) {
     }
 
     switch (YYYY) {
+        case "2019":
+            if (XXXX >= 6001 && XXXX <= 6010) {
+                return true;
+            }
+            break;
         case "2020":
+            if (XXXX >= 6001 && XXXX <= 6010) {
+                return true;
+            }
             if (!(XXXX >= 3001 && XXXX <= 3033)) {
                 return false;
             }
@@ -150,7 +158,7 @@ exports.postRegister = async (req, res) => {
         await userModel.register(userData, password)
             .then(() => {
                 passport.authenticate('local')(req, res, () => {
-                    res.cookie('enrollment', encryptData(enrollment), { maxAge: 604800000 }); 
+                    res.cookie('enrollment', encryptData(enrollment), { maxAge: 604800000 });
                     res.cookie('password', encryptData(password), { maxAge: 604800000 });
                     req.flash('success', 'Registration Successful');
                     res.redirect('/');
