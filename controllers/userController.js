@@ -64,7 +64,7 @@ function validateEnrollment(enrollment) {
 
     if (!(AAAA == 'MGCU' && BBBB == 'CSIT')) {
         return false;
-    }
+    }w
 
     switch (YYYY) {
         case "2019":
