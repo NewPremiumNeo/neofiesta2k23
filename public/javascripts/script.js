@@ -16,7 +16,7 @@ detectColorScheme();
 
 setTimeout(() => {
   const notification__box = document.querySelector('.notification__box')
-  if(notification__box){
+  if (notification__box) {
     notification__box.style.display = 'none';
   }
 }, 5000);
@@ -101,13 +101,13 @@ function forwardTimer(duration) {
     // You can adjust this condition according to your needs
     if (duration > 1000) {
       clearInterval(interval);
-      timerText.innerText = "Forward timer stopped.";
+      timerText.innerText = "Performance started.";
     }
   }, 1000);
 }
 
 // End date of the countdown
-const deadline = new Date(Date.parse(new Date("April 8,2024 17:00:00")));
+const deadline = new Date(Date.parse(new Date("April 8,2024 18:00:00")));
 const t = getTimeRemaining(deadline);
 if (t.total <= 0) {
   document.querySelector(".days").parentNode.style.display = 'none';
