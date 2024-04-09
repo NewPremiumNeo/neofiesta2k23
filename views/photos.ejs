@@ -42,7 +42,8 @@
                 <% allPhotos.forEach(post=> { %>
                     <div class="image-container">
                         <% let imageUrl=post.postImageUrl; if (imageUrl.endsWith('.heic')) {
-                            imageUrl=imageUrl.replace('.heic', '.jpg' ); } %>
+                            imageUrl=imageUrl.replace('.heic', '.jpg' ); } if (imageUrl.startsWith('http://')) {
+                            imageUrl=imageUrl.replace('http://', 'https://' ); } %>
 
                             <a href="<%= imageUrl %>" target="_blank" data-lightbox="models" data-title="Photos">
                                 <img src="<%= imageUrl %>" alt="Photos" loading="lazy" class="gallery-image">

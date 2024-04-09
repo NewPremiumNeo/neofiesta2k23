@@ -167,6 +167,27 @@ main  .other-categories .containing-div .content{
     cursor: zoom-in;
 }
 
+/* Ensure landscape images fill the container without distortion */
+.gallery-image[orientation="landscape"] {
+    width: 100%;
+    height: auto;
+}
+
+/* Rotate portrait images back to correct orientation */
+.gallery-image[orientation="portrait"] {
+    width: auto;
+    height: 100%;
+    max-height: 100%; /* Ensure portrait images don't exceed the container height */
+}
+
+/* Center the image horizontally within its container */
+.image-container img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
 .button-container {
     position: absolute;
     bottom: 0;

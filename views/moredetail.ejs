@@ -132,17 +132,19 @@
       cursor: zoom-in;
     }
 
-    .buttonContainer{
+    .buttonContainer {
       height: auto;
       width: auto;
       display: flex;
       flex-wrap: wrap;
-     justify-content: center;
+      justify-content: center;
       gap: 1rem;
     }
-    .btn btn-primary{
+
+    .btn btn-primary {
       gap: 1rem;
     }
+
     .button-container {
       width: 100%;
       background-color: rgba(0, 0, 0);
@@ -257,7 +259,8 @@
                 <% user.likePhotoIds.forEach(post=> { %>
                   <div class="grid__images">
                     <% let imageUrl=post.postImageUrl; if (imageUrl.endsWith('.heic')) {
-                      imageUrl=imageUrl.replace('.heic', '.jpg' ); } %>
+                      imageUrl=imageUrl.replace('.heic', '.jpg' ); } if (imageUrl.startsWith('http://')) {
+                      imageUrl=imageUrl.replace('http://', 'https://' ); } %>
                       <a href="<%= imageUrl %>" data-lightbox="models" data-title="Photos">
                         <img src="<%= imageUrl %>" alt="Photos" loading="lazy" class="gallery-image">
                       </a>
@@ -301,7 +304,8 @@
                 <% user.savedPhotos.forEach(post=> { %>
                   <div class="grid__images">
                     <% let imageUrl=post.postImageUrl; if (imageUrl.endsWith('.heic')) {
-                      imageUrl=imageUrl.replace('.heic', '.jpg' ); } %>
+                      imageUrl=imageUrl.replace('.heic', '.jpg' ); } if (imageUrl.startsWith('http://')) {
+                      imageUrl=imageUrl.replace('http://', 'https://' ); } %>
                       <a href="<%= imageUrl %>" data-lightbox="models" data-title="Photos">
                         <img src="<%= imageUrl %>" alt="Photos" loading="lazy" class="gallery-image">
                       </a>
