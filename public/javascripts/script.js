@@ -69,9 +69,11 @@ function initializeClock(id, endtime) {
     const t = getTimeRemaining(endtime);
 
     if (t.total <= 0) {
-      daysSpan.parentNode.style.display = 'none';
-      clearInterval(timeinterval);
-      forwardTimer(t.total);
+      if (daysSpan) {
+        daysSpan.parentNode.style.display = 'none';
+        clearInterval(timeinterval);
+        forwardTimer(t.total);
+      }
     } else {
       daysSpan.textContent = t.days;
       hoursSpan.textContent = ('0' + t.hours).slice(-2);
@@ -87,30 +89,34 @@ function initializeClock(id, endtime) {
 
 function forwardTimer(duration) {
   const timerText = document.getElementById('timerText');
-  timerText.innerText = "Performance started.";
-  const interval = setInterval(function () {
-    duration++;
-    // Update the clock display
-    const hours = Math.floor(duration / 3600);
-    const minutes = Math.floor((duration % 3600) / 60);
-    const seconds = duration % 60;
-    document.querySelector(".hours").textContent = ('0' + hours).slice(-2);
-    document.querySelector(".minutes").textContent = ('0' + minutes).slice(-2);
-    document.querySelector(".seconds").textContent = ('0' + seconds).slice(-2);
+  if (timerText) {
+    timerText.innerText = "Performance started.";
+    const interval = setInterval(function () {
+      duration++;
+      // Update the clock display
+      const hours = Math.floor(duration / 3600);
+      const minutes = Math.floor((duration % 3600) / 60);
+      const seconds = duration % 60;
+      document.querySelector(".hours").textContent = ('0' + hours).slice(-2);
+      document.querySelector(".minutes").textContent = ('0' + minutes).slice(-2);
+      document.querySelector(".seconds").textContent = ('0' + seconds).slice(-2);
 
-    // You can adjust this condition according to your needs
-    if (duration > 1000) {
-      clearInterval(interval);
-      timerText.innerText = "Performance started.";
-    }
-  }, 1000);
+      // You can adjust this condition according to your needs
+      if (duration > 1000) {
+        clearInterval(interval);
+        timerText.innerText = "Performance started.";
+      }
+    }, 1000);
+  }
 }
 
 // End date of the countdown
 const deadline = new Date(Date.parse(new Date("April 8,2024 18:00:00")));
 const t = getTimeRemaining(deadline);
 if (t.total <= 0) {
-  document.querySelector(".days").parentNode.style.display = 'none';
+  if (document.querySelector(".days")) {
+    document.querySelector(".days").parentNode.style.display = 'none';
+  }
   forwardTimer(Math.abs(t.total) / 1000);
 } else {
   initializeClock('clockdiv', deadline);
